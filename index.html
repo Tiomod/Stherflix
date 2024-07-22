@@ -81,12 +81,34 @@ h1, h2, p {
   border-radius: 10px;
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1); 
 }
+
+/* Estilos para os botões de música */
+.music-buttons {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+}
+
+.music-button {
+  display: block;
+  margin-bottom: 10px;
+  padding: 8px 15px;
+  background-color: #e50914;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
 </style>
 </head>
 <body>
-  <audio autoplay loop volume="0.5">
-    <source src="https://firebasestorage.googleapis.com/v0/b/cobra-c93d2.appspot.com/o/videoplayback.mp3?alt=media&token=fe621eb1-1add-42d7-bacb-f4426b1032c4" type="audio/mpeg">
-  </audio>
+  <div class="music-buttons">
+    <button class="music-button" data-src="https://firebasestorage.googleapis.com/v0/b/cobra-c93d2.appspot.com/o/videoplayback.mp3?alt=media&token=fe621eb1-1add-42d7-bacb-f4426b1032c4">Música 1</button>
+    <button class="music-button" data-src="https://www.bensound.com/bensound-music/bensound-ukulele.mp3">Música 2</button>
+    <button class="music-button" data-src="https://www.bensound.com/bensound-music/bensound-creativeminds.mp3">Música 3</button>
+  </div>
+
+  <audio id="audioPlayer" loop volume="0.5"></audio>
 
   <div class="container">
     <div class="hero">
@@ -99,12 +121,24 @@ h1, h2, p {
     <div class="featured-section" id="movie-grid">
       </div>
 
-    <div class="ad">
-      (Espaço para anúncios)
-    </div>
-  </div>
-
 <script>
+  const audioPlayer = document.getElementById('audioPlayer');
+  const musicButtons = document.querySelectorAll('.music-button');
+
+  musicButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      audioPlayer.src = button.dataset.src;
+      audioPlayer.play();
+    });
+  });
+
+  audioPlayer.addEventListener('ended', () => {
+    // Se quiser que a música reinicie automaticamente, descomente a linha abaixo:
+    // audioPlayer.play();
+  });
+
+  // ... (seu código JavaScript existente para filmes)
+
   const apiKey = '6360eb433f3020d94a5de4f0fb52c720'; 
   const apiUrl = `https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&language=pt-BR&page=1`;
   const movieGrid = document.getElementById('movie-grid');
@@ -120,11 +154,11 @@ h1, h2, p {
         img.src = `https://image.tmdb.org/t/p/w500${movie.poster_path}`;
         img.alt = movie.title;
 
+
         movieItem.appendChild(img);
         movieGrid.appendChild(movieItem);
       });
     });
 </script>
-
 </body>
 </html>
