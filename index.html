@@ -191,6 +191,9 @@ h1, h2, p {
     <button class="close-btn" onclick="closeMovieInfoPopup()">X</button>
   </div>
   <script>
+  function downloadFile() {
+          window.location.href = "download.php";
+        }
   const audioPlayer = document.getElementById('audioPlayer');
   const musicButtons = document.querySelectorAll('.music-button');
 
@@ -282,10 +285,5 @@ h1, h2, p {
     document.getElementById('movieInfoPopup').style.display = 'block';
   }
 </script>
-  </script>
-       function downloadFile() {
-          window.location.href = "download.php";
-        }
-        </script>
 </body>
 </html>
