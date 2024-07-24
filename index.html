@@ -62,6 +62,7 @@ h1, h2, p {
   overflow: hidden;
   box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3); 
   transition: transform 0.3s ease; 
+  position: relative; /* Para posicionar a data de lançamento */
 }
 
 .featured-item:hover {
@@ -74,15 +75,6 @@ h1, h2, p {
   object-fit: cover;
 }
 
-.ad {
-  background: #333;
-  padding: 20px;
-  margin: 40px 0;
-  border-radius: 10px;
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1); 
-}
-
-/* Estilos para os botões de música */
 .music-buttons {
   position: absolute;
   top: 20px;
@@ -99,29 +91,106 @@ h1, h2, p {
   border-radius: 5px;
   cursor: pointer;
 }
+
+.featured-item .release-date {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  padding: 5px 10px;
+  background-color: #e50914; /* Cor vermelha da Netflix */
+  color: white;
+  font-weight: bold;
+  border-radius: 5px;
+}
+
+/* Estilos para o popup do trailer */
+.trailer-popup {
+  display: none; 
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #000;
+  padding: 20px;
+  border-radius: 10px;
+  z-index: 10; 
+}
+
+.trailer-popup iframe {
+  width: 800px;
+  height: 450px;
+}
+
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+/* Styles for the movie info popup */
+.movie-info-popup {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #000;
+  color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  z-index: 10;
+  max-width: 400px;
+}
+
+.movie-info-popup h3 {
+  margin-top: 0;
+}
+
+.movie-info-popup img {
+  max-width: 100%;
+  height: auto;
+  margin-bottom: 10px;
+}
 </style>
 </head>
 <body>
   <div class="music-buttons">
-    <button class="music-button" data-src="https://firebasestorage.googleapis.com/v0/b/cobra-c93d2.appspot.com/o/videoplayback.mp3?alt=media&token=fe621eb1-1add-42d7-bacb-f4426b1032c4">Música 1</button>
-    <button class="music-button" data-src="https://firebasestorage.googleapis.com/v0/b/cobra1-df63c.appspot.com/o/LAST%20NIGHT%20-%20%F0%9F%98%8E%F0%9F%92%A5Viral%20TikTok%20e%20Instagram%20(Dj%20BIEL%20PRADO)%20VERS%C3%83O%20BH%2C%20Funk%20Remix%202024.mp3?alt=media&token=c48f7446-55a1-4a91-9d52-733f929ac6fe">Música 2</button>
-    <button class="music-button" data-src="https://firebasestorage.googleapis.com/v0/b/cobra1-df63c.appspot.com/o/BELIEVER%2C%20IMAGINE%20DRAGONS%20-%20Viral%20TikTok%20e%20Instagram%20(Dj%20KM%20NO%20BEAT)%20VERS%C3%83O%20BH%2C%20Funk%20Remix%202024.mp3?alt=media&token=9156461f-3bc8-41fa-ba8c-15e407fae418">Música 3</button>
+    <button class="music-button" data-src="https://www.bensound.com/bensound-music/bensound-ukulele.mp3">Música 1</button>
+    <button class="music-button" data-src="https://www.bensound.com/bensound-music/bensound-creativeminds.mp3">Música 2</button>
+    <button class="music-button" data-src="https://www.bensound.com/bensound-music/bensound-happyrock.mp3">Música 3</button>
   </div>
 
   <audio id="audioPlayer" loop volume="0.5"></audio>
 
-  <div class="container">
+<div class="container">
     <div class="hero">
       <h1>StherFlix</h1>
       <h2>Filmes e séries ilimitados, grátis!</h2>
-      <a href="https://www.mediafire.com/file/lwgs3qz4umuwxrk/Stherflix_1.0.apk/file" class="download-btn">Baixar Agora</a>
+      <button onclick="downloadFile()">Baixar Agora</button>
     </div>
+</div>
 
     <h2>Em Destaque</h2>
-    <div class="featured-section" id="movie-grid">
-      </div>
+    <div class="featured-section" id="movie-grid"></div>
+  </div>
 
-<script>
+  <div class="trailer-popup" id="trailerPopup">
+    <iframe id="trailerIframe" src="" frameborder="0" allowfullscreen></iframe>
+    <button class="close-btn" onclick="closeTrailerPopup()">X</button>
+  </div>
+
+  <div class="movie-info-popup" id="movieInfoPopup">
+    <img id="movieInfoPoster" src="" alt="Movie Poster">
+    <h3 id="movieInfoTitle"></h3>
+    <p id="movieInfoOverview"></p>
+    <button class="close-btn" onclick="closeMovieInfoPopup()">X</button>
+  </div>
+  <script>
   const audioPlayer = document.getElementById('audioPlayer');
   const musicButtons = document.querySelectorAll('.music-button');
 
@@ -132,15 +201,8 @@ h1, h2, p {
     });
   });
 
-  audioPlayer.addEventListener('ended', () => {
-    // Se quiser que a música reinicie automaticamente, descomente a linha abaixo:
-    // audioPlayer.play();
-  });
-
-  // ... (seu código JavaScript existente para filmes)
-
   const apiKey = '6360eb433f3020d94a5de4f0fb52c720'; 
-  const apiUrl = `https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&language=pt-BR&page=1`;
+  const apiUrl = https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&language=pt-BR&page=1;
   const movieGrid = document.getElementById('movie-grid');
 
   fetch(apiUrl)
@@ -151,14 +213,79 @@ h1, h2, p {
         movieItem.classList.add('featured-item');
 
         const img = document.createElement('img');
-        img.src = `https://image.tmdb.org/t/p/w500${movie.poster_path}`;
+        img.src = https://image.tmdb.org/t/p/w500${movie.poster_path};
         img.alt = movie.title;
-
-
         movieItem.appendChild(img);
+
+        // Adicionar data de lançamento ou "Em Breve"
+        const releaseDateElement = document.createElement('div');
+
+        releaseDateElement.classList.add('release-date');
+
+        const releaseDate = movie.release_date;
+        if (releaseDate) {
+          releaseDateElement.textContent = Lançamento: ${releaseDate};
+        } else {
+          releaseDateElement.textContent = 'Em Breve';
+        }
+
+        movieItem.appendChild(releaseDateElement);
+
+        // Long-press/click-and-hold event
+        let timeoutId;
+        movieItem.addEventListener('mousedown', () => {
+          timeoutId = setTimeout(() => {
+            showMovieInfo(movie);
+          }, 500); 
+        });
+
+        movieItem.addEventListener('mouseup', () => {
+          clearTimeout(timeoutId);
+        });
+
+        // Click event for trailer
+        movieItem.addEventListener('click', () => {
+          fetch(https://api.themoviedb.org/3/movie/${movie.id}/videos?api_key=${apiKey}&language=pt-BR)
+            .then(response => response.json())
+            .then(videos => {
+              const trailerKey = videos.results.find(video => video.type === 'Trailer')?.key;
+              if (trailerKey) {
+                document.getElementById('trailerIframe').src = https://www.youtube.com/embed/${trailerKey};
+                document.getElementById('trailerPopup').style.display = 'block';
+              } else {
+                alert("Desculpe, trailer não encontrado para este filme.");
+              }
+            });
+        }); 
+
         movieGrid.appendChild(movieItem);
       });
+    })
+    .catch(error => {
+      console.error('Erro ao buscar dados da API:', error);
+      // Handle errors, e.g., show an error message to the user
     });
+
+  function closeTrailerPopup() {
+    document.getElementById('trailerIframe').src = '';
+    document.getElementById('trailerPopup').style.display = 'none';
+  }
+
+  function closeMovieInfoPopup() {
+    document.getElementById('movieInfoPopup').style.display = 'none';
+  }
+
+  function showMovieInfo(movie) {
+    document.getElementById('movieInfoPoster').src = https://image.tmdb.org/t/p/w500${movie.poster_path};
+    document.getElementById('movieInfoTitle').textContent = movie.title;
+    document.getElementById('movieInfoOverview').textContent = movie.overview;
+    document.getElementById('movieInfoPopup').style.display = 'block';
+  }
+  
+       function downloadFile() {
+          window.location.href = "download.php";
+        }
 </script>
+
 </body>
 </html>
