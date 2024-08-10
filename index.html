@@ -5,24 +5,37 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SayCat - Seu Bot Confiável para Grupos</title>
     <style>
-        /* Estilos gerais */
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Roboto', sans-serif;
             margin: 0;
-            padding: 20px;
-            background-color: #121212; /* Fundo preto */
+            padding: 0;
+            background-color: #121212;
+            color: red;
+            text-align: center;
         }
 
-        /* Título com efeito LED */
-        h1.led-text {
-            color: red;
-            text-shadow:
+        header {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        h1 {
+            font-size: 5rem;
+            text-shadow: 
                 1px 1px 0 #f00,
                 2px 2px 0 #f00,
                 3px 3px 0 #f00,
                 4px 4px 0 #f00,
                 5px 5px 0 #f00;
             animation: blink 1s infinite;
+        }
+
+        h2 {
+            font-size: 2rem;
+            margin-top: 20px;
         }
 
         @keyframes blink {
@@ -43,6 +56,5 @@
         <h1 class="led-text">SayCat</h1>
         <h2>Seu Guardião Contra Fake News e Conteúdo Inadequado</h2>
     </header>
-
-    </body>
+</body>
 </html>
