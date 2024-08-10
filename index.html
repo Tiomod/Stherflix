@@ -4,57 +4,55 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SayCat - Seu Bot Confiável para Grupos</title>
-    <style>
-        body {
-            font-family: 'Roboto', sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #121212;
-            color: red;
-            text-align: center;
-        }
-
-        header {
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-
-        h1 {
-            font-size: 5rem;
-            text-shadow: 
-                1px 1px 0 #f00,
-                2px 2px 0 #f00,
-                3px 3px 0 #f00,
-                4px 4px 0 #f00,
-                5px 5px 0 #f00;
-            animation: blink 1s infinite;
-        }
-
-        h2 {
-            font-size: 2rem;
-            margin-top: 20px;
-        }
-
-        @keyframes blink {
-            0% {
-                text-shadow: 1px 1px 0 #f00, 2px 2px 0 #f00, 3px 3px 0 #f00, 4px 4px 0 #f00, 5px 5px 0 #f00;
-            }
-            50% {
-                text-shadow: none;
-            }
-            100% {
-                text-shadow: 1px 1px 0 #f00, 2px 2px 0 #f00, 3px 3px 0 #f00, 4px 4px 0 #f00, 5px 5px 0 #f00;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <audio autoplay loop>
+        <source src="musica.mp3" type="audio/mpeg">
+        Seu navegador não suporta este formato de áudio.
+    </audio>
+
     <header>
         <h1 class="led-text">SayCat</h1>
         <h2>Seu Guardião Contra Fake News e Conteúdo Inadequado</h2>
     </header>
-</body>
-</html>
+
+    <section class="features">
+        <h2>Por que escolher o SayCat?</h2>
+        <ul>
+            <li>Detecção 24/7 de fake news e conteúdo impróprio</li>
+            <li>Suporte técnico de segunda a sábado</li>
+            <li>Fácil de usar e configurar</li>
+            <li>Melhore a segurança dos seus grupos</li>
+        </ul>
+    </section>
+
+    <section class="pricing">
+        <h2>Planos</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Plano</th>
+                    <th>Preço</th>
+                    <th>Características</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Básico</td>
+                    <td>R$ 40,00</td>
+                    <td>Acesso básico ao bot</td>
+                </tr>
+                <tr>
+                    <td>Completo</td>
+                    <td>R$ 120,00</td>
+                    <td>Acesso completo, personalização e suporte técnico</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <footer>
+        <p>&copy; 2023 SayCat - Todos os direitos reservados.</p>
+    </footer>
+</style>

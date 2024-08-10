@@ -1,35 +1,55 @@
 /* Estilos globais */
 body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 20px;
+  font-family: 'Roboto', sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #121212;
+  color: #f0f0f0; /* Cinza claro para melhor contraste */
+  text-align: center;
 }
 
-/* Seção hero */
-.hero {
-    text-align: center;
-    margin-bottom: 30px;
+/* Estilos para o header */
+header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100vh;
 }
 
-/* Seção de funcionalidades */
-.features {
-    margin-bottom: 30px;
+.led-text {
+  font-size: 5rem;
+  text-shadow: 1px 1px 0 #f00, 2px 2px 0 #f00, 3px 3px 0 #f00, 4px 4px 0 #f00, 5px 5px 0 #f00;
+  animation: blink 1s infinite;
 }
 
-/* Seção sobre nós */
-.about {
-    margin-bottom: 30px;
+@keyframes blink {
+  0% {
+    text-shadow: 1px 1px 0 #f00, 2px 2px 0 #f00, 3px 3px 0 #f00, 4px 4px 0 #f00, 5px 5px 0 #f00;
+  }
+  50% {
+    text-shadow: none;
+  }
+  100% {
+    text-shadow: 1px 1px 0 #f00, 2px 2px 0 #f00, 3px 3px 0 #f00, 4px 4px 0 #f00, 5px 5px 0 #f00;
+  }
 }
 
-/* Botão do WhatsApp */
-.call-to-action {
-    text-align: center;
+/* Estilos para as seções */
+section {
+  padding: 50px;
 }
 
-.whatsapp-button {
-    background-color: #25d366;
-    color: white;
-    padding: 15px 30px;
-    text-decoration: none;
-    border-radius: 5px;
+table {
+  border-collapse: collapse;
+  width: 80%;
+  margin: 0 auto;
 }
+
+th, td {
+  border: 1px solid #333;
+  padding: 15px;
+  text-align: center;
+}
+
+/* Estilos adicionais que você pode personalizar */
+/* ... */
