@@ -1,36 +1,47 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-br">
 <head>
-    <title>Pedir Aluguel grátis</title>
-    <style>
-        body {
-            background-color: black;
-            color: red;
-            font-family: monospace;
-            text-shadow: 0 0 5px red, 0 0 10px red;
-        }
-        h1 {
-            text-align: center;
-        }
-        label, input {
-            display: block;
-            margin: 10px auto;
-            text-align: center;
-        }
-    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SayCat - Seu Bot Confiável para Grupos</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Pedir Aluguel grátis</h1>
-    <form action="http://br4.bronxyshost.com:4070/submit" method="post">
-        <label for="nome">Nome Completo:</label>
-        <input type="text" id="nome" name="nome" required><br><br>
-        <label for="idade">Idade:</label>
-        <input type="number" id="idade" name="idade" required><br><br>
-        <label for="data_nascimento">Data de nascimento:</label>
-        <input type="date" id="data_nascimento" name="data_nascimento" required><br><br>
-        <label for="suporte">WhatsApp:</label>
-        <input type="text" id="suporte" name="suporte" required><br><br>
-        <input type="submit" value="Enviar">
-    </form>
+    <header>
+        <h1>SayCat</h1>
+        <h2>Seu Guardião Contra Fake News e Conteúdo Inadequado</h2>
+    </header>
+
+    <section class="hero">
+        <img src="saycat.png" alt="Logo do SayCat">
+        <p>O SayCat é um bot inteligente para WhatsApp, desenvolvido com Node.js, que ajuda a manter seus grupos seguros e livres de fake news e conteúdo impróprio. Com suas funcionalidades avançadas de detecção de pornografia e desinformação, o SayCat é a solução ideal para quem busca um ambiente online mais saudável.</p>
+    </section>
+
+    <section class="features">
+        <h2>Principais Funcionalidades</h2>
+        <ul>
+            <li>Detecção e remoção de conteúdo impróprio</li>
+            <li>Combate à desinformação e fake news</li>
+            <li>Moderador automático para grupos</li>
+            <li>Fácil de usar e configurar</li>
+        </ul>
+    </section>
+
+    <section class="about">
+        <h2>Sobre Nós</h2>
+        <p>Somos uma equipe apaixonada por tecnologia e comprometida em criar ferramentas para um ambiente online mais seguro. O SayCat é o resultado de nosso trabalho em busca de soluções inovadoras para os desafios da comunicação digital.</p>
+    </section>
+
+    <section class="call-to-action">
+        <h2>Entre em contato e saiba mais!</h2>
+        <a href="https://wa.me/seu_numero_de_whatsapp" class="whatsapp-button">
+            <img src="whatsapp-icon.png" alt="Ícone do WhatsApp">
+            Fale com a gente no WhatsApp
+        </a>
+    </section>
+
+    <footer>
+        <p>&copy; 2023 SayCat - Todos os direitos reservados.</p>
+    </footer>
 </body>
 </html>
