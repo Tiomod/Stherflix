@@ -7,11 +7,8 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <audio autoplay loop>
-        <source src="musica.mp3" type="audio/mpeg">
-        Seu navegador não suporta este formato de áudio.
-    </audio>
-
+    <button onclick="toggleAudio()">Tocar/Pausar</button>
+<audio id="myAudio" src="musica.mp3" type="audio/mpeg"></audio>
     <header>
         <h1 class="led-text">Say Cat</h1>
         <h2>Seu Guardião Contra Números Estrangeiros e Conteúdo Inadequado</h2>
@@ -80,4 +77,16 @@
     <footer>
         <p>&copy; 2023 SayCat - Todos os direitos reservados.</p>
     </footer>
+    
+    <script>
+  var audio = document.getElementById("myAudio");
+  function toggleAudio() {
+    if (audio.paused) {
+      audio.play();
+    } else {
+      audio.pause();
+    }
+  }
+</script>
+
 </style>
