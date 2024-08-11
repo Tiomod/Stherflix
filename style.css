@@ -1,27 +1,45 @@
-/* styles.css */
-/* Global styles */
+/* style.css */
 body {
   font-family: 'Roboto', sans-serif;
   margin: 0;
   padding: 0;
-  background-color: #121212;
-  color: #f0f0f0;
+  background-color: #151515; /* Fundo escuro */
+  color: #fff; /* Texto branco */
   display: flex;
   flex-direction: column;
   min-height: 100vh;
 }
 
-/* Section styles */
-.section {
+header {
+  background-color: #222;
   padding: 2rem;
   text-align: center;
 }
 
-.features {
-  background-color: #222;
+.led-text {
+  font-size: 3rem;
+  text-shadow: 2px 2px 0 #0f0, -2px -2px 0 #0f0;
+  animation: blink 1s infinite;
 }
 
-.features__list {
+@keyframes blink {
+  0% {
+    text-shadow: 2px 2px 0 #0f0, -2px -2px 0 #0f0;
+  }
+  50% {
+    text-shadow: none;
+  }
+  100% {
+    text-shadow: 2px 2px 0 #0f0, -2px -2px 0 #0f0;
+  }
+}
+
+section {
+  padding: 4rem;
+  text-align: center;
+}
+
+.features ul {
   list-style: none;
   padding: 0;
   display: flex;
@@ -29,24 +47,28 @@ body {
   justify-content: center;
 }
 
-.features__item {
-  width: 300px;
-  margin: 1rem;
-}
-
-/* Pricing styles */
-.pricing {
+.features li {
   background-color: #333;
+  padding: 1rem;
+  margin: 1rem;
+  border-radius: 5px;
 }
 
-.pricing__table {
+.pricing table {
   border-collapse: collapse;
   width: 80%;
   margin: 0 auto;
+  border: 1px solid #333;
 }
 
-/* Footer styles */
+.pricing th, .pricing td {
+  padding: 1rem;
+  text-align: center;
+  border: 1px solid #333;
+}
+
 footer {
   background-color: #222;
   padding: 2rem;
+  color: #888;
 }
