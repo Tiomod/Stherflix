@@ -1,74 +1,82 @@
 /* style.css */
 body {
-  font-family: 'Roboto', sans-serif;
-  margin: 0;
-  padding: 0;
-  background-color: #151515; /* Fundo escuro */
-  color: #fff; /* Texto branco */
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #151515;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    align-items: center;
+    text-align: center; /* Centraliza o conteúdo horizontalmente em todo o body */
 }
 
 header {
-  background-color: #222;
-  padding: 2rem;
-  text-align: center;
+    background-color: #222;
+    padding: 2rem 0;
 }
 
 .led-text {
-  font-size: 3rem;
-  text-shadow: 2px 2px 0 #0f0, -2px -2px 0 #0f0;
-  animation: blink 1s infinite;
+    font-size: 3rem;
+    text-shadow: 2px 2px 0 #0f0, -2px -2px 0 #0f0;
+    animation: blink 1s infinite;
 }
 
 @keyframes blink {
-  0% {
-    text-shadow: 2px 2px 0 #0f0, -2px -2px 0 #0f0;
-  }
-  50% {
-    text-shadow: none;
-  }
-  100% {
-    text-shadow: 2px 2px 0 #0f0, -2px -2px 0 #0f0;
-  }
+    0% {
+        text-shadow: 2px 2px 0 #0f0, -2px -2px 0 #0f0;
+    }
+    50% {
+        text-shadow: none;
+    }
+    100% {
+        text-shadow: 2px 2px 0 #0f0, -2px -2px 0 #0f0;
+    }
 }
 
 section {
-  padding: 4rem;
-  text-align: center;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 4rem 0;
 }
 
-.features ul {
-  list-style: none;
-  padding: 0;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+.features {
+    width: 80%;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
 }
 
 .features li {
-  background-color: #333;
-  padding: 1rem;
-  margin: 1rem;
-  border-radius: 5px;
+    background-color: #333;
+    padding: 2rem;
+    border-radius: 5px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Adiciona uma sombra leve */
 }
 
 .pricing table {
-  border-collapse: collapse;
-  width: 80%;
-  margin: 0 auto;
-  border: 1px solid #333;
+    border-collapse: collapse;
+    width: 80%;
+    margin: 0 auto;
+    border: 1px solid #333;
 }
 
 .pricing th, .pricing td {
-  padding: 1rem;
-  text-align: center;
-  border: 1px solid #333;
+    padding: 1rem;
+    text-align: center;
+    border: 1px solid #333;
+}
+
+.pricing td:nth-child(2) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 footer {
-  background-color: #222;
-  padding: 2rem;
-  color: #888;
+    background-color: #222;
+    padding: 2rem 0;
 }
