@@ -8,85 +8,61 @@
 </head>
 <body>
     <button onclick="toggleAudio()">Tocar/Pausar</button>
-<audio id="myAudio" src="musica.mp3" type="audio/mpeg"></audio>
+    <audio id="myAudio" src="musica.mp3" type="audio/mpeg"></audio>
+
     <header>
         <h1 class="led-text">Say Cat</h1>
         <h2>Seu Guardião Contra Números Estrangeiros e Conteúdo Inadequado</h2>
     </header>
 
-    <section class="features">
-        <h2>Por que escolher o SayCat?</h2>
-        <ul>
-            <li>Detecção 24/7 de números estrangeiros e conteúdo impróprio</li>
-            <li>Suporte técnico de segunda a sábado</li>
-            <li>Fácil de usar e configurar</li>
-            <li>Melhore a segurança dos seus grupos</li>
-        </ul>
-    </section>
-    
-        <section class="pricing1">
-        <h2>Planos Grupo</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>Plano</th>
-                    <th>Preço</th>
-                    <th>Características</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>Básico</td>
-                    <td>R$ 10,00 mês</td>
-                    <td>Acesso básico ao bot</td>
-                </tr>
-                <tr>
-                    <td>Vitalício</td>
-                    <td>R$ 100,00</td>
-                    <td>Acesso básico ao bot permanente</td>
-                </tr>
-            </tbody>
-        </table>
-    </section>
+    <script>
+    // Gerar um número aleatório entre 1 e 20
+    const numeroGanhador = Math.floor(Math.random() * 20) + 1;
+    console.log("Número ganhador:", numeroGanhador);
 
-    <section class="pricing">
-        <h2>Planos</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>Plano</th>
-                    <th>Preço</th>
-                    <th>Características</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>Básico</td>
-                    <td>R$ 50,00</td>
-                    <td>Acesso básico ao bot não editável</td>
-                </tr>
-                <tr>
-                    <td>Completo</td>
-                    <td>R$ 120,00</td>
-                    <td>Acesso completo, personalização e suporte técnico, bot editável</td>
-                </tr>
-            </tbody>
-        </table>
-    </section>
+    // Obter o formulário e os elementos relevantes
+    const form = document.getElementById('form-palpite');
+    const inputPalpite = document.getElementById('palpite');
+    const resultado = document.getElementById('resultado');
+
+    // Obter o IP do usuário (pode não ser 100% preciso)
+    const getIP = () => {
+      return new Promise((resolve) => {
+        fetch('https://api.ipify.org?format=json')
+          .then(response => response.json())
+          .then(data => resolve(data.ip));
+      });
+    };
+
+    // Objeto para armazenar as tentativas por IP
+    const tentativas = {};
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+
+      const palpite = inputPalpite.value;
+      const ip = await getIP();
+
+      // Verificar se o IP já tentou duas vezes
+      if (tentativas[ip] >= 2) {
+        resultado.textContent = "Você já tentou duas vezes.";
+        return;
+      }
+
+      // Incrementar o número de tentativas para o IP
+      tentativas[ip] = (tentativas[ip] || 0) + 1;
+
+      // Comparar o palpite com o número ganhador
+      if (palpite == numeroGanhador) {
+        resultado.textContent = "Parabéns! Você acertou! Seu código de desconto é: DESCONTO50";
+      } else {
+        resultado.textContent = `Você errou. Tentativas restantes: ${2 - tentativas[ip]}`;
+      }
+    });
+    </script>
 
     <footer>
         <p>&copy; 2023 SayCat - Todos os direitos reservados.</p>
     </footer>
-    
-    <script>
-  var audio = document.getElementById("myAudio");
-  function toggleAudio() {
-    if (audio.paused) {
-      audio.play();
-    } else {
-      audio.pause();
-    }
-  }
-</script>
-
-</style>
+</body>
+</html>
