@@ -2,7 +2,7 @@ const numeroGanhador = gerarNumeroAleatorio();
 const localStorageKey = 'ultimaTentativa';
 
 function gerarNumeroAleatorio() {
-    return Math.floor(Math.random() * 20) + 1;
+    return Math.floor(Math.random() * 10) + 1;
 }
 
 function verificarTentativa() {
@@ -11,10 +11,6 @@ function verificarTentativa() {
         const dataUltimaTentativa = new Date(ultimaTentativa);
         const agora = new Date();
         const diferencaEmMilisegundos = agora - dataUltimaTentativa;
-        const tresHorasEmMilisegundos = 3 * 60 * 60 * 1000;
-        if (diferencaEmMilisegundos < tresHorasEmMilisegundos) {
-            return false; // Não pode tentar novamente
-        }
     }
     return true; // Pode tentar
 }
