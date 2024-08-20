@@ -17,37 +17,37 @@
             scroll-behavior: smooth;
         }
 
-        /* Efeito de LED */
+        /* Efeito de LED mais suave */
         .led-text {
-            text-shadow: 0 0 10px #ff1b1b, 0 0 20px #ff1b1b, 0 0 30px #ff1b1b, 0 0 40px #ff1b1b, 0 0 50px #ff1b1b, 0 0 60px #ff1b1b, 0 0 70px #ff1b1b;
+            text-shadow: 0 0 5px #ff1b1b, 0 0 10px #ff1b1b, 0 0 15px #ff1b1b;
         }
 
         header {
             background: linear-gradient(135deg, #0d0d0d, #1c1c1c);
-            padding: 60px 20px;
+            padding: 40px 20px;
             text-align: center;
             color: #ff1b1b;
             box-shadow: 0 5px 15px rgba(255, 27, 27, 0.2);
         }
 
         header h1 {
-            font-size: 3em;
+            font-size: 2.5em;
             margin-bottom: 10px;
             text-transform: uppercase;
             letter-spacing: 3px;
         }
 
         header p {
-            font-size: 1.3em;
+            font-size: 1.2em;
             margin-bottom: 20px;
         }
 
         header a {
             background-color: #ff1b1b;
-            padding: 15px 40px;
+            padding: 12px 30px;
             color: #fff;
             text-decoration: none;
-            font-size: 1.2em;
+            font-size: 1.1em;
             font-weight: bold;
             border-radius: 50px;
             transition: background 0.3s;
@@ -64,7 +64,7 @@
         }
 
         section h2 {
-            font-size: 2.5em;
+            font-size: 2em;
             margin-bottom: 30px;
             color: #ff1b1b;
             letter-spacing: 2px;
@@ -73,24 +73,24 @@
 
         .about-me {
             background-color: #1a1a1a;
-            padding: 40px;
+            padding: 30px;
             border-radius: 15px;
             box-shadow: 0 5px 20px rgba(255, 27, 27, 0.2);
             margin-bottom: 50px;
-            max-width: 800px;
+            max-width: 900px;
             margin: 0 auto;
             text-align: left;
             color: #ff1b1b;
         }
 
         .about-me h3 {
-            font-size: 2em;
+            font-size: 1.8em;
             color: #ff1b1b;
             margin-bottom: 20px;
         }
 
         .about-me p {
-            font-size: 1.2em;
+            font-size: 1.1em;
             line-height: 1.6;
         }
 
@@ -107,25 +107,26 @@
             padding: 20px;
             border-radius: 15px;
             box-shadow: 0 5px 20px rgba(255, 27, 27, 0.2);
-            width: 300px;
+            width: 100%;
+            max-width: 300px;
             text-align: left;
         }
 
         .feature-box h3 {
-            font-size: 1.8em;
+            font-size: 1.5em;
             margin-bottom: 10px;
             color: #ff1b1b;
             text-shadow: 0 0 5px #ff1b1b;
         }
 
         .feature-box p {
-            font-size: 1.1em;
+            font-size: 1em;
             color: #ccc;
         }
 
         .pricing {
             background-color: #1a1a1a;
-            padding: 50px 20px;
+            padding: 40px 20px;
             color: #ff1b1b;
             border-radius: 15px;
             max-width: 900px;
@@ -135,14 +136,14 @@
 
         .pricing h2 {
             margin-bottom: 30px;
-            font-size: 2.5em;
+            font-size: 2em;
             letter-spacing: 2px;
             text-shadow: 0 0 5px #ff1b1b, 0 0 10px #ff1b1b;
         }
 
         .price-list {
             display: flex;
-            justify-content: space-around;
+            justify-content: center;
             flex-wrap: wrap;
         }
 
@@ -151,8 +152,8 @@
             padding: 20px;
             margin: 10px;
             border-radius: 15px;
-            width: 30%;
-            min-width: 220px;
+            width: 100%;
+            max-width: 300px;
             box-shadow: 0 5px 20px rgba(255, 27, 27, 0.3);
             transition: background 0.3s;
             text-align: center;
@@ -163,13 +164,13 @@
         }
 
         .price-item h3 {
-            font-size: 1.8em;
+            font-size: 1.6em;
             margin: 0 0 10px;
             color: #ff1b1b;
         }
 
         .price-item p {
-            font-size: 1.3em;
+            font-size: 1.2em;
             margin: 0;
             color: #fff;
         }
@@ -186,6 +187,34 @@
             font-size: 0.9em;
             margin: 0;
             letter-spacing: 1px;
+        }
+
+        /* Responsividade */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2em;
+            }
+
+            header p {
+                font-size: 1em;
+            }
+
+            .about-me h3 {
+                font-size: 1.5em;
+            }
+
+            .about-me p {
+                font-size: 1em;
+            }
+
+            .features, .price-list {
+                flex-direction: column;
+            }
+
+            .feature-box, .price-item {
+                width: 100%;
+                max-width: 100%;
+            }
         }
     </style>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
@@ -227,7 +256,7 @@
 
     <section class="pricing">
         <h2 class="led-text">Planos de Aluguel</h2>
-        <div class="price-list">
+                <div class="price-list">
             <div class="price-item">
                 <h3>1 Mês</h3>
                 <p>R$ 3,00</p>
@@ -244,4 +273,11 @@
     </section>
 
     <footer>
-        
+        <p>© 2024 Bruno Programador. Todos os direitos reservados.</p>
+    </footer>
+</body>
+
+</html>
+
+               
+               
