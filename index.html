@@ -6,25 +6,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Aluguel de Bot para WhatsApp - Bruno Programador</title>
     <style>
+        /* Configurações gerais */
         body {
-            font-family: 'Poppins', sans-serif;
+            font-family: 'Orbitron', sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f4f4f4;
-            color: #333;
+            background-color: #000;
+            color: #ff1b1b;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* Efeito de LED */
+        .led-text {
+            text-shadow: 0 0 10px #ff1b1b, 0 0 20px #ff1b1b, 0 0 30px #ff1b1b, 0 0 40px #ff1b1b, 0 0 50px #ff1b1b, 0 0 60px #ff1b1b, 0 0 70px #ff1b1b;
         }
 
         header {
-            background: linear-gradient(135deg, #673AB7, #512DA8);
+            background: linear-gradient(135deg, #0d0d0d, #1c1c1c);
             padding: 60px 20px;
             text-align: center;
-            color: white;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            color: #ff1b1b;
+            box-shadow: 0 5px 15px rgba(255, 27, 27, 0.2);
         }
 
         header h1 {
             font-size: 3em;
             margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
         }
 
         header p {
@@ -33,18 +43,19 @@
         }
 
         header a {
-            background-color: #FFC107;
+            background-color: #ff1b1b;
             padding: 15px 40px;
-            color: #333;
+            color: #fff;
             text-decoration: none;
             font-size: 1.2em;
             font-weight: bold;
             border-radius: 50px;
             transition: background 0.3s;
+            box-shadow: 0 0 10px #ff1b1b, 0 0 20px #ff1b1b, 0 0 30px #ff1b1b;
         }
 
         header a:hover {
-            background-color: #FFA000;
+            background-color: #e60000;
         }
 
         section {
@@ -55,23 +66,26 @@
         section h2 {
             font-size: 2.5em;
             margin-bottom: 30px;
-            color: #333;
+            color: #ff1b1b;
+            letter-spacing: 2px;
+            text-shadow: 0 0 5px #ff1b1b, 0 0 10px #ff1b1b;
         }
 
         .about-me {
-            background-color: white;
+            background-color: #1a1a1a;
             padding: 40px;
             border-radius: 15px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 5px 20px rgba(255, 27, 27, 0.2);
             margin-bottom: 50px;
             max-width: 800px;
             margin: 0 auto;
             text-align: left;
+            color: #ff1b1b;
         }
 
         .about-me h3 {
             font-size: 2em;
-            color: #673AB7;
+            color: #ff1b1b;
             margin-bottom: 20px;
         }
 
@@ -89,10 +103,10 @@
         }
 
         .feature-box {
-            background-color: white;
+            background-color: #1a1a1a;
             padding: 20px;
             border-radius: 15px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 5px 20px rgba(255, 27, 27, 0.2);
             width: 300px;
             text-align: left;
         }
@@ -100,26 +114,30 @@
         .feature-box h3 {
             font-size: 1.8em;
             margin-bottom: 10px;
-            color: #FFC107;
+            color: #ff1b1b;
+            text-shadow: 0 0 5px #ff1b1b;
         }
 
         .feature-box p {
             font-size: 1.1em;
-            color: #666;
+            color: #ccc;
         }
 
         .pricing {
-            background-color: #673AB7;
+            background-color: #1a1a1a;
             padding: 50px 20px;
-            color: white;
+            color: #ff1b1b;
             border-radius: 15px;
             max-width: 900px;
             margin: 0 auto;
+            box-shadow: 0 5px 20px rgba(255, 27, 27, 0.2);
         }
 
         .pricing h2 {
             margin-bottom: 30px;
             font-size: 2.5em;
+            letter-spacing: 2px;
+            text-shadow: 0 0 5px #ff1b1b, 0 0 10px #ff1b1b;
         }
 
         .price-list {
@@ -129,34 +147,36 @@
         }
 
         .price-item {
-            background-color: #9575CD;
+            background-color: #0d0d0d;
             padding: 20px;
             margin: 10px;
             border-radius: 15px;
             width: 30%;
             min-width: 220px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 5px 20px rgba(255, 27, 27, 0.3);
             transition: background 0.3s;
             text-align: center;
         }
 
         .price-item:hover {
-            background-color: #673AB7;
+            background-color: #1a1a1a;
         }
 
         .price-item h3 {
             font-size: 1.8em;
             margin: 0 0 10px;
+            color: #ff1b1b;
         }
 
         .price-item p {
             font-size: 1.3em;
             margin: 0;
+            color: #fff;
         }
 
         footer {
-            background-color: #333;
-            color: white;
+            background-color: #000;
+            color: #ff1b1b;
             padding: 20px 0;
             text-align: center;
             margin-top: 50px;
@@ -165,13 +185,15 @@
         footer p {
             font-size: 0.9em;
             margin: 0;
+            letter-spacing: 1px;
         }
     </style>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
 </head>
 
 <body>
     <header>
-        <h1>Aluguel de Bot para WhatsApp</h1>
+        <h1 class="led-text">Aluguel de Bot para WhatsApp</h1>
         <p>Proteção de grupo, brincadeiras, downloads e muito mais!</p>
         <a href="https://wa.me/6283821275257">Alugar Agora</a>
     </header>
@@ -182,7 +204,7 @@
     </section>
 
     <section>
-        <h2>Funcionalidades do Bot</h2>
+        <h2 class="led-text">Funcionalidades do Bot</h2>
         <div class="features">
             <div class="feature-box">
                 <h3>Proteção de Grupo</h3>
@@ -204,7 +226,7 @@
     </section>
 
     <section class="pricing">
-        <h2>Planos de Aluguel</h2>
+        <h2 class="led-text">Planos de Aluguel</h2>
         <div class="price-list">
             <div class="price-item">
                 <h3>1 Mês</h3>
@@ -222,8 +244,4 @@
     </section>
 
     <footer>
-        <p>&copy; 2024 Bruno - Todos os Direitos Reservados | Contato: +62 838-2127-5257</p>
-    </footer>
-</body>
-
-</html>
+        
