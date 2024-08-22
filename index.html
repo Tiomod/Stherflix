@@ -11,187 +11,184 @@
             font-family: 'Poppins', sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #000;
-            color: #ff1b1b;
-            overflow-x: hidden;
+            background-color: #121212;
+            color: #ffffff;
             scroll-behavior: smooth;
         }
 
-        /* Efeito de LED mais suave */
-        .led-text {
-            text-shadow: 0 0 5px #ff1b1b, 0 0 10px #ff1b1b, 0 0 15px #ff1b1b;
-        }
-
+        /* Header */
         header {
-            background: linear-gradient(135deg, #0d0d0d, #1c1c1c);
-            padding: 40px 20px;
+            background: linear-gradient(135deg, #212121, #333333);
+            padding: 20px;
             text-align: center;
-            color: #ff1b1b;
-            box-shadow: 0 5px 15px rgba(255, 27, 27, 0.2);
+            color: #ff4d4d;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
         }
 
         header h1 {
-            font-size: 2.5em;
-            margin-bottom: 10px;
-            text-transform: uppercase;
-            letter-spacing: 3px;
+            font-size: 2.8em;
+            margin: 0;
+            font-weight: 700;
         }
 
-        header p {
-            font-size: 1.2em;
-            margin-bottom: 20px;
+        header nav {
+            margin: 20px 0;
         }
 
-        header a {
-            background-color: #ff1b1b;
-            padding: 12px 30px;
-            color: #fff;
+        header nav a {
+            margin: 0 15px;
             text-decoration: none;
+            color: #ff4d4d;
             font-size: 1.1em;
-            font-weight: bold;
-            border-radius: 50px;
-            transition: background 0.3s;
-            box-shadow: 0 0 10px #ff1b1b, 0 0 20px #ff1b1b, 0 0 30px #ff1b1b;
+            transition: color 0.3s;
         }
 
-        header a:hover {
-            background-color: #e60000;
+        header nav a:hover {
+            color: #ffffff;
         }
 
+        /* Seções */
         section {
             padding: 50px 20px;
             text-align: center;
         }
 
         section h2 {
-            font-size: 2em;
+            font-size: 2.2em;
             margin-bottom: 30px;
-            color: #ff1b1b;
-            letter-spacing: 2px;
-            text-shadow: 0 0 5px #ff1b1b, 0 0 10px #ff1b1b;
+            color: #ff4d4d;
         }
 
-        .about-me {
-            background-color: #1a1a1a;
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 5px 20px rgba(255, 27, 27, 0.2);
-            margin-bottom: 50px;
-            max-width: 900px;
+        /* Sobre Mim */
+        .accordion-container {
+            max-width: 800px;
             margin: 0 auto;
             text-align: left;
-            color: #ff1b1b;
         }
 
-        .about-me h3 {
-            font-size: 1.8em;
-            color: #ff1b1b;
-            margin-bottom: 20px;
+        .accordion-item {
+            background-color: #1e1e1e;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
         }
 
-        .about-me p {
+        .accordion-item h3 {
+            padding: 15px 20px;
+            margin: 0;
+            cursor: pointer;
+            font-size: 1.5em;
+            color: #ff4d4d;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .accordion-item p {
+            padding: 0 20px 20px;
+            margin: 0;
+            display: none;
             font-size: 1.1em;
             line-height: 1.6;
         }
 
+        .accordion-item.active p {
+            display: block;
+        }
+
+        /* Funcionalidades */
         .features {
             display: flex;
             justify-content: center;
             flex-wrap: wrap;
             gap: 20px;
-            margin-bottom: 50px;
         }
 
         .feature-box {
-            background-color: #1a1a1a;
+            background-color: #1e1e1e;
             padding: 20px;
-            border-radius: 15px;
-            box-shadow: 0 5px 20px rgba(255, 27, 27, 0.2);
-            width: 100%;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
             max-width: 300px;
             text-align: left;
+            transition: transform 0.3s;
+        }
+
+        .feature-box:hover {
+            transform: translateY(-5px);
         }
 
         .feature-box h3 {
-            font-size: 1.5em;
+            font-size: 1.6em;
             margin-bottom: 10px;
-            color: #ff1b1b;
-            text-shadow: 0 0 5px #ff1b1b;
+            color: #ff4d4d;
         }
 
         .feature-box p {
             font-size: 1em;
-            color: #ccc;
+            color: #d1d1d1;
         }
 
+        /* Planos e Preços */
         .pricing {
-            background-color: #1a1a1a;
-            padding: 40px 20px;
-            color: #ff1b1b;
-            border-radius: 15px;
+            background-color: #1e1e1e;
+            padding: 40px;
+            color: #ffffff;
+            border-radius: 12px;
             max-width: 900px;
             margin: 0 auto;
-            box-shadow: 0 5px 20px rgba(255, 27, 27, 0.2);
-        }
-
-        .pricing h2 {
-            margin-bottom: 30px;
-            font-size: 2em;
-            letter-spacing: 2px;
-            text-shadow: 0 0 5px #ff1b1b, 0 0 10px #ff1b1b;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            text-align: center;
         }
 
         .price-list {
             display: flex;
             justify-content: center;
             flex-wrap: wrap;
+            gap: 20px;
         }
 
         .price-item {
-            background-color: #0d0d0d;
+            background-color: #2a2a2a;
             padding: 20px;
-            margin: 10px;
-            border-radius: 15px;
+            border-radius: 12px;
             width: 100%;
-            max-width: 300px;
-            box-shadow: 0 5px 20px rgba(255, 27, 27, 0.3);
+            max-width: 250px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
             transition: background 0.3s;
             text-align: center;
         }
 
         .price-item:hover {
-            background-color: #1a1a1a;
+            background-color: #333333;
         }
 
         .price-item h3 {
-            font-size: 1.6em;
-            margin: 0 0 10px;
-            color: #ff1b1b;
+            font-size: 1.8em;
+            margin-bottom: 10px;
+            color: #ff4d4d;
         }
 
         .price-item p {
-            font-size: 1.2em;
+            font-size: 1.3em;
             margin: 0;
-            color: #fff;
         }
 
+        /* Termos e Condições */
         .terms {
-            background-color: #1a1a1a;
+            background-color: #1e1e1e;
             padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 5px 20px rgba(255, 27, 27, 0.2);
-            margin-bottom: 50px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
             max-width: 900px;
-            margin: 0 auto;
+            margin: 50px auto;
             text-align: left;
-            color: #ff1b1b;
         }
 
         .terms h2 {
             font-size: 2em;
             margin-bottom: 20px;
-            color: #ff1b1b;
-            text-shadow: 0 0 5px #ff1b1b;
+            color: #ff4d4d;
         }
 
         .terms p {
@@ -199,45 +196,41 @@
             line-height: 1.6;
         }
 
+        /* Footer */
         footer {
-            background-color: #000;
-            color: #ff1b1b;
-            padding: 20px 0;
+            background-color: #121212;
+            padding: 20px;
             text-align: center;
+            color: #d1d1d1;
             margin-top: 50px;
         }
 
         footer p {
-            font-size: 0.9em;
-            margin: 0;
-            letter-spacing: 1px;
+            font-size: 1em;
+            margin: 5px 0;
+        }
+
+        footer nav a {
+            color: #ff4d4d;
+            text-decoration: none;
+            margin: 0 10px;
+            font-size: 1.1em;
+            transition: color 0.3s;
+        }
+
+        footer nav a:hover {
+            color: #ffffff;
         }
 
         /* Responsividade */
         @media (max-width: 768px) {
-            header h1 {
-                font-size: 2em;
-            }
-
-            header p {
-                font-size: 1em;
-            }
-
-            .about-me h3 {
-                font-size: 1.5em;
-            }
-
-            .about-me p {
-                font-size: 1em;
-            }
-
-            .features, .price-list {
+            .features,
+            .price-list {
                 flex-direction: column;
             }
 
-            .feature-box, .price-item {
-                width: 100%;
-                max-width: 100%;
+            header h1 {
+                font-size: 2.2em;
             }
         }
     </style>
@@ -246,18 +239,16 @@
 
 <body>
     <header>
-        <h1 class="led-text">Aluguel de Bot para WhatsApp</h1>
-        <p>Proteção de grupo, brincadeiras, downloads e muito mais!</p>
-        <a href="https://wa.me/6283821275257">Alugar Agora</a>
+        <h1>Aluguel de Bot para WhatsApp</h1>
+        <nav>
+            <a href="#features">Funcionalidades</a>
+            <a href="#pricing">Preços</a>
+            <a href="#terms">Termos</a>
+        </nav>
     </header>
 
-    <section class="about-me">
-        <h3>Sobre Mim</h3>
-        <p>Olá! Meu nome é Bruno, tenho 18 anos e estudo programação desde os 10. Com mais de 8 anos de experiência, desenvolvo bots personalizados para WhatsApp com foco em funcionalidades como proteção de grupos, entretenimento, downloads e inteligência artificial para tirar dúvidas. Meu objetivo é trazer tecnologia de ponta para ajudar você a gerenciar seus grupos com eficiência e diversão.</p>
-    </section>
-
     <section>
-        <h2 class="led-text">Funcionalidades do Bot</h2>
+        <h2>Funcionalidades do Bot</h2>
         <div class="features">
             <div class="feature-box">
                 <h3>Proteção de Grupo</h3>
@@ -267,7 +258,7 @@
                 <h3>Brincadeiras e Entretenimento</h3>
                 <p>Com mais de 1200 comandos, o bot oferece jogos, quizzes e muitas brincadeiras para animar o grupo.</p>
             </div>
-                       <div class="feature-box">
+            <div class="feature-box">
                 <h3>Downloads e Mídias</h3>
                 <p>O bot permite baixar vídeos, músicas e imagens de diversas plataformas diretamente no WhatsApp.</p>
             </div>
@@ -278,34 +269,75 @@
         </div>
     </section>
 
-    <section class="pricing">
-        <h2 class="led-text">Planos e Preços</h2>
-        <div class="price-list">
-            <div class="price-item">
-                <h3>Plano Básico</h3>
-                <p>R$ 6 / mês</p>
-            </div>
-            <div class="price-item">
-                <h3>Plano Premium</h3>
-                <p>R$ 10,00 / 2 meses</p>
-            </div>
-            <div class="price-item">
-                <h3>Plano Premium 2</h3>
-                <p>A partir de R$ 25,00 / 4 meses</p>
-            </div>
+    <section class="accordion-container">
+        <div class="accordion-item">
+            <h3>Sobre Mim <span>&#9662;</span></h3>
+            <p>Olá! Meu nome é Bruno, tenho 18 anos e estudo programação desde os 10. Com mais de 8 anos de experiência, desenvolvo bots personalizados para WhatsApp com foco em funcionalidades como proteção de grupos, entretenimento, downloads e inteligência artificial. Meu objetivo é trazer tecnologia de ponta para gerenciar seus grupos com eficiência e diversão.</p>
+        </div>
+        <div class="accordion-item">
+            <h3>Termos e Condições <span>&#9662;</span></h3>
+            <p>1. Não aceitamos reembolsos após a confirmação do pagamento.<br>
+               2. Se o serviço for cancelado pelo cliente, não haverá devolução do valor pago.<br>
+               3. Em caso de quebra de sigilo entre cliente e vendedor, o serviço será cancelado imediatamente e um processo legal poderá ser aberto. Se houver provas da violação, o infrator poderá ser obrigado a pagar uma indenização de até 5 mil reais ou mais, conforme estipulado pela lei. Além disso, os custos com advogados e tribunal deverão ser arcados pela parte que descumpriu os termos.</p>
         </div>
     </section>
 
+    <section id="pricing">
+        <h2 class="led-text">Planos e Preços</h2>
+        <div class="pricing">
+            <div class="price-list">
+                <div class="price-item">
+                    <h3>Plano Básico</h3>
+                    <p>R$6/mês</p>
+                </div>
+                <div class="price-item">
+                    <h3>Plano Avançado</h3>
+                    <p>R$10/2 meses</p>
+                </div>
+                <div class="price-item">
+                    <h3>Plano Premium</h3>
+                    <p>R$25/4 meses</p>
+                </div>
+            </div>
+        </div>
+    </section>
     <section class="terms">
-        <h2>Termos e Condições</h2>
-        <p>1. Não aceitamos reembolsos após a confirmação do pagamento.</p>
-        <p>2. Se o serviço for cancelado pelo cliente, não haverá devolução do valor pago.</p>
-        <p>3. Caso haja quebra de sigilo entre cliente e vendedor, o serviço será imediatamente cancelado, e o cliente poderá ser processado legalmente. Se houver provas do ato, o infrator será obrigado a pagar uma indenização que pode chegar a R$ 5.000,00 ou mais, de acordo com a legislação vigente. Além disso, o infrator também será responsável por arcar com as custas dos meus advogados e as taxas do tribunal.</p>
+        <h2>Termos de Uso</h2>
+        <p>Estes são os termos de uso do nosso serviço de aluguel de bot para WhatsApp. Ao contratar nossos serviços, você concorda com os seguintes termos:</p>
+        <ul>
+            <li>Não aceitamos pedidos de reembolso após a ativação do serviço.</li>
+            <li>Se o serviço for cancelado por parte do cliente, não haverá devolução do valor pago.</li>
+            <li>Qualquer quebra de sigilo entre cliente e vendedor resultará no cancelamento imediato do serviço e possíveis ações legais poderão ser tomadas.</li>
+            <li>Se a quebra de sigilo for comprovada, o infrator poderá ser obrigado a pagar uma indenização de até 5 mil reais, além dos custos judiciais e honorários advocatícios.</li>
+        </ul>
     </section>
 
     <footer>
         <p>&copy; 2024 Bruno Programador. Todos os direitos reservados.</p>
+        <nav>
+            <a href="#features">Funcionalidades</a>
+            <a href="#pricing">Preços</a>
+            <a href="#terms">Termos</a>
+        </nav>
     </footer>
+
+    <script>
+        // Script para o comportamento do accordion
+        document.querySelectorAll('.accordion-item h3').forEach(item => {
+            item.addEventListener('click', () => {
+                const parent = item.parentElement;
+                parent.classList.toggle('active');
+
+                // Alterna a seta do ícone
+                const icon = parent.querySelector('h3 span');
+                if (parent.classList.contains('active')) {
+                    icon.innerHTML = '&#9652;';
+                } else {
+                    icon.innerHTML = '&#9662;';
+                }
+            });
+        });
+    </script>
 </body>
 
 </html>
