@@ -76,8 +76,6 @@
             color: #ff0000;
         }
     </style>
-    <!-- Incluindo o Axios -->
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
 <body>
     <div class="container">
@@ -116,13 +114,21 @@
             const apiUrl = `https://venomweb.site/api/consultas/cpf/query=${cpf}?apikey=${key}`;
 
             try {
-                // Usando Axios para fazer a requisição
-                const response = await axios.get(apiUrl);
+                // Usando fetch para fazer a requisição
+                const response = await fetch(apiUrl);
+
+                // Verifica se a resposta é bem-sucedida
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                // Obtém os dados da resposta
+                const data = await response.json();
 
                 // Exibe os dados no console para depuração
-                console.log("Dados retornados da API:", response.data);
+                console.log("Dados retornados da API:", data);
 
-                const { resultado } = response.data;
+                const { resultado } = data;
 
                 // Verifica se a resposta contém o campo `resultado` com os detalhes
                 if (resultado) {
@@ -163,7 +169,7 @@
                     resultadoDiv.innerHTML = `<p class="error">❌ Nenhuma informação encontrada para o CPF ${cpf}.</p>`;
                 }
             } catch (error) {
-                console.error("Erro na consulta:", error.response ? error.response.data : error.message);
+                console.error("Erro na consulta:", error);
                 resultadoDiv.innerHTML = `<p class="error">⚠️ Não foi possível completar a consulta. Verifique sua conexão ou tente novamente mais tarde.</p>`;
             }
         }
