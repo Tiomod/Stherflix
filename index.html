@@ -91,6 +91,24 @@
     </div>
 
     <script>
+        // Função personalizada fetchJson
+        async function fetchJson(url) {
+            try {
+                const response = await fetch(url);
+
+                // Verifica se a resposta é bem-sucedida
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                // Obtém os dados da resposta como JSON
+                return await response.json();
+            } catch (error) {
+                console.error("Erro na requisição:", error);
+                throw error;
+            }
+        }
+
         async function consultarCPF() {
             const cpf = document.getElementById("cpfInput").value.replace(/\D/g, "");
             const key = document.getElementById("keyInput").value;
@@ -114,16 +132,8 @@
             const apiUrl = `https://venomweb.site/api/consultas/cpf/query=${cpf}?apikey=${key}`;
 
             try {
-                // Usando fetch para fazer a requisição
-                const response = await fetch(apiUrl);
-
-                // Verifica se a resposta é bem-sucedida
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-
-                // Obtém os dados da resposta
-                const data = await response.json();
+                // Usando fetchJson para fazer a requisição
+                const data = await fetchJson(apiUrl);
 
                 // Exibe os dados no console para depuração
                 console.log("Dados retornados da API:", data);
@@ -148,7 +158,7 @@
                         <p><strong>Mãe:</strong> ${resultado.mãe}</p>
                         <p><strong>Pai:</strong> ${resultado.pai}</p>
                         <p><strong>Score CSB8:</strong> ${resultado['score csb8']} (${resultado['score csb8 faixa']})</p>
-                        <p><strong>Score CSBA:</strong> ${resultado.score csba}</p>
+                        <p><strong>Score CSBA:</strong> ${resultado['score csba']}</p>
                         <p><strong>Poder Aquisitivo:</strong> ${resultado['poder aquisitivo']}</p>
                         <p><strong>Renda Poder Aquisitivo:</strong> ${resultado['renda poder aquisitivo']}</p>
                         <p><strong>Faixa Poder Aquisitivo:</strong> ${resultado['faixa poder aquisitivo']}</p>
@@ -169,7 +179,6 @@
                     resultadoDiv.innerHTML = `<p class="error">❌ Nenhuma informação encontrada para o CPF ${cpf}.</p>`;
                 }
             } catch (error) {
-                console.error("Erro na consulta:", error);
                 resultadoDiv.innerHTML = `<p class="error">⚠️ Não foi possível completar a consulta. Verifique sua conexão ou tente novamente mais tarde.</p>`;
             }
         }
