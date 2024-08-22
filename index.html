@@ -200,7 +200,7 @@
                     resultadoDiv.innerHTML = `❌ Nenhuma informação encontrada para o CPF ${cpf}.`;
                 }
             } catch (error) {
-                console.error("Erro na consulta:", error);
+                console.error("Erro na consulta:", error.response ? error.response.data : error.message);
                 resultadoDiv.innerHTML = `⚠️ Não foi possível completar a consulta. Verifique sua conexão ou tente novamente mais tarde.`;
             }
         }
