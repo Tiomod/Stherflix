@@ -48,11 +48,22 @@ h2 {
     text-align: center;
 }
 
-.grid img {
-    width: 100%;
-    height: auto;
+.verified {
+    color: green;
+    font-weight: bold;
 }
 
-.grid h3 {
-    margin: 10px 0;
+.banned {
+    color: red;
+    font-weight: bold;
+}
+
+footer {
+    text-align: center;
+    padding: 10px;
+    background-color: #333;
+    color: #fff;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
 }
