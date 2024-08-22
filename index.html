@@ -1,212 +1,74 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Amizades Online</title>
+    <title>Chat Mundial</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f4;
-            color: #333;
-        }
-
-        header {
-            background-color: #333;
-            color: #fff;
-            padding: 10px 0;
-            text-align: center;
-        }
-
-        nav ul {
-            list-style: none;
-            padding: 0;
             display: flex;
             justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f4f4f9;
         }
-
-        nav ul li {
-            margin: 0 15px;
-        }
-
-        nav ul li a {
-            color: #fff;
-            text-decoration: none;
-        }
-
-        h2 {
-            margin-top: 20px;
-            text-align: center;
-        }
-
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-            padding: 20px;
-        }
-
-        .grid div {
-            background-color: #fff;
-            padding: 15px;
-            border: 1px solid #ddd;
-            text-align: center;
-        }
-
-        .verified {
-            color: green;
-            font-weight: bold;
-        }
-
-        .banned {
-            color: red;
-            font-weight: bold;
-        }
-
-        .admin-panel {
-            display: none;
-        }
-
-        footer {
-            text-align: center;
-            padding: 10px;
-            background-color: #333;
-            color: #fff;
-            position: fixed;
+        .container {
             width: 100%;
-            bottom: 0;
+            max-width: 600px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
         }
-
-        .symbol-verified::after {
-            content: ' ✔️';
-            color: blue;
+        #chat {
+            border-bottom: 1px solid #ddd;
+            padding: 20px;
+            height: 300px;
+            overflow-y: scroll;
+            background: #fafafa;
+            flex-grow: 1;
         }
-
-        .symbol-banned::after {
-            content: ' 🚫';
-            color: red;
+        #message {
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 10px;
+            margin: 10px;
+            width: calc(100% - 80px);
+            box-sizing: border-box;
+        }
+        #send {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            padding: 10px;
+            margin: 10px;
+            width: 70px;
+            cursor: pointer;
+        }
+        #send:hover {
+            background-color: #0056b3;
+        }
+        h1 {
+            margin: 20px;
+            text-align: center;
+            color: #333;
         }
     </style>
 </head>
 <body>
-    <header>
-        <h1>Plataforma de Amizades</h1>
-        <nav>
-            <ul>
-                <li><a href="#home">Home</a></li>
-                <li><a href="#users">Usuários</a></li>
-                <li><a href="#admin">Admin</a></li>
-            </ul>
-        </nav>
-    </header>
-
-    <section id="home">
-        <h2>Bem-vindo à Plataforma de Amizades</h2>
-        <p>Conecte-se com novos amigos! Verifique sua conta para ganhar o selo de verificação e mantenha-se dentro das regras para evitar banimentos.</p>
-    </section>
-
-    <section id="users">
-        <h2>Usuários</h2>
-        <div id="user-list" class="grid"></div>
-    </section>
-
-    <section id="admin" class="admin-panel">
-        <h2>Painel Administrativo</h2>
-        <div id="admin-panel">
-            <p>Selecione um usuário para verificar ou banir.</p>
-            <div id="user-select"></div>
-            <button onclick="verifyUser()">Verificar Usuário</button>
-            <button onclick="banUser()">Banir Usuário</button>
+    <div class="container">
+        <h1>Chat Mundial</h1>
+        <div id="chat"></div>
+        <div style="display: flex; justify-content: space-between; padding: 10px;">
+            <input type="text" id="message" placeholder="Digite sua mensagem..." />
+            <button id="send">Enviar</button>
         </div>
-    </section>
-
-    <footer>
-        <p>&copy; 2024 Plataforma de Amizades. Todos os direitos reservados.</p>
-    </footer>
-
-    <script>
-        const myIp = "89.114.110.54";
-        let currentIp = ""; // Aqui você precisaria de um backend para pegar o IP real do usuário.
-
-        // Simulação de usuários e seu status
-        let users = [
-            { id: 1, name: "Carlos", verified: false, banned: false },
-            { id: 2, name: "Ana", verified: true, banned: false },
-            { id: 3, name: "Beatriz", verified: false, banned: true },
-            { id: 4, name: "Pedro", verified: false, banned: false },
-        ];
-
-        // Simula a obtenção do IP atual
-        function getCurrentIp() {
-            // Em um site real, você usaria um serviço de backend para obter o IP real do usuário.
-            return "89.114.110.54"; // Simulação para testes.
-        }
-
-        function checkAdminPanel() {
-            currentIp = getCurrentIp();
-            if (currentIp === myIp) {
-                document.querySelector('.admin-panel').style.display = 'block';
-            }
-        }
-
-        // Função para renderizar a lista de usuários
-        function renderUserList() {
-            const userList = document.getElementById('user-list');
-            userList.innerHTML = '';
-            users.forEach(user => {
-                const userDiv = document.createElement('div');
-                userDiv.className = user.banned ? 'banned symbol-banned' : (user.verified ? 'verified symbol-verified' : '');
-                userDiv.innerHTML = `
-                    <h3>${user.name}</h3>
-                `;
-                userList.appendChild(userDiv);
-            });
-
-            renderAdminUserSelect();
-        }
-
-        // Função para renderizar a lista de usuários no painel admin
-        function renderAdminUserSelect() {
-            const userSelect = document.getElementById('user-select');
-            userSelect.innerHTML = '<select id="user-select-input"></select>';
-            const selectInput = document.getElementById('user-select-input');
-            users.forEach(user => {
-                const option = document.createElement('option');
-                option.value = user.id;
-                option.text = user.name;
-                selectInput.appendChild(option);
-            });
-        }
-
-        // Função para verificar usuário
-        function verifyUser() {
-            const userId = document.getElementById('user-select-input').value;
-            const user = users.find(u => u.id == userId);
-            if (user) {
-                user.verified = true;
-                alert(`${user.name} foi verificado!`);
-                renderUserList();
-            }
-        }
-
-        // Função para banir usuário
-        function banUser() {
-            const userId = document.getElementById('user-select-input').value;
-            const user = users.find(u => u.id == userId);
-            if (user) {
-                user.banned = true;
-                alert(`${user.name} foi banido permanentemente!`);
-                renderUserList();
-            }
-        }
-
-        // Carregar a lista de usuários na inicialização e verificar o painel admin
-        document.addEventListener('DOMContentLoaded', () => {
-            checkAdminPanel();
-            renderUserList();
-        });
-    </script>
+    </div>
+    <script src="chat.js"></script>
 </body>
 </html>
