@@ -3,185 +3,77 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Consulta de CPF</title>
+    <title>Chat GPT Simples</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #1c1c1c;
-            color: #00ff00; /* Texto verde neon */
-            margin: 0;
-            padding: 20px;
             display: flex;
-            justify-content: center;
-            align-items: center;
+            flex-direction: column;
             height: 100vh;
-            overflow: hidden;
+            margin: 0;
+            background-color: #f5f5f5;
         }
-
-        .container {
-            background-color: #333;
-            border-radius: 10px;
-            padding: 20px;
-            box-shadow: 0 0 15px rgba(0, 255, 0, 0.5);
+        .chat-container {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
             max-width: 600px;
-            text-align: center;
+            margin: auto;
+            border: 1px solid #ddd;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
         }
-
-        h1 {
-            color: #00ff00;
-            font-size: 24px;
-            margin-bottom: 20px;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 10px;
-            font-weight: bold;
-            color: #00ff00;
-        }
-
-        input[type="text"] {
-            width: 100%;
+        .chat-box {
+            flex: 1;
             padding: 10px;
-            margin-bottom: 20px;
-            border: 2px solid #00ff00;
-            border-radius: 8px;
-            background-color: #222;
-            color: #fff;
+            overflow-y: auto;
+            border-bottom: 1px solid #ddd;
         }
-
-        button {
-            padding: 10px 20px;
-            background-color: #00ff00;
-            border: none;
+        .chat-message {
+            margin: 5px 0;
+            padding: 10px;
             border-radius: 5px;
-            color: #000;
-            cursor: pointer;
-            font-weight: bold;
-            transition: background-color 0.3s;
         }
-
-        button:hover {
-            background-color: #00cc00;
+        .user-message {
+            background-color: #e1ffc7;
+            text-align: right;
         }
-
-        #resultado {
-            margin-top: 20px;
-            font-size: 16px;
-            color: #00ff00;
+        .gpt-message {
+            background-color: #f0f0f0;
             text-align: left;
         }
-
-        .error {
-            color: #ff0000;
+        .input-container {
+            display: flex;
+        }
+        .input-container input {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            border-top: 1px solid #ddd;
+            border-radius: 0 0 0 5px;
+            outline: none;
+        }
+        .input-container button {
+            padding: 10px;
+            border: none;
+            border-top: 1px solid #ddd;
+            background-color: #007bff;
+            color: #fff;
+            border-radius: 0 0 5px 0;
+            cursor: pointer;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>🔍 Consulta de CPF</h1>
-        <form id="cpfForm">
-            <label for="cpfInput">Digite o CPF:</label>
-            <input type="text" id="cpfInput" placeholder="123.456.789-00" required>
-            <label for="keyInput">Digite a Key:</label>
-            <input type="text" id="keyInput" placeholder="Sua chave de acesso" required>
-            <button type="button" onclick="consultarCPF()">Consultar</button>
-        </form>
-        <div id="resultado"></div>
+    <div class="chat-container">
+        <div class="chat-box" id="chat-box">
+            <!-- Mensagens vão aparecer aqui -->
+        </div>
+        <div class="input-container">
+            <input type="text" id="message-input" placeholder="Digite uma mensagem...">
+            <button id="send-button">Enviar</button>
+        </div>
     </div>
-
-    <script>
-        // Função personalizada fetchJson
-        async function fetchJson(url) {
-            try {
-                const response = await fetch(url);
-
-                // Verifica se a resposta é bem-sucedida
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-
-                // Obtém os dados da resposta como JSON
-                return await response.json();
-            } catch (error) {
-                console.error("Erro na requisição:", error);
-                throw error;
-            }
-        }
-
-        async function consultarCPF() {
-            const cpf = document.getElementById("cpfInput").value.replace(/\D/g, "");
-            const key = document.getElementById("keyInput").value;
-            const resultadoDiv = document.getElementById("resultado");
-
-            // Validações de entrada
-            if (cpf.length !== 11) {
-                resultadoDiv.innerHTML = '<p class="error">❌ CPF INVÁLIDO! Informe os 11 dígitos do CPF.</p>';
-                return;
-            }
-            
-            if (!key) {
-                resultadoDiv.innerHTML = '<p class="error">🔑 KEY NÃO INSERIDA! Informe sua chave de Acesso.</p>';
-                return;
-            }
-
-            // Exibindo um loading enquanto processa
-            resultadoDiv.innerHTML = "⏳ Consultando CPF...";
-
-            // Ajuste na URL de consulta
-            const apiUrl = `https://venomweb.site/api/consultas/cpf/query=${cpf}?apikey=${key}`;
-
-            try {
-                // Usando fetchJson para fazer a requisição
-                const data = await fetchJson(apiUrl);
-
-                // Exibe os dados no console para depuração
-                console.log("Dados retornados da API:", data);
-
-                const { resultado } = data;
-
-                // Verifica se a resposta contém o campo `resultado` com os detalhes
-                if (resultado) {
-                    resultadoDiv.innerHTML = `
-                        <h2>Detalhes do CPF ${resultado.cpf}</h2>
-                        <p><strong>Nome:</strong> ${resultado.nome}</p>
-                        <p><strong>Situação:</strong> ${resultado.situação}</p>
-                        <p><strong>RG:</strong> ${resultado.rg}</p>
-                        <p><strong>CNS:</strong> ${resultado.cns}</p>
-                        <p><strong>Sexo:</strong> ${resultado.sexo}</p>
-                        <p><strong>Data de Nascimento:</strong> ${resultado.nascimento}</p>
-                        <p><strong>Raça/Cor:</strong> ${resultado['raça/cor']}</p>
-                        <p><strong>Óbito:</strong> ${resultado.obito}</p>
-                        <p><strong>Data de Óbito:</strong> ${resultado['data de obito']}</p>
-                        <p><strong>Estado Civil:</strong> ${resultado['estado civil']}</p>
-                        <p><strong>Nacionalidade:</strong> ${resultado.nacionalidade}</p>
-                        <p><strong>Mãe:</strong> ${resultado.mãe}</p>
-                        <p><strong>Pai:</strong> ${resultado.pai}</p>
-                        <p><strong>Score CSB8:</strong> ${resultado['score csb8']} (${resultado['score csb8 faixa']})</p>
-                        <p><strong>Score CSBA:</strong> ${resultado['score csba']}</p>
-                        <p><strong>Poder Aquisitivo:</strong> ${resultado['poder aquisitivo']}</p>
-                        <p><strong>Renda Poder Aquisitivo:</strong> ${resultado['renda poder aquisitivo']}</p>
-                        <p><strong>Faixa Poder Aquisitivo:</strong> ${resultado['faixa poder aquisitivo']}</p>
-                        <p><strong>Renda:</strong> ${resultado.renda}</p>
-                        <p><strong>Profissão:</strong> ${resultado.profissao}</p>
-                        <p><strong>Escolaridade:</strong> ${resultado.escolaridade}</p>
-                        <p><strong>Parentesco:</strong> ${resultado.parentesco}</p>
-                        <p><strong>Instituição Bancária:</strong> ${resultado['instituição bancária']}</p>
-                        <p><strong>Cód. Agência:</strong> ${resultado['cód. agencia']}</p>
-                        <p><strong>Lote:</strong> ${resultado.lote}</p>
-                        <p><strong>Situação Receita Federal:</strong> ${resultado['sit. receita federal']}</p>
-                        <p><strong>Razão Social:</strong> ${resultado['razão social']}</p>
-                        <p><strong>CNPJ:</strong> ${resultado.cnpj}</p>
-                        <p><strong>Data de Admissão:</strong> ${resultado['data adimissão']}</p>
-                        <p><strong>Data de Desligamento:</strong> ${resultado['data desligamento']}</p>
-                    `;
-                } else {
-                    resultadoDiv.innerHTML = `<p class="error">❌ Nenhuma informação encontrada para o CPF ${cpf}.</p>`;
-                }
-            } catch (error) {
-                resultadoDiv.innerHTML = `<p class="error">⚠️ Não foi possível completar a consulta. Verifique sua conexão ou tente novamente mais tarde.</p>`;
-            }
-        }
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
