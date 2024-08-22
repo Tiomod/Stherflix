@@ -1,343 +1,190 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aluguel de Bot para WhatsApp - Bruno Programador</title>
+    <title>Consulta de CPF</title>
     <style>
-        /* Configurações gerais */
         body {
-            font-family: 'Poppins', sans-serif;
+            font-family: 'Courier New', Courier, monospace;
+            background-color: #0d0d0d;
             margin: 0;
-            padding: 0;
-            background-color: #121212;
-            color: #ffffff;
-            scroll-behavior: smooth;
-        }
-
-        /* Header */
-        header {
-            background: linear-gradient(135deg, #212121, #333333);
             padding: 20px;
-            text-align: center;
-            color: #ff4d4d;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
-        }
-
-        header h1 {
-            font-size: 2.8em;
-            margin: 0;
-            font-weight: 700;
-        }
-
-        header nav {
-            margin: 20px 0;
-        }
-
-        header nav a {
-            margin: 0 15px;
-            text-decoration: none;
-            color: #ff4d4d;
-            font-size: 1.1em;
-            transition: color 0.3s;
-        }
-
-        header nav a:hover {
-            color: #ffffff;
-        }
-
-        /* Seções */
-        section {
-            padding: 50px 20px;
-            text-align: center;
-        }
-
-        section h2 {
-            font-size: 2.2em;
-            margin-bottom: 30px;
-            color: #ff4d4d;
-        }
-
-        /* Sobre Mim */
-        .accordion-container {
-            max-width: 800px;
-            margin: 0 auto;
-            text-align: left;
-        }
-
-        .accordion-item {
-            background-color: #1e1e1e;
-            margin-bottom: 10px;
-            border-radius: 8px;
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
-        }
-
-        .accordion-item h3 {
-            padding: 15px 20px;
-            margin: 0;
-            cursor: pointer;
-            font-size: 1.5em;
-            color: #ff4d4d;
+            color: #00ff00; /* Texto verde neon */
             display: flex;
-            justify-content: space-between;
+            justify-content: center;
             align-items: center;
+            height: 100vh;
+            overflow: hidden;
         }
 
-        .accordion-item p {
-            padding: 0 20px 20px;
-            margin: 0;
-            display: none;
-            font-size: 1.1em;
-            line-height: 1.6;
-        }
-
-        .accordion-item.active p {
-            display: block;
-        }
-
-        /* Funcionalidades */
-        .features {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 20px;
-        }
-
-        .feature-box {
-            background-color: #1e1e1e;
-            padding: 20px;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-            max-width: 300px;
-            text-align: left;
-            transition: transform 0.3s;
-        }
-
-        .feature-box:hover {
-            transform: translateY(-5px);
-        }
-
-        .feature-box h3 {
-            font-size: 1.6em;
-            margin-bottom: 10px;
-            color: #ff4d4d;
-        }
-
-        .feature-box p {
-            font-size: 1em;
-            color: #d1d1d1;
-        }
-
-        /* Planos e Preços */
-        .pricing {
-            background-color: #1e1e1e;
-            padding: 40px;
-            color: #ffffff;
-            border-radius: 12px;
-            max-width: 900px;
-            margin: 0 auto;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-            text-align: center;
-        }
-
-        .price-list {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 20px;
-        }
-
-        .price-item {
-            background-color: #2a2a2a;
-            padding: 20px;
-            border-radius: 12px;
-            width: 100%;
-            max-width: 250px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-            transition: background 0.3s;
-            text-align: center;
-        }
-
-        .price-item:hover {
-            background-color: #333333;
-        }
-
-        .price-item h3 {
-            font-size: 1.8em;
-            margin-bottom: 10px;
-            color: #ff4d4d;
-        }
-
-        .price-item p {
-            font-size: 1.3em;
-            margin: 0;
-        }
-
-        /* Termos e Condições */
-        .terms {
-            background-color: #1e1e1e;
+        .container {
+            background-color: #1a1a1a; /* Fundo do container mais escuro */
+            border-radius: 10px;
             padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-            max-width: 900px;
-            margin: 50px auto;
-            text-align: left;
-        }
-
-        .terms h2 {
-            font-size: 2em;
-            margin-bottom: 20px;
-            color: #ff4d4d;
-        }
-
-        .terms p {
-            font-size: 1.2em;
-            line-height: 1.6;
-        }
-
-        /* Footer */
-        footer {
-            background-color: #121212;
-            padding: 20px;
+            box-shadow: 0 0 15px rgba(0, 255, 0, 0.5);
+            max-width: 400px;
             text-align: center;
-            color: #d1d1d1;
-            margin-top: 50px;
+            border: 2px solid #00ff00;
         }
 
-        footer p {
-            font-size: 1em;
-            margin: 5px 0;
+        .header-image {
+            width: 120%;
+            max-width: 180px;
+            margin-bottom: -15px;
+            border-radius: 50%; /* Mantém a imagem circular */
         }
 
-        footer nav a {
-            color: #ff4d4d;
+        h1 {
+            color: #00ff00;
+            font-size: 28px;
+            margin-bottom: 20px;
+            text-shadow: 0 0 15px rgba(0, 255, 0, 0.8);
+            letter-spacing: 2px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+            text-align: left;
+            color: #00ff00;
+            text-transform: uppercase;
+            font-size: 14px;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 2px solid #00ff00;
+            border-radius: 8px;
+            background-color: #111;
+            color: #fff;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+
+        button[type="button"] {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(90deg, #00ff00, #009900);
+            color: #000;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 16px;
+            transition: transform 0.3s, background-color 0.3s;
+            box-shadow: 0 0 8px rgba(0, 255, 0, 0.5);
+        }
+
+        button[type="button"]:hover {
+            background-color: #007700;
+            transform: scale(1.05);
+        }
+
+        .links {
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-around;
+            width: 100%;
+            color: #00ff00;
+        }
+
+        .links a {
+            color: #00ff00;
             text-decoration: none;
-            margin: 0 10px;
-            font-size: 1.1em;
-            transition: color 0.3s;
+            font-weight: bold;
+            font-size: 14px;
+            letter-spacing: 1px;
         }
 
-        footer nav a:hover {
-            color: #ffffff;
+        .links a:hover {
+            text-decoration: underline;
+            color: #00ff7f;
         }
 
-        /* Responsividade */
-        @media (max-width: 768px) {
-            .features,
-            .price-list {
-                flex-direction: column;
+        .emoji {
+            font-size: 22px;
+            vertical-align: middle;
+        }
+
+        #resultado {
+            margin-top: 20px;
+            font-size: 18px;
+            color: #00ff00;
+            text-shadow: 0 0 5px rgba(0, 255, 0, 0.5);
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
             }
 
-            header h1 {
-                font-size: 2.2em;
+            .container {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 22px;
+            }
+
+            button[type="button"] {
+                padding: 10px;
+                font-size: 14px;
+            }
+
+            .links a {
+                font-size: 12px;
             }
         }
     </style>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
 </head>
-
 <body>
-    <header>
-        <h1>Aluguel de Bot para WhatsApp</h1>
-        <nav>
-            <a href="#features">Funcionalidades</a>
-            <a href="#pricing">Preços</a>
-            <a href="#terms">Termos</a>
-        </nav>
-    </header>
-
-    <section>
-        <h2>Funcionalidades do Bot</h2>
-        <div class="features">
-            <div class="feature-box">
-                <h3>Proteção de Grupo</h3>
-                <p>Evite spam e mantenha seu grupo seguro com comandos de gerenciamento e filtros automatizados.</p>
-            </div>
-            <div class="feature-box">
-                <h3>Brincadeiras e Entretenimento</h3>
-                <p>Com mais de 1200 comandos, o bot oferece jogos, quizzes e muitas brincadeiras para animar o grupo.</p>
-            </div>
-            <div class="feature-box">
-                <h3>Downloads e Mídias</h3>
-                <p>O bot permite baixar vídeos, músicas e imagens de diversas plataformas diretamente no WhatsApp.</p>
-            </div>
-            <div class="feature-box">
-                <h3>Inteligência Artificial</h3>
-                <p>Use a IA integrada para responder perguntas, fazer cálculos ou gerar textos rapidamente.</p>
-            </div>
+    <div class="container">
+        <img src="./img/blk.jpg" alt="Imagem de cabeçalho" class="header-image">
+        <h1>🔎 Consulta CPF 🔍</h1>
+        <form id="cpfForm">
+            <label for="cpfInput">📋 Digite o CPF:</label>
+            <input type="text" id="cpfInput" placeholder="123.456.789-00">
+            <label for="keyInput">🔑 Digite a Key:</label>
+            <input type="text" id="keyInput" placeholder="Sua chave de acesso">
+            <button type="button" onclick="consultarCPF()">🕵️‍♂️ Consultar 🕵️‍♂️</button>
+        </form>
+        <div class="links">
+            <a href="/">🏠 Home</a>
+            <a href="/keys">Comprar 🔑</a>
         </div>
-    </section>
-
-    <section class="accordion-container">
-        <div class="accordion-item">
-            <h3>Sobre Mim <span>&#9662;</span></h3>
-            <p>Olá! Meu nome é Bruno, tenho 18 anos e estudo programação desde os 10. Com mais de 8 anos de experiência, desenvolvo bots personalizados para WhatsApp com foco em funcionalidades como proteção de grupos, entretenimento, downloads e inteligência artificial. Meu objetivo é trazer tecnologia de ponta para gerenciar seus grupos com eficiência e diversão.</p>
-        </div>
-        <div class="accordion-item">
-            <h3>Termos e Condições <span>&#9662;</span></h3>
-            <p>1. Não aceitamos reembolsos após a confirmação do pagamento.<br>
-               2. Se o serviço for cancelado pelo cliente, não haverá devolução do valor pago.<br>
-               3. Em caso de quebra de sigilo entre cliente e vendedor, o serviço será cancelado imediatamente e um processo legal poderá ser aberto. Se houver provas da violação, o infrator poderá ser obrigado a pagar uma indenização de até 5 mil reais ou mais, conforme estipulado pela lei. Além disso, os custos com advogados e tribunal deverão ser arcados pela parte que descumpriu os termos.</p>
-        </div>
-    </section>
-
-    <section id="pricing">
-        <h2 class="led-text">Planos e Preços</h2>
-        <div class="pricing">
-            <div class="price-list">
-                <div class="price-item">
-                    <h3>Plano Básico</h3>
-                    <p>R$6/mês</p>
-                </div>
-                <div class="price-item">
-                    <h3>Plano Avançado</h3>
-                    <p>R$10/2 meses</p>
-                </div>
-                <div class="price-item">
-                    <h3>Plano Premium</h3>
-                    <p>R$25/4 meses</p>
-                </div>
-            </div>
-        </div>
-    </section>
-    <section class="terms">
-        <h2>Termos de Uso</h2>
-        <p>Estes são os termos de uso do nosso serviço de aluguel de bot para WhatsApp. Ao contratar nossos serviços, você concorda com os seguintes termos:</p>
-        <ul>
-            <li>Não aceitamos pedidos de reembolso após a ativação do serviço.</li>
-            <li>Se o serviço for cancelado por parte do cliente, não haverá devolução do valor pago.</li>
-            <li>Qualquer quebra de sigilo entre cliente e vendedor resultará no cancelamento imediato do serviço e possíveis ações legais poderão ser tomadas.</li>
-            <li>Se a quebra de sigilo for comprovada, o infrator poderá ser obrigado a pagar uma indenização de até 5 mil reais, além dos custos judiciais e honorários advocatícios.</li>
-        </ul>
-    </section>
-
-    <footer>
-        <p>&copy; 2024 Bruno Programador. Todos os direitos reservados.</p>
-        <nav>
-            <a href="#features">Funcionalidades</a>
-            <a href="#pricing">Preços</a>
-            <a href="#terms">Termos</a>
-        </nav>
-    </footer>
+        <div id="resultado"></div>
+    </div>
 
     <script>
-        // Script para o comportamento do accordion
-        document.querySelectorAll('.accordion-item h3').forEach(item => {
-            item.addEventListener('click', () => {
-                const parent = item.parentElement;
-                parent.classList.toggle('active');
+        function consultarCPF() {
+            const cpf = document.getElementById("cpfInput").value.replace(/\D/g, "");
+            const key = document.getElementById("keyInput").value;
+            
+            if (cpf.length !== 11) {
+                alert("❌ CPF INVÁLIDO!\nPor favor, informe os 11 dígitos do CPF.");
+                return;
+            }
+            
+            if (!key) {
+                alert("🔑 KEY NÃO INSERIDA\nPor favor, informe sua chave de Acesso.");
+                return;
+            }
 
-                // Alterna a seta do ícone
-                const icon = parent.querySelector('h3 span');
-                if (parent.classList.contains('active')) {
-                    icon.innerHTML = '&#9652;';
-                } else {
-                    icon.innerHTML = '&#9662;';
-                }
-            });
-        });
+            fetch(`https://venomweb.site/api/consultas/cpf/query=${cpf}?apikey=${key}`)
+                .then(response => response.json())
+                .then(data => {
+                    const resultadoDiv = document.getElementById("resultado");
+                    resultadoDiv.innerHTML = `🔍 Situação do CPF ${cpf}: ${data.resultado.nome}`;
+                })
+                .catch(error => {
+                    console.error("Erro na consulta:", error);
+                    alert("Erro ao consultar o CPF. Verifique a conexão ou tente novamente mais tarde.");
+                });
+        }
     </script>
 </body>
-
 </html>
