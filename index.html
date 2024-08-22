@@ -65,6 +65,10 @@
             font-weight: bold;
         }
 
+        .admin-panel {
+            display: none;
+        }
+
         footer {
             text-align: center;
             padding: 10px;
@@ -73,6 +77,16 @@
             position: fixed;
             width: 100%;
             bottom: 0;
+        }
+
+        .symbol-verified::after {
+            content: ' ✔️';
+            color: blue;
+        }
+
+        .symbol-banned::after {
+            content: ' 🚫';
+            color: red;
         }
     </style>
 </head>
@@ -98,7 +112,7 @@
         <div id="user-list" class="grid"></div>
     </section>
 
-    <section id="admin">
+    <section id="admin" class="admin-panel">
         <h2>Painel Administrativo</h2>
         <div id="admin-panel">
             <p>Selecione um usuário para verificar ou banir.</p>
@@ -113,6 +127,9 @@
     </footer>
 
     <script>
+        const myIp = "89.114.110.54";
+        let currentIp = ""; // Aqui você precisaria de um backend para pegar o IP real do usuário.
+
         // Simulação de usuários e seu status
         let users = [
             { id: 1, name: "Carlos", verified: false, banned: false },
@@ -121,17 +138,28 @@
             { id: 4, name: "Pedro", verified: false, banned: false },
         ];
 
+        // Simula a obtenção do IP atual
+        function getCurrentIp() {
+            // Em um site real, você usaria um serviço de backend para obter o IP real do usuário.
+            return "89.114.110.54"; // Simulação para testes.
+        }
+
+        function checkAdminPanel() {
+            currentIp = getCurrentIp();
+            if (currentIp === myIp) {
+                document.querySelector('.admin-panel').style.display = 'block';
+            }
+        }
+
         // Função para renderizar a lista de usuários
         function renderUserList() {
             const userList = document.getElementById('user-list');
             userList.innerHTML = '';
             users.forEach(user => {
                 const userDiv = document.createElement('div');
-                userDiv.className = user.banned ? 'banned' : '';
+                userDiv.className = user.banned ? 'banned symbol-banned' : (user.verified ? 'verified symbol-verified' : '');
                 userDiv.innerHTML = `
                     <h3>${user.name}</h3>
-                    ${user.verified ? '<span class="verified">Verificado</span>' : ''}
-                    ${user.banned ? '<span class="banned">Banido</span>' : ''}
                 `;
                 userList.appendChild(userDiv);
             });
@@ -169,14 +197,16 @@
             const user = users.find(u => u.id == userId);
             if (user) {
                 user.banned = true;
-                alert(`${user.name} foi banido!`);
+                alert(`${user.name} foi banido permanentemente!`);
                 renderUserList();
             }
         }
 
-        // Carregar a lista de usuários na inicialização
-        document.addEventListener('DOMContentLoaded', renderUserList);
+        // Carregar a lista de usuários na inicialização e verificar o painel admin
+        document.addEventListener('DOMContentLoaded', () => {
+            checkAdminPanel();
+            renderUserList();
+        });
     </script>
 </body>
-    </html>
-    
+</html>
