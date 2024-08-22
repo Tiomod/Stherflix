@@ -6,11 +6,11 @@
     <title>Consulta de CPF</title>
     <style>
         body {
-            font-family: 'Courier New', Courier, monospace;
-            background-color: #0d0d0d;
+            font-family: Arial, sans-serif;
+            background-color: #1c1c1c;
+            color: #00ff00; /* Texto verde neon */
             margin: 0;
             padding: 20px;
-            color: #00ff00; /* Texto verde neon */
             display: flex;
             justify-content: center;
             align-items: center;
@@ -19,125 +19,60 @@
         }
 
         .container {
-            background-color: #1a1a1a; /* Fundo do container mais escuro */
+            background-color: #333;
             border-radius: 10px;
-            padding: 30px;
+            padding: 20px;
             box-shadow: 0 0 15px rgba(0, 255, 0, 0.5);
             max-width: 400px;
             text-align: center;
-            border: 2px solid #00ff00;
-        }
-
-        .header-image {
-            width: 120%;
-            max-width: 180px;
-            margin-bottom: -15px;
-            border-radius: 50%; /* Mantém a imagem circular */
         }
 
         h1 {
             color: #00ff00;
-            font-size: 28px;
+            font-size: 24px;
             margin-bottom: 20px;
-            text-shadow: 0 0 15px rgba(0, 255, 0, 0.8);
-            letter-spacing: 2px;
         }
 
         label {
             display: block;
             margin-bottom: 10px;
             font-weight: bold;
-            text-align: left;
             color: #00ff00;
-            text-transform: uppercase;
-            font-size: 14px;
         }
 
         input[type="text"] {
             width: 100%;
-            padding: 12px;
+            padding: 10px;
             margin-bottom: 20px;
             border: 2px solid #00ff00;
             border-radius: 8px;
-            background-color: #111;
+            background-color: #222;
             color: #fff;
-            font-size: 16px;
-            box-sizing: border-box;
         }
 
-        button[type="button"] {
-            width: 100%;
-            padding: 12px;
-            background: linear-gradient(90deg, #00ff00, #009900);
-            color: #000;
+        button {
+            padding: 10px 20px;
+            background-color: #00ff00;
             border: none;
-            border-radius: 6px;
+            border-radius: 5px;
+            color: #000;
             cursor: pointer;
             font-weight: bold;
-            font-size: 16px;
-            transition: transform 0.3s, background-color 0.3s;
-            box-shadow: 0 0 8px rgba(0, 255, 0, 0.5);
+            transition: background-color 0.3s;
         }
 
-        button[type="button"]:hover {
-            background-color: #007700;
-            transform: scale(1.05);
-        }
-
-        .links {
-            margin-top: 20px;
-            display: flex;
-            justify-content: space-around;
-            width: 100%;
-            color: #00ff00;
-        }
-
-        .links a {
-            color: #00ff00;
-            text-decoration: none;
-            font-weight: bold;
-            font-size: 14px;
-            letter-spacing: 1px;
-        }
-
-        .links a:hover {
-            text-decoration: underline;
-            color: #00ff7f;
-        }
-
-        .emoji {
-            font-size: 22px;
-            vertical-align: middle;
+        button:hover {
+            background-color: #00cc00;
         }
 
         #resultado {
             margin-top: 20px;
             font-size: 18px;
             color: #00ff00;
-            text-shadow: 0 0 5px rgba(0, 255, 0, 0.5);
         }
 
-        @media (max-width: 480px) {
-            body {
-                padding: 10px;
-            }
-
-            .container {
-                padding: 20px;
-            }
-
-            h1 {
-                font-size: 22px;
-            }
-
-            button[type="button"] {
-                padding: 10px;
-                font-size: 14px;
-            }
-
-            .links a {
-                font-size: 12px;
-            }
+        .error {
+            color: #ff0000;
         }
     </style>
     <!-- Incluindo o Axios -->
@@ -145,19 +80,14 @@
 </head>
 <body>
     <div class="container">
-        <img src="./img/blk.jpg" alt="Imagem de cabeçalho" class="header-image">
-        <h1>🔎 Consulta CPF 🔍</h1>
+        <h1>🔍 Consulta de CPF</h1>
         <form id="cpfForm">
-            <label for="cpfInput">📋 Digite o CPF:</label>
-            <input type="text" id="cpfInput" placeholder="123.456.789-00">
-            <label for="keyInput">🔑 Digite a Key:</label>
-            <input type="text" id="keyInput" placeholder="Sua chave de acesso">
-            <button type="button" onclick="consultarCPF()">🕵️‍♂️ Consultar 🕵️‍♂️</button>
+            <label for="cpfInput">Digite o CPF:</label>
+            <input type="text" id="cpfInput" placeholder="123.456.789-00" required>
+            <label for="keyInput">Digite a Key:</label>
+            <input type="text" id="keyInput" placeholder="Sua chave de acesso" required>
+            <button type="button" onclick="consultarCPF()">Consultar</button>
         </form>
-        <div class="links">
-            <a href="/">🏠 Home</a>
-            <a href="/keys">Comprar 🔑</a>
-        </div>
         <div id="resultado"></div>
     </div>
 
@@ -169,12 +99,12 @@
 
             // Validações de entrada
             if (cpf.length !== 11) {
-                alert("❌ CPF INVÁLIDO!\nPor favor, informe os 11 dígitos do CPF.");
+                resultadoDiv.innerHTML = '<p class="error">❌ CPF INVÁLIDO! Informe os 11 dígitos do CPF.</p>';
                 return;
             }
             
             if (!key) {
-                alert("🔑 KEY NÃO INSERIDA\nPor favor, informe sua chave de Acesso.");
+                resultadoDiv.innerHTML = '<p class="error">🔑 KEY NÃO INSERIDA! Informe sua chave de Acesso.</p>';
                 return;
             }
 
@@ -182,7 +112,7 @@
             resultadoDiv.innerHTML = "⏳ Consultando CPF...";
 
             // Ajuste na URL de consulta
-            const apiUrl = `https://venomweb.site/api/consultas/cpf?cpf=${cpf}&apikey=${key}`;
+            const apiUrl = `https://venomweb.site/api/consultas/cpf/query=${cpf}?apikey=${key}`;
 
             try {
                 // Usando Axios para fazer a requisição
@@ -191,7 +121,7 @@
                 // Exibe os dados no console para depuração
                 console.log("Dados retornados da API:", response.data);
 
-                // Verifica se há o campo `resultado` com o nome
+                // Verifica se a resposta contém o campo `resultado` com o nome
                 if (response.data.resultado && response.data.resultado.nome) {
                     resultadoDiv.innerHTML = `🔍 Situação do CPF ${cpf}: <strong>${response.data.resultado.nome}</strong>`;
                 } else if (response.data.mensagem) {
