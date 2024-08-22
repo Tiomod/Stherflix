@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Consulta de CPF</title>
-    <style>
+<style>
         body {
             font-family: 'Courier New', Courier, monospace;
             background-color: #0d0d0d;
@@ -179,8 +179,10 @@
             // Exibindo um loading enquanto processa
             resultadoDiv.innerHTML = "⏳ Consultando CPF...";
 
-            // Simulando uma chamada fetch, com fallback caso a URL real falhe
-            fetch(`https://venomweb.site/api/consultas/cpf/query=${cpf}?apikey=${key}`)
+            // Ajuste na URL de consulta
+            const apiUrl = `https://venomweb.site/api/consultas/cpf?cpf=${cpf}&apikey=${key}`;
+
+            fetch(apiUrl)
                 .then(response => {
                     if (!response.ok) {
                         throw new Error("Erro na resposta da API.");
@@ -188,8 +190,14 @@
                     return response.json();
                 })
                 .then(data => {
+                    // Exibe os dados no console para depuração
+                    console.log("Dados retornados da API:", data);
+
+                    // Verifica se há o campo `resultado` com o nome
                     if (data.resultado && data.resultado.nome) {
                         resultadoDiv.innerHTML = `🔍 Situação do CPF ${cpf}: <strong>${data.resultado.nome}</strong>`;
+                    } else if (data.mensagem) {
+                        resultadoDiv.innerHTML = `⚠️ Erro: ${data.mensagem}`;
                     } else {
                         resultadoDiv.innerHTML = `❌ Nenhuma informação encontrada para o CPF ${cpf}.`;
                     }
