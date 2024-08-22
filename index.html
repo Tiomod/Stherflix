@@ -23,7 +23,7 @@
             border-radius: 10px;
             padding: 20px;
             box-shadow: 0 0 15px rgba(0, 255, 0, 0.5);
-            max-width: 400px;
+            max-width: 600px;
             text-align: center;
         }
 
@@ -67,8 +67,9 @@
 
         #resultado {
             margin-top: 20px;
-            font-size: 18px;
+            font-size: 16px;
             color: #00ff00;
+            text-align: left;
         }
 
         .error {
@@ -121,17 +122,49 @@
                 // Exibe os dados no console para depuração
                 console.log("Dados retornados da API:", response.data);
 
-                // Verifica se a resposta contém o campo `resultado` com o nome
-                if (response.data.resultado && response.data.resultado.nome) {
-                    resultadoDiv.innerHTML = `🔍 Situação do CPF ${cpf}: <strong>${response.data.resultado.nome}</strong>`;
-                } else if (response.data.mensagem) {
-                    resultadoDiv.innerHTML = `⚠️ Erro: ${response.data.mensagem}`;
+                const { resultado } = response.data;
+
+                // Verifica se a resposta contém o campo `resultado` com os detalhes
+                if (resultado) {
+                    resultadoDiv.innerHTML = `
+                        <h2>Detalhes do CPF ${resultado.cpf}</h2>
+                        <p><strong>Nome:</strong> ${resultado.nome}</p>
+                        <p><strong>Situação:</strong> ${resultado.situação}</p>
+                        <p><strong>RG:</strong> ${resultado.rg}</p>
+                        <p><strong>CNS:</strong> ${resultado.cns}</p>
+                        <p><strong>Sexo:</strong> ${resultado.sexo}</p>
+                        <p><strong>Data de Nascimento:</strong> ${resultado.nascimento}</p>
+                        <p><strong>Raça/Cor:</strong> ${resultado['raça/cor']}</p>
+                        <p><strong>Óbito:</strong> ${resultado.obito}</p>
+                        <p><strong>Data de Óbito:</strong> ${resultado['data de obito']}</p>
+                        <p><strong>Estado Civil:</strong> ${resultado['estado civil']}</p>
+                        <p><strong>Nacionalidade:</strong> ${resultado.nacionalidade}</p>
+                        <p><strong>Mãe:</strong> ${resultado.mãe}</p>
+                        <p><strong>Pai:</strong> ${resultado.pai}</p>
+                        <p><strong>Score CSB8:</strong> ${resultado['score csb8']} (${resultado['score csb8 faixa']})</p>
+                        <p><strong>Score CSBA:</strong> ${resultado.score csba}</p>
+                        <p><strong>Poder Aquisitivo:</strong> ${resultado['poder aquisitivo']}</p>
+                        <p><strong>Renda Poder Aquisitivo:</strong> ${resultado['renda poder aquisitivo']}</p>
+                        <p><strong>Faixa Poder Aquisitivo:</strong> ${resultado['faixa poder aquisitivo']}</p>
+                        <p><strong>Renda:</strong> ${resultado.renda}</p>
+                        <p><strong>Profissão:</strong> ${resultado.profissao}</p>
+                        <p><strong>Escolaridade:</strong> ${resultado.escolaridade}</p>
+                        <p><strong>Parentesco:</strong> ${resultado.parentesco}</p>
+                        <p><strong>Instituição Bancária:</strong> ${resultado['instituição bancária']}</p>
+                        <p><strong>Cód. Agência:</strong> ${resultado['cód. agencia']}</p>
+                        <p><strong>Lote:</strong> ${resultado.lote}</p>
+                        <p><strong>Situação Receita Federal:</strong> ${resultado['sit. receita federal']}</p>
+                        <p><strong>Razão Social:</strong> ${resultado['razão social']}</p>
+                        <p><strong>CNPJ:</strong> ${resultado.cnpj}</p>
+                        <p><strong>Data de Admissão:</strong> ${resultado['data adimissão']}</p>
+                        <p><strong>Data de Desligamento:</strong> ${resultado['data desligamento']}</p>
+                    `;
                 } else {
-                    resultadoDiv.innerHTML = `❌ Nenhuma informação encontrada para o CPF ${cpf}.`;
+                    resultadoDiv.innerHTML = `<p class="error">❌ Nenhuma informação encontrada para o CPF ${cpf}.</p>`;
                 }
             } catch (error) {
                 console.error("Erro na consulta:", error.response ? error.response.data : error.message);
-                resultadoDiv.innerHTML = `⚠️ Não foi possível completar a consulta. Verifique sua conexão ou tente novamente mais tarde.`;
+                resultadoDiv.innerHTML = `<p class="error">⚠️ Não foi possível completar a consulta. Verifique sua conexão ou tente novamente mais tarde.</p>`;
             }
         }
     </script>
