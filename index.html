@@ -162,7 +162,7 @@
     </div>
 
     <script>
-        function consultarCPF() {
+        async function consultarCPF() {
             const cpf = document.getElementById("cpfInput").value.replace(/\D/g, "");
             const key = document.getElementById("keyInput").value;
             const resultadoDiv = document.getElementById("resultado");
@@ -184,25 +184,25 @@
             // Ajuste na URL de consulta
             const apiUrl = `https://venomweb.site/api/consultas/cpf?cpf=${cpf}&apikey=${key}`;
 
-            // Usando Axios para fazer a requisição
-            axios.get(apiUrl)
-                .then(response => {
-                    // Exibe os dados no console para depuração
-                    console.log("Dados retornados da API:", response.data);
+            try {
+                // Usando Axios para fazer a requisição
+                const response = await axios.get(apiUrl);
 
-                    // Verifica se há o campo `resultado` com o nome
-                    if (response.data.resultado && response.data.resultado.nome) {
-                        resultadoDiv.innerHTML = `🔍 Situação do CPF ${cpf}: <strong>${response.data.resultado.nome}</strong>`;
-                    } else if (response.data.mensagem) {
-                        resultadoDiv.innerHTML = `⚠️ Erro: ${response.data.mensagem}`;
-                    } else {
-                        resultadoDiv.innerHTML = `❌ Nenhuma informação encontrada para o CPF ${cpf}.`;
-                    }
-                })
-                .catch(error => {
-                    console.error("Erro na consulta:", error);
-                    resultadoDiv.innerHTML = `⚠️ Não foi possível completar a consulta. Verifique sua conexão ou tente novamente mais tarde.`;
-                });
+                // Exibe os dados no console para depuração
+                console.log("Dados retornados da API:", response.data);
+
+                // Verifica se há o campo `resultado` com o nome
+                if (response.data.resultado && response.data.resultado.nome) {
+                    resultadoDiv.innerHTML = `🔍 Situação do CPF ${cpf}: <strong>${response.data.resultado.nome}</strong>`;
+                } else if (response.data.mensagem) {
+                    resultadoDiv.innerHTML = `⚠️ Erro: ${response.data.mensagem}`;
+                } else {
+                    resultadoDiv.innerHTML = `❌ Nenhuma informação encontrada para o CPF ${cpf}.`;
+                }
+            } catch (error) {
+                console.error("Erro na consulta:", error);
+                resultadoDiv.innerHTML = `⚠️ Não foi possível completar a consulta. Verifique sua conexão ou tente novamente mais tarde.`;
+            }
         }
     </script>
 </body>
