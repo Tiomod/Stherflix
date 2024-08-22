@@ -3,33 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Filmes e Séries</title>
+    <title>Amizades Online</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <header>
-        <h1>Catálogo de Filmes e Séries</h1>
+        <h1>Plataforma de Amizades</h1>
         <nav>
             <ul>
                 <li><a href="#home">Home</a></li>
-                <li><a href="#filmes">Filmes</a></li>
-                <li><a href="#series">Séries</a></li>
+                <li><a href="#users">Usuários</a></li>
+                <li><a href="#admin">Admin</a></li>
             </ul>
         </nav>
     </header>
 
-    <section id="filmes">
-        <h2>Filmes</h2>
-        <div id="filmes-lista" class="grid"></div>
+    <section id="home">
+        <h2>Bem-vindo à Plataforma de Amizades</h2>
+        <p>Conecte-se com novos amigos! Verifique sua conta para ganhar o selo de verificação e mantenha-se dentro das regras para evitar banimentos.</p>
     </section>
 
-    <section id="series">
-        <h2>Séries</h2>
-        <div id="series-lista" class="grid"></div>
+    <section id="users">
+        <h2>Usuários</h2>
+        <div id="user-list" class="grid"></div>
+    </section>
+
+    <section id="admin">
+        <h2>Painel Administrativo</h2>
+        <div id="admin-panel">
+            <p>Selecione um usuário para verificar ou banir.</p>
+            <div id="user-select"></div>
+            <button onclick="verifyUser()">Verificar Usuário</button>
+            <button onclick="banUser()">Banir Usuário</button>
+        </div>
     </section>
 
     <footer>
-        <p>&copy; 2024 Catálogo de Filmes e Séries. Todos os direitos reservados.</p>
+        <p>&copy; 2024 Plataforma de Amizades. Todos os direitos reservados.</p>
     </footer>
 
     <script src="script.js"></script>
