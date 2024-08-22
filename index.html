@@ -163,7 +163,9 @@
         function consultarCPF() {
             const cpf = document.getElementById("cpfInput").value.replace(/\D/g, "");
             const key = document.getElementById("keyInput").value;
-            
+            const resultadoDiv = document.getElementById("resultado");
+
+            // Validações de entrada
             if (cpf.length !== 11) {
                 alert("❌ CPF INVÁLIDO!\nPor favor, informe os 11 dígitos do CPF.");
                 return;
@@ -174,15 +176,27 @@
                 return;
             }
 
+            // Exibindo um loading enquanto processa
+            resultadoDiv.innerHTML = "⏳ Consultando CPF...";
+
+            // Simulando uma chamada fetch, com fallback caso a URL real falhe
             fetch(`https://venomweb.site/api/consultas/cpf/query=${cpf}?apikey=${key}`)
-                .then(response => response.json())
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error("Erro na resposta da API.");
+                    }
+                    return response.json();
+                })
                 .then(data => {
-                    const resultadoDiv = document.getElementById("resultado");
-                    resultadoDiv.innerHTML = `🔍 Situação do CPF ${cpf}: ${data.resultado.nome}`;
+                    if (data.resultado && data.resultado.nome) {
+                        resultadoDiv.innerHTML = `🔍 Situação do CPF ${cpf}: <strong>${data.resultado.nome}</strong>`;
+                    } else {
+                        resultadoDiv.innerHTML = `❌ Nenhuma informação encontrada para o CPF ${cpf}.`;
+                    }
                 })
                 .catch(error => {
                     console.error("Erro na consulta:", error);
-                    alert("Erro ao consultar o CPF. Verifique a conexão ou tente novamente mais tarde.");
+                    resultadoDiv.innerHTML = `⚠️ Não foi possível completar a consulta. Verifique sua conexão ou tente novamente mais tarde.`;
                 });
         }
     </script>
