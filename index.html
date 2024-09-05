@@ -62,7 +62,7 @@
 
     <div class="login-container">
         <h2>Login com Firebase</h2>
-        <form id="loginForm">
+        <form id="loginForm" method="post">
             <label for="username">Usuário</label>
             <input type="text" id="username" name="username" required>
 
@@ -102,7 +102,7 @@
 
         // Função para autenticar o usuário
         document.getElementById('loginForm').addEventListener('submit', function(event) {
-            event.preventDefault();
+            event.preventDefault(); // Evita o envio padrão do formulário
 
             const username = document.getElementById('username').value;
             const password = document.getElementById('password').value;
@@ -126,11 +126,8 @@
                     // Salvar login no localStorage se checkbox marcado
                     if (saveLogin) {
                         localStorage.setItem('username', username);
-                        // Não salvar a senha diretamente no localStorage
-                        sessionStorage.setItem('username', username);
                     } else {
                         localStorage.removeItem('username');
-                        sessionStorage.removeItem('username');
                     }
 
                     // Redirecionar ou carregar a próxima página, se necessário
