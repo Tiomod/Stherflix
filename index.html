@@ -68,11 +68,13 @@
         </form>
     </div>
 
-    <script>
-        <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js"></script>
-        <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth.js"></script>
-        <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-database.js"></script>
+    <!-- Adicionando o Firebase e o JavaScript corretamente -->
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-database.js"></script>
 
+    <script>
+        // Configuração do Firebase
         const firebaseConfig = {
             apiKey: "AIzaSyBI8miT9mb1JOoVzxyb-4MFeBKiXygZnGE",
             authDomain: "sther-ae214.firebaseapp.com",
@@ -82,8 +84,10 @@
             appId: "1:319748838574:web:74c29a6c83ffbfd017093f"
         };
 
+        // Inicializar Firebase
         firebase.initializeApp(firebaseConfig);
 
+        // Função para autenticar o usuário
         document.getElementById('loginForm').addEventListener('submit', function(event) {
             event.preventDefault();
             
@@ -91,6 +95,7 @@
             const password = document.getElementById('password').value;
             const saveLogin = document.getElementById('saveLogin').checked;
 
+            // Verificar se o usuário existe no Firebase Realtime Database
             const dbRef = firebase.database().ref('usuarios/' + username);
             
             dbRef.once('value').then((snapshot) => {
