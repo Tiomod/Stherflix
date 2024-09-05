@@ -1,50 +1,82 @@
-document.addEventListener('DOMContentLoaded', () => {
-    const chatBox = document.getElementById('chat-box');
-    const messageInput = document.getElementById('message-input');
-    const sendButton = document.getElementById('send-button');
+// Configuração do Firebase
+const firebaseConfig = {
+    apiKey: "AIzaSyBI8miT9mb1JOoVzxyb-4MFeBKiXygZnGE",
+    authDomain: "sther-ae214.firebaseapp.com",
+    databaseURL: "https://sther-ae214-default-rtdb.firebaseio.com",
+    projectId: "sther-ae214",
+    storageBucket: "sther-ae214.appspot.com",
+    appId: "1:319748838574:web:74c29a6c83ffbfd017093f"
+};
 
-    // Função para adicionar uma mensagem ao chat
-    function addMessage(text, isUserMessage) {
-        const messageDiv = document.createElement('div');
-        messageDiv.className = `chat-message ${isUserMessage ? 'user-message' : 'gpt-message'}`;
-        messageDiv.textContent = text;
-        chatBox.appendChild(messageDiv);
-        chatBox.scrollTop = chatBox.scrollHeight; // Rolagem automática para a mensagem mais recente
+// Inicializar Firebase
+let firebaseInitialized = false;
+
+try {
+    firebase.initializeApp(firebaseConfig);
+    firebaseInitialized = true;
+    document.getElementById('firebaseStatus').textContent = 'Firebase conectado com sucesso!';
+    document.getElementById('loginContainer').style.display = 'block'; // Mostrar o formulário de login
+} catch (error) {
+    document.getElementById('firebaseStatus').textContent = 'Erro ao conectar com o Firebase. Tente novamente mais tarde.';
+    console.error('Erro ao conectar com o Firebase:', error);
+}
+
+// Função para autenticar o usuário
+document.getElementById('loginForm').addEventListener('submit', function(event) {
+    event.preventDefault(); // Evita o envio padrão do formulário
+    if (!firebaseInitialized) {
+        document.getElementById('message').textContent = 'Erro de autenticação: Firebase não está conectado.';
+        document.getElementById('message').style.color = 'red';
+        return;
     }
 
-    // Envia a mensagem e obtém a resposta do "servidor"
-    async function sendMessage() {
-        const userMessage = messageInput.value.trim();
-        if (userMessage === '') return;
+    const username = document.getElementById('username').value;
+    const password = document.getElementById('password').value;
+    const saveLogin = document.getElementById('saveLogin').checked;
+    const message = document.getElementById('message');
 
-        addMessage(userMessage, true); // Adiciona a mensagem do usuário
-        messageInput.value = '';
+    // Resetar mensagem de erro/sucesso
+    message.textContent = "";
 
-        // Simula a resposta do servidor
-        try {
-            const response = await fetch('https://your-server-url/gpt', { // Substitua pela URL do seu backend
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ message: userMessage })
-            });
-            const data = await response.json();
-            const gptMessage = data.response || 'Desculpe, não consegui entender.';
-            addMessage(gptMessage, false); // Adiciona a resposta do GPT
-        } catch (error) {
-            console.error('Erro ao enviar a mensagem:', error);
-            addMessage('Desculpe, ocorreu um erro ao enviar a mensagem.', false);
+    // Verificar se o usuário existe no Firebase Realtime Database
+    const dbRef = firebase.database().ref('usuarios/' + username);
+
+    dbRef.once('value').then((snapshot) => {
+        const userData = snapshot.val();
+
+        if (userData && userData.senha === password) {
+            // Login bem-sucedido
+            message.style.color = 'green';
+            message.textContent = 'Login realizado com sucesso!';
+
+            // Salvar login no localStorage se checkbox marcado
+            if (saveLogin) {
+                localStorage.setItem('username', username);
+            } else {
+                localStorage.removeItem('username');
+            }
+
+            // Redirecionar ou carregar a próxima página, se necessário
+            // window.location.href = 'proxima_pagina.html';
+        } else {
+            // Usuário ou senha incorretos
+            message.style.color = 'red';
+            message.textContent = 'Usuário ou senha incorretos!';
         }
-    }
-
-    // Envia a mensagem quando o botão é clicado
-    sendButton.addEventListener('click', sendMessage);
-
-    // Envia a mensagem quando a tecla Enter é pressionada
-    messageInput.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') {
-            sendMessage();
-        }
+    }).catch((error) => {
+        // Erro ao conectar com Firebase
+        console.error('Erro ao autenticar:', error);
+        message.style.color = 'red';
+        message.textContent = 'Erro ao conectar com o Firebase. Tente novamente mais tarde.';
     });
 });
+
+// Carregar login salvo do localStorage
+window.onload = function() {
+    const savedUsername = localStorage.getItem('username');
+    
+    if (savedUsername) {
+        document.getElementById('username').value = savedUsername;
+        document.getElementById('saveLogin').checked = true;
+    }
+};
