@@ -12,6 +12,7 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
+            margin: 0;
         }
         .login-container {
             background-color: #fff;
@@ -79,7 +80,6 @@
 
     <!-- Adicionando o Firebase e o JavaScript corretamente -->
     <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-database.js"></script>
 
     <script>
@@ -96,6 +96,9 @@
         // Inicializar Firebase
         firebase.initializeApp(firebaseConfig);
 
+        // Referência para o banco de dados
+        const database = firebase.database();
+
         // Função para autenticar o usuário
         document.getElementById('loginForm').addEventListener('submit', function(event) {
             event.preventDefault();
@@ -109,7 +112,7 @@
             message.textContent = "";
 
             // Verificar se o usuário existe no Firebase Realtime Database
-            const dbRef = firebase.database().ref('usuarios/' + username);
+            const dbRef = database.ref('usuarios/' + username);
             
             dbRef.once('value').then((snapshot) => {
                 const userData = snapshot.val();
@@ -129,6 +132,7 @@
                     }
 
                     // Redirecionar ou carregar a próxima página, se necessário
+                    // window.location.href = 'proxima_pagina.html';
                 } else {
                     // Usuário ou senha incorretos
                     message.style.color = 'red';
