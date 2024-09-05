@@ -18,6 +18,8 @@
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            text-align: center;
         }
         .login-container h2 {
             text-align: center;
@@ -48,6 +50,10 @@
             font-size: 16px;
             cursor: pointer;
         }
+        #message {
+            margin-top: 10px;
+            color: red;
+        }
     </style>
 </head>
 <body>
@@ -65,6 +71,9 @@
             <label for="saveLogin">Salvar login</label>
 
             <button type="submit">Entrar</button>
+
+            <!-- Mensagem de erro/sucesso -->
+            <p id="message"></p>
         </form>
     </div>
 
@@ -90,19 +99,25 @@
         // Função para autenticar o usuário
         document.getElementById('loginForm').addEventListener('submit', function(event) {
             event.preventDefault();
-            
+
             const username = document.getElementById('username').value;
             const password = document.getElementById('password').value;
             const saveLogin = document.getElementById('saveLogin').checked;
+            const message = document.getElementById('message');
+
+            // Resetar mensagem de erro/sucesso
+            message.textContent = "";
 
             // Verificar se o usuário existe no Firebase Realtime Database
             const dbRef = firebase.database().ref('usuarios/' + username);
             
             dbRef.once('value').then((snapshot) => {
                 const userData = snapshot.val();
-                
+
                 if (userData && userData.senha === password) {
-                    alert('Login realizado com sucesso!');
+                    // Login bem-sucedido
+                    message.style.color = 'green';
+                    message.textContent = 'Login realizado com sucesso!';
 
                     // Salvar login no localStorage se checkbox marcado
                     if (saveLogin) {
@@ -113,13 +128,17 @@
                         localStorage.removeItem('password');
                     }
 
-                    // Redirecionar ou carregar a próxima página
+                    // Redirecionar ou carregar a próxima página, se necessário
                 } else {
-                    alert('Usuário ou senha incorretos!');
+                    // Usuário ou senha incorretos
+                    message.style.color = 'red';
+                    message.textContent = 'Usuário ou senha incorretos!';
                 }
             }).catch((error) => {
+                // Erro ao conectar com Firebase
                 console.error('Erro ao autenticar:', error);
-                alert('Erro ao autenticar. Tente novamente.');
+                message.style.color = 'red';
+                message.textContent = 'Erro ao conectar com o Firebase. Tente novamente mais tarde.';
             });
         });
 
