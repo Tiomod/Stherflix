@@ -103,6 +103,7 @@
         // Função para autenticar o usuário
         document.getElementById('loginForm').addEventListener('submit', function(event) {
             event.preventDefault(); // Evita o envio padrão do formulário
+            console.log("Formulário enviado"); // Adiciona log para diagnóstico
 
             const username = document.getElementById('username').value;
             const password = document.getElementById('password').value;
