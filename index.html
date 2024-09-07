@@ -7,15 +7,17 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
+            background-color: #141414;
+            color: #e5e5e5;
             margin: 0;
             padding: 0;
         }
         header {
-            background-color: #333;
-            color: white;
+            background-color: #111;
+            color: #e50914;
             text-align: center;
             padding: 1em;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.7);
         }
         .container {
             margin: 2em auto;
@@ -23,30 +25,32 @@
             max-width: 1200px;
         }
         .item {
-            background-color: #fff;
+            background-color: #1c1c1c;
             margin: 1em 0;
-            padding: 1em;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            padding: 2em;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.5);
             text-align: center;
         }
         .item h2 {
             margin-top: 0;
+            color: #e50914;
         }
         .item p {
-            color: #666;
+            color: #b3b3b3;
         }
-        .download-button {
+        .download-button, .request-button, .free-trial-button {
             display: inline-block;
             padding: 0.75em 1.5em;
-            background-color: #28a745;
+            background-color: #e50914;
             color: white;
             text-decoration: none;
             border-radius: 5px;
             margin-top: 1em;
+            transition: background-color 0.3s;
         }
-        .download-button:hover {
-            background-color: #218838;
+        .download-button:hover, .request-button:hover, .free-trial-button:hover {
+            background-color: #f40612;
         }
         .price-table {
             margin: 2em 0;
@@ -57,29 +61,35 @@
             max-width: 600px;
             margin: 0 auto;
             border-collapse: collapse;
+            background-color: #1c1c1c;
+            border-radius: 10px;
+            overflow: hidden;
         }
         .price-table th, .price-table td {
             padding: 1em;
-            border: 1px solid #ddd;
+            border: 1px solid #333;
         }
         .price-table th {
             background-color: #333;
-            color: white;
+            color: #e5e5e5;
         }
         .price-table td {
-            background-color: #f9f9f9;
+            background-color: #1c1c1c;
+            color: #b3b3b3;
         }
-        .request-button {
-            display: inline-block;
-            padding: 0.75em 1.5em;
-            background-color: #007bff;
-            color: white;
+        footer {
+            background-color: #111;
+            color: #666;
+            text-align: center;
+            padding: 1em 0;
+            margin-top: 2em;
+        }
+        a {
+            color: #e50914;
             text-decoration: none;
-            border-radius: 5px;
-            margin-top: 1em;
         }
-        .request-button:hover {
-            background-color: #0056b3;
+        a:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
@@ -94,16 +104,16 @@
         <div class="item">
             <h2>Baixe o Stherflix</h2>
             <p>Faça o download do aplicativo oficial da Stherflix e tenha acesso aos melhores filmes e séries a qualquer hora, em qualquer lugar!</p>
-            <a href="baixar.php?file=stherflix.apk" class="download-button">Baixar Stherflix APK</a>
+            <a href="https://www.mediafire.com/file/4op2dd3z1pgh9vr/Sther_Flix_1.0.apk/file" class="download-button">Baixar Stherflix APK via Mediafire</a>
         </div>
 
-        <!-- Informações de Login Trial -->
+        <!-- Login gratuito -->
         <div class="item">
-            <h2>Login Trial - 7 Dias Grátis</h2>
-            <p>Experimente o Stherflix gratuitamente por 7 dias! Utilize as credenciais abaixo para acessar o aplicativo e aproveitar todo o conteúdo:</p>
+            <h2>Login Gratuito por 4 Dias</h2>
+            <p>A partir de 8 de setembro, você pode acessar o Stherflix gratuitamente por 4 dias. Utilize as credenciais abaixo para fazer login:</p>
             <p><strong>Usuário:</strong> stherflix</p>
-            <p><strong>Senha:</strong> free7dias</p>
-            <p>Baixe o aplicativo, faça o login com essas credenciais e comece a assistir agora!</p>
+            <p><strong>Senha:</strong> free4dias</p>
+            <p>Baixe o aplicativo, faça o login com essas credenciais e aproveite!</p>
         </div>
 
         <!-- Tabela de Preços -->
@@ -133,10 +143,22 @@
         </div>
 
         <!-- Botão para Solicitar Filmes ou Séries -->
-        <div class="request-section">
+        <div class="item">
             <h2>Não encontrou o filme ou série que queria?</h2>
             <a href="https://api.whatsapp.com/send?phone=351939422314&text=Olá,%20gostaria%20de%20solicitar%20um%20filme%20ou%20série.%20Segue%20as%20informações:%0A%0ANome:%0AFilme/Série:%0AGênero:%0AComentário:" class="request-button">Pedir Filme ou Série no WhatsApp</a>
         </div>
+
+        <!-- Parceria -->
+        <div class="item">
+            <h2>Seja nosso parceiro!</h2>
+            <p>Você tem um grupo no WhatsApp com mais de 100 membros? Divulgue a Stherflix no seu grupo e ganhe uma <strong>conta permanente</strong> e um <strong>bot exclusivo</strong> para uso no grupo!</p>
+            <p>Entre em contato para mais informações e comece a parceria agora mesmo!</p>
+            <a href="https://api.whatsapp.com/send?phone=351939422314&text=Olá,%20tenho%20um%20grupo%20no%20WhatsApp%20com%20mais%20de%20100%20membros%20e%20gostaria%20de%20saber%20sobre%20a%20parceria%20da%20Stherflix." class="request-button">Quero ser parceiro!</a>
+        </div>
     </div>
+
+    <footer>
+        <p>&copy; 2024 Stherflix. Todos os direitos reservados.</p>
+    </footer>
 </body>
 </html>
