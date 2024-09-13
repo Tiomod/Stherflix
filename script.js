@@ -4,20 +4,17 @@ document.addEventListener('DOMContentLoaded', () => {
         .then(data => {
             const container = document.getElementById('content');
 
-            // Função para formatar categorias
             function formatCategories(categories) {
                 return categories.map(cat => cat.name).join(', ');
             }
 
-            // Função para formatar episódios
             function formatEpisodes(episodes, links) {
                 return episodes.map(ep => {
                     const link = links[ep.p] ? links[ep.p].link : '#';
-                    return `<li><a href="${link}">${ep.temporadasE} - ${ep.episódiosJ}</a></li>`;
+                    return `<li><a href="${link}" target="_blank">${ep.temporadasE} - ${ep.episódiosJ}</a></li>`;
                 }).join('');
             }
 
-            // Função para verificar se o item foi lançado nos últimos 30 dias
             function isRecentRelease(dateStr) {
                 const releaseDate = new Date(dateStr);
                 const today = new Date();
@@ -26,7 +23,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 return diffDays <= 30;
             }
 
-            // Função para gerar HTML para filmes e séries
             function generateItemHtml(item, type) {
                 const itemData = data[type][item];
                 if (!itemData) return '';
@@ -37,7 +33,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 let html = `
                     <div class="item">
-                        <img src="${itemData.capa}" alt="${itemData.nome}">
+                        <a href="details.html?type=${type}&item=${encodeURIComponent(item)}">
+                            <img src="${itemData.capa}" alt="${itemData.nome}">
+                        </a>
                         <div>
                             <h2>${itemData.nome}</h2>
                             <p><strong>Ano:</strong> ${itemData.ano}</p>
@@ -57,7 +55,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         <p><strong>Temporadas:</strong> ${JSON.parse(itemData.temporadas || '[]').map(t => t.temporadasJ).join(', ')}</p>
                     `;
                 } else {
-                    html += `<a href="${links[`${itemData.nome}Dublado`].link}">Assistir Dublado</a>`;
+                    html += `<a href="${links[`${itemData.nome}Dublado`].link}" target="_blank">Assistir Dublado</a>`;
                 }
 
                 if (isRecentRelease(itemData.ano)) {
@@ -68,7 +66,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 return html;
             }
 
-            // Adiciona filmes e séries ao HTML
             const filmes = Object.keys(data.filmes || {});
             const series = Object.keys(data.series || {});
 

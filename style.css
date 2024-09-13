@@ -16,6 +16,22 @@ header h1 {
     margin: 0;
 }
 
+header .back-button {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 10px 20px;
+    color: #e50914;
+    background-color: #222;
+    border: 1px solid #e50914;
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+header .back-button:hover {
+    background-color: #e50914;
+    color: #fff;
+}
+
 main {
     padding: 20px;
 }
@@ -34,6 +50,7 @@ main {
     width: 100%;
     height: auto;
     display: block;
+    cursor: pointer;
 }
 
 .item div {
@@ -52,6 +69,7 @@ main {
 .item a {
     color: #e50914;
     text-decoration: none;
+    font-weight: bold;
 }
 
 .item a:hover {
@@ -67,4 +85,68 @@ main {
     background-color: #e50914;
     color: #fff;
     font-weight: bold;
+}
+
+.details-container {
+    max-width: 800px;
+    margin: auto;
+    background-color: #222;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    padding: 20px;
+}
+
+.details-container img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
+
+.details-container h2 {
+    margin-top: 0;
+}
+
+.episode-list a, .item a {
+    display: block;
+    padding: 10px;
+    margin: 5px 0;
+    color: #fff;
+    background-color: #e50914;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+.episode-list a:hover, .item a:hover {
+    background-color: #b81d13;
+}
+
+.player-hidden {
+    display: none;
+    position: relative;
+}
+
+.player-visible {
+    display: block;
+}
+
+#player-frame {
+    border-radius: 8px;
+}
+
+.close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: #e50914;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+.close-button:hover {
+    background-color: #b81d13;
 }
