@@ -19,13 +19,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Função para gerar HTML para filmes e séries
             function generateItemHtml(item, type) {
-                const itemData = data[item];
-                if (!itemData || itemData.tipo !== type) return '';
+                const itemData = data[type][item];
+                if (!itemData) return '';
 
                 const categories = JSON.parse(itemData.categorias || '[]');
                 const episodes = JSON.parse(itemData.episódios || '[]');
                 const links = data.link;
-                
+
                 let html = `
                     <div class="item">
                         <img src="${itemData.capa}" alt="${itemData.nome}">
@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             <p><strong>Categorias:</strong> ${formatCategories(JSON.parse(itemData.categorias || '[]'))}</p>
                 `;
                 
-                if (type === 'séries') {
+                if (type === 'series') {
                     html += `
                         <div class="episode-list">
                             <strong>Episódios:</strong>
@@ -56,12 +56,11 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             // Adiciona filmes e séries ao HTML
-            const items = Object.keys(data);
-            const filmes = items.filter(item => data[item].tipo === 'filmes');
-            const series = items.filter(item => data[item].tipo === 'séries');
+            const filmes = Object.keys(data.filmes || {});
+            const series = Object.keys(data.series || {});
 
             container.innerHTML = filmes.map(filme => generateItemHtml(filme, 'filmes')).join('') +
-                                   series.map(serie => generateItemHtml(serie, 'séries')).join('');
+                                   series.map(serie => generateItemHtml(serie, 'series')).join('');
         })
         .catch(error => console.error('Erro ao carregar os dados:', error));
 });
