@@ -29,6 +29,7 @@ function watch(title) {
 }
 
 // Função para login
+// Função para login
 document.getElementById("loginForm")?.addEventListener("submit", function(event) {
     event.preventDefault();
     const username = document.getElementById("username").value;
@@ -36,11 +37,14 @@ document.getElementById("loginForm")?.addEventListener("submit", function(event)
 
     // Usuário fictício
     if (username === "admin" && password === "1234") {
-        window.location.href = "admin.html";
+        window.location.href = "admin.html";  // Admin vai para admin.html
+    } else if (username === "user" && password === "userpass") {
+        window.location.href = "movies.html";  // Usuário normal vai para movies.html
     } else {
         document.getElementById("error-message").innerText = "Usuário ou senha incorretos!";
     }
 });
+
 
 // Função para adicionar filme/série no admin
 document.getElementById("addForm")?.addEventListener("submit", function(event) {
