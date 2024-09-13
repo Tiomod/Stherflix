@@ -1,164 +1,22 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Stherflix - Filmes e Séries</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #141414;
-            color: #e5e5e5;
-            margin: 0;
-            padding: 0;
-        }
-        header {
-            background-color: #111;
-            color: #e50914;
-            text-align: center;
-            padding: 1em;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.7);
-        }
-        .container {
-            margin: 2em auto;
-            width: 90%;
-            max-width: 1200px;
-        }
-        .item {
-            background-color: #1c1c1c;
-            margin: 1em 0;
-            padding: 2em;
-            border-radius: 10px;
-            box-shadow: 0 0 15px rgba(0,0,0,0.5);
-            text-align: center;
-        }
-        .item h2 {
-            margin-top: 0;
-            color: #e50914;
-        }
-        .item p {
-            color: #b3b3b3;
-        }
-        .download-button, .request-button, .free-trial-button {
-            display: inline-block;
-            padding: 0.75em 1.5em;
-            background-color: #e50914;
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
-            margin-top: 1em;
-            transition: background-color 0.3s;
-        }
-        .download-button:hover, .request-button:hover, .free-trial-button:hover {
-            background-color: #f40612;
-        }
-        .price-table {
-            margin: 2em 0;
-            text-align: center;
-        }
-        .price-table table {
-            width: 100%;
-            max-width: 600px;
-            margin: 0 auto;
-            border-collapse: collapse;
-            background-color: #1c1c1c;
-            border-radius: 10px;
-            overflow: hidden;
-        }
-        .price-table th, .price-table td {
-            padding: 1em;
-            border: 1px solid #333;
-        }
-        .price-table th {
-            background-color: #333;
-            color: #e5e5e5;
-        }
-        .price-table td {
-            background-color: #1c1c1c;
-            color: #b3b3b3;
-        }
-        footer {
-            background-color: #111;
-            color: #666;
-            text-align: center;
-            padding: 1em 0;
-            margin-top: 2em;
-        }
-        a {
-            color: #e50914;
-            text-decoration: none;
-        }
-        a:hover {
-            text-decoration: underline;
-        }
-    </style>
+    <title>Login</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <header>
-        <h1>Stherflix</h1>
-        <p>Os melhores filmes e séries na palma da sua mão!</p>
-    </header>
-
-    <div class="container">
-        <!-- Aplicativo Stherflix -->
-        <div class="item">
-            <h2>Baixe o Stherflix</h2>
-            <p>Faça o download do aplicativo oficial da Stherflix e tenha acesso aos melhores filmes e séries a qualquer hora, em qualquer lugar!</p>
-            <a href="https://www.mediafire.com/file/tisij4mnzfknb23/Sther+Flix_2.1.apk/file" class="download-button">Baixar Stherflix APK via Mediafire</a>
-        </div>
-
-        <!-- Login gratuito -->
-        <div class="item">
-            <h2>Login Gratuito por 4 Dias</h2>
-            <p>A partir de 8 de setembro, você pode acessar o Stherflix gratuitamente por 4 dias. Utilize as credenciais abaixo para fazer login:</p>
-            <p><strong>Usuário:</strong> stherflix</p>
-            <p><strong>Senha:</strong> free4dias</p>
-            <p>Baixe o aplicativo, faça o login com essas credenciais e aproveite!</p>
-        </div>
-
-        <!-- Tabela de Preços -->
-        <div class="price-table">
-            <h2>Planos de Assinatura</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Plano</th>
-                        <th>Preço</th>
-                        <th>Detalhes</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Login por 1 Dispositivo</td>
-                        <td>R$ 9,99</td>
-                        <td>Acesso por 1 mês em 1 dispositivo</td>
-                    </tr>
-                    <tr>
-                        <td>Login Permanente</td>
-                        <td>R$ 59,99</td>
-                        <td>Acesso vitalício para 1 dispositivo</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-
-        <!-- Botão para Solicitar Filmes ou Séries -->
-        <div class="item">
-            <h2>Não encontrou o filme ou série que queria?</h2>
-            <a href="https://api.whatsapp.com/send?phone=351939422314&text=Olá,%20gostaria%20de%20solicitar%20um%20filme%20ou%20série.%20Segue%20as%20informações:%0A%0ANome:%0AFilme/Série:%0AGênero:%0AComentário:" class="request-button">Pedir Filme ou Série no WhatsApp</a>
-        </div>
-
-        <!-- Parceria -->
-        <div class="item">
-            <h2>Seja nosso parceiro!</h2>
-            <p>Você tem um grupo no WhatsApp com mais de 100 membros? Divulgue a Stherflix no seu grupo e ganhe uma <strong>conta permanente</strong> e um <strong>bot exclusivo</strong> para uso no grupo!</p>
-            <p>Entre em contato para mais informações e comece a parceria agora mesmo!</p>
-            <a href="https://api.whatsapp.com/send?phone=351939422314&text=Olá,%20tenho%20um%20grupo%20no%20WhatsApp%20com%20mais%20de%20100%20membros%20e%20gostaria%20de%20saber%20sobre%20a%20parceria%20da%20Stherflix." class="request-button">Quero ser parceiro!</a>
-        </div>
+    <div class="login-container">
+        <h2>Login</h2>
+        <form id="loginForm">
+            <input type="text" id="username" placeholder="Usuário" required>
+            <input type="password" id="password" placeholder="Senha" required>
+            <button type="submit">Entrar</button>
+        </form>
+        <div id="errorMessage"></div>
     </div>
 
-    <footer>
-        <p>&copy; 2024 Stherflix. Todos os direitos reservados.</p>
-    </footer>
+    <script src="login.js"></script>
 </body>
 </html>
