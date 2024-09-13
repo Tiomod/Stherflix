@@ -17,6 +17,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 }).join('');
             }
 
+            // Função para verificar se o item foi lançado nos últimos 30 dias
+            function isRecentRelease(dateStr) {
+                const releaseDate = new Date(dateStr);
+                const today = new Date();
+                const diffTime = Math.abs(today - releaseDate);
+                const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+                return diffDays <= 30;
+            }
+
             // Função para gerar HTML para filmes e séries
             function generateItemHtml(item, type) {
                 const itemData = data[type][item];
@@ -49,6 +58,10 @@ document.addEventListener('DOMContentLoaded', () => {
                     `;
                 } else {
                     html += `<a href="${links[`${itemData.nome}Dublado`].link}">Assistir Dublado</a>`;
+                }
+
+                if (isRecentRelease(itemData.ano)) {
+                    html += '<span class="launch">Lançamento Recent</span>';
                 }
 
                 html += '</div></div>';
