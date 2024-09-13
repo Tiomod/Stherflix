@@ -1,61 +1,69 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
+    <title>Catálogo de Filmes e Séries</title>
     <style>
-        .movie-list {
-            list-style: none;
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
             padding: 0;
+            background-color: #f0f0f0;
         }
-        .movie-list li {
-            margin-bottom: 10px;
-            cursor: pointer;
+        .container {
+            width: 80%;
+            margin: auto;
+            overflow: hidden;
+        }
+        header {
+            background: #333;
+            color: #fff;
+            padding: 10px 0;
+            text-align: center;
+        }
+        .item {
+            background: #fff;
+            border: 1px solid #ddd;
+            margin: 10px 0;
+            padding: 20px;
+            border-radius: 5px;
             display: flex;
             align-items: center;
         }
-        .movie-list img {
-            width: 100px;
-            height: auto;
-            margin-right: 10px;
+        .item img {
+            max-width: 200px;
+            border-radius: 5px;
+            margin-right: 20px;
         }
-        #videoContainer {
-            display: none; /* Ocultar o container de vídeo inicialmente */
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.8);
-            justify-content: center;
-            align-items: center;
+        .item h2 {
+            margin-top: 0;
         }
-        #videoPlayer {
-            width: 80%;
-            height: 80%;
+        .item p {
+            margin: 5px 0;
         }
-        #closeButton {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            color: white;
-            font-size: 24px;
-            cursor: pointer;
+        .item a {
+            color: #007BFF;
+            text-decoration: none;
+        }
+        .item a:hover {
+            text-decoration: underline;
+        }
+        .episode-list {
+            margin: 10px 0;
+        }
+        .episode-list li {
+            margin: 5px 0;
         }
     </style>
 </head>
 <body>
-    <h1>Bem-vindo ao Portal de Filmes</h1>
-
-    <ul id="moviesList" class="movie-list"></ul>
-
-    <!-- Container para incorporar o vídeo -->
-    <div id="videoContainer">
-        <span id="closeButton">&times;</span>
-        <iframe id="videoPlayer" frameborder="0" allowfullscreen></iframe>
+    <header>
+        <h1>Catálogo de Filmes e Séries</h1>
+    </header>
+    <div class="container" id="content">
+        <!-- Conteúdo será carregado aqui pelo JavaScript -->
     </div>
-
-    <script src="index.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>

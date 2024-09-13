@@ -1,101 +1,67 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const api = {
-        users: 'users.json',
-        movies: 'movies.json',
-        series: 'series.json'
-    };
+    fetch('data.json')
+        .then(response => response.json())
+        .then(data => {
+            const container = document.getElementById('content');
 
-    const movieList = document.getElementById('movie-list');
-    const seriesList = document.getElementById('series-list');
-    const movieListAdmin = document.getElementById('movie-list-admin');
-    const seriesListAdmin = document.getElementById('series-list-admin');
-
-    function fetchData(url) {
-        return fetch(url).then(response => response.json());
-    }
-
-    function displayMovies(movies) {
-        movieList.innerHTML = '';
-        movieListAdmin.innerHTML = '';
-        movies.forEach(movie => {
-            const movieDiv = document.createElement('div');
-            movieDiv.innerHTML = `
-                <h3>${movie.title}</h3>
-                <p><strong>Gênero:</strong> ${movie.genre}</p>
-                <p>${movie.description}</p>
-            `;
-            movieList.appendChild(movieDiv);
-            movieListAdmin.appendChild(movieDiv.cloneNode(true));
-        });
-    }
-
-    function displaySeries(series) {
-        seriesList.innerHTML = '';
-        seriesListAdmin.innerHTML = '';
-        series.forEach(serie => {
-            const seriesDiv = document.createElement('div');
-            seriesDiv.innerHTML = `
-                <h3>${serie.title}</h3>
-                <p><strong>Gênero:</strong> ${serie.genre}</p>
-                <p>${serie.description}</p>
-                <p><strong>Temporadas:</strong> ${serie.seasons.join(', ')}</p>
-            `;
-            seriesList.appendChild(seriesDiv);
-            seriesListAdmin.appendChild(seriesDiv.cloneNode(true));
-        });
-    }
-
-    function loadData() {
-        fetchData(api.movies).then(displayMovies);
-        fetchData(api.series).then(displaySeries);
-    }
-
-    loadData();
-
-    const loginForm = document.getElementById('login-form');
-    const addMovieForm = document.getElementById('add-movie-form');
-    const addSeriesForm = document.getElementById('add-series-form');
-    const adminSection = document.getElementById('admin-section');
-
-    loginForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-        const username = document.getElementById('username').value;
-        const password = document.getElementById('password').value;
-        fetchData(api.users).then(data => {
-            const user = data.find(user => user.username === username && user.password === password);
-            if (user) {
-                adminSection.style.display = 'block';
-            } else {
-                alert('Usuário ou senha inválidos');
+            // Função para formatar categorias
+            function formatCategories(categories) {
+                return categories.map(cat => cat.name).join(', ');
             }
-        });
-    });
 
-    addMovieForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-        const title = document.getElementById('movie-title').value;
-        const genre = document.getElementById('movie-genre').value;
-        const description = document.getElementById('movie-description').value;
-        fetchData(api.movies).then(movies => {
-            movies.push({ title, genre, description });
-            // Aqui você precisaria atualizar o arquivo JSON com os dados novos.
-            // Para fins de exemplo, vamos recarregar os dados.
-            displayMovies(movies);
-        });
-    });
+            // Função para formatar episódios
+            function formatEpisodes(episodes, links) {
+                return episodes.map(ep => {
+                    const link = links[ep.p] ? links[ep.p].link : '#';
+                    return `<li><a href="${link}">${ep.temporadasE} - ${ep.episódiosJ}</a></li>`;
+                }).join('');
+            }
 
-    addSeriesForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-        const title = document.getElementById('series-title').value;
-        const genre = document.getElementById('series-genre').value;
-        const description = document.getElementById('series-description').value;
-        // Exemplo de temporadas
-        const seasons = ['Temporada 1', 'Temporada 2'];
-        fetchData(api.series).then(series => {
-            series.push({ title, genre, description, seasons });
-            // Aqui você precisaria atualizar o arquivo JSON com os dados novos.
-            // Para fins de exemplo, vamos recarregar os dados.
-            displaySeries(series);
-        });
-    });
+            // Função para gerar HTML para filmes e séries
+            function generateItemHtml(item, type) {
+                const itemData = data[item];
+                if (!itemData || itemData.tipo !== type) return '';
+
+                const categories = JSON.parse(itemData.categorias || '[]');
+                const episodes = JSON.parse(itemData.episódios || '[]');
+                const links = data.link;
+                
+                let html = `
+                    <div class="item">
+                        <img src="${itemData.capa}" alt="${itemData.nome}">
+                        <div>
+                            <h2>${itemData.nome}</h2>
+                            <p><strong>Ano:</strong> ${itemData.ano}</p>
+                            <p><strong>Avaliação:</strong> ${itemData.avaliação}</p>
+                            <p><strong>Sobre:</strong> ${itemData.sobre}</p>
+                            <p><strong>Categorias:</strong> ${formatCategories(JSON.parse(itemData.categorias || '[]'))}</p>
+                `;
+                
+                if (type === 'séries') {
+                    html += `
+                        <div class="episode-list">
+                            <strong>Episódios:</strong>
+                            <ul>
+                                ${formatEpisodes(episodes, links)}
+                            </ul>
+                        </div>
+                        <p><strong>Temporadas:</strong> ${JSON.parse(itemData.temporadas || '[]').map(t => t.temporadasJ).join(', ')}</p>
+                    `;
+                } else {
+                    html += `<a href="${links[`${itemData.nome}Dublado`].link}">Assistir Dublado</a>`;
+                }
+
+                html += '</div></div>';
+                return html;
+            }
+
+            // Adiciona filmes e séries ao HTML
+            const items = Object.keys(data);
+            const filmes = items.filter(item => data[item].tipo === 'filmes');
+            const series = items.filter(item => data[item].tipo === 'séries');
+
+            container.innerHTML = filmes.map(filme => generateItemHtml(filme, 'filmes')).join('') +
+                                   series.map(serie => generateItemHtml(serie, 'séries')).join('');
+        })
+        .catch(error => console.error('Erro ao carregar os dados:', error));
 });
