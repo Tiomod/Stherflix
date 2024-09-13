@@ -10,12 +10,7 @@ document.getElementById("loginForm").addEventListener("submit", function (event)
             const user = data.usuarios.find(u => u.username === username && u.password === password);
 
             if (user) {
-                // Redireciona com base no tipo de usuário
-                if (user.role === "admin") {
-                    window.location.href = `dashboard.html?role=admin&username=${user.username}`;
-                } else {
-                    window.location.href = `dashboard.html?role=user&username=${user.username}`;
-                }
+                window.location.href = `dashboard.html?username=${user.username}`;
             } else {
                 document.getElementById("errorMessage").textContent = "Usuário ou senha inválidos.";
             }

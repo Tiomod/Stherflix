@@ -1,44 +1,55 @@
-const urlParams = new URLSearchParams(window.location.search);
-const role = urlParams.get("role");
-const username = urlParams.get("username");
+function calcularDiasDiferenca(data1, data2) {
+    const umDia = 24 * 60 * 60 * 1000;
+    const diferencaMs = Math.abs(data2 - data1);
+    return Math.round(diferencaMs / umDia);
+}
 
-document.getElementById("roleMessage").textContent = role === "admin" ? 
-    `Bem-vindo, ${username}. Você tem privilégios de administrador.` : 
-    `Bem-vindo, ${username}.`;
-
-// Função para carregar filmes do JSON
-function loadFilmes() {
+// Função para carregar filmes e séries do JSON
+function loadCatalogo() {
     fetch('dados.json')
         .then(response => response.json())
         .then(data => {
             const filmesContainer = document.getElementById("filmesContainer");
-            let filmesHTML = '';
+            const seriesContainer = document.getElementById("seriesContainer");
+            const lancamentosContainer = document.getElementById("lancamentosContainer");
 
-            for (let filme in data.filmes) {
-                const info = data.filmes[filme];
-                filmesHTML += `
+            const hoje = new Date();
+
+            for (let item in data.filmes) {
+                const info = data.filmes[item];
+                const dataLancamento = new Date(info.ano);
+                const diasDiferenca = calcularDiasDiferenca(hoje, dataLancamento);
+
+                let filmeHTML = `
                     <div class="filme">
                         <img src="${info.capa}" alt="${info.nome}">
                         <h3>${info.nome}</h3>
                         <p>${info.sobre}</p>
-                        <p><strong>Avaliação:</strong> ${info.avaliação}</p>
                     </div>
                 `;
-            }
 
-            filmesContainer.innerHTML = filmesHTML;
+                // Se o filme foi lançado nos últimos 30 dias, adiciona o selo de "Lançamento"
+                if (diasDiferenca <= 30) {
+                    filmeHTML = `
+                        <div class="filme">
+                            <img src="${info.capa}" alt="${info.nome}">
+                            <h3>${info.nome}</h3>
+                            <p>${info.sobre}</p>
+                            <div class="lancamento">Lançamento</div>
+                        </div>
+                    `;
+                    lancamentosContainer.innerHTML += filmeHTML;
+                }
 
-            // Se o usuário for admin, exibir botão de edição
-            if (role === "admin") {
-                const adminButtons = document.createElement("div");
-                adminButtons.innerHTML = `<button onclick="editarFilme()">Editar Filmes</button>`;
-                filmesContainer.appendChild(adminButtons);
+                // Separar por tipo: filme ou série
+                if (info.tipo === "filme") {
+                    filmesContainer.innerHTML += filmeHTML;
+                } else if (info.tipo === "série") {
+                    seriesContainer.innerHTML += filmeHTML;
+                }
             }
         });
 }
 
-function editarFilme() {
-    alert('Modo de edição ativado! (Simulação)');
-}
-
-loadFilmes();
+// Carregar o catálogo ao abrir o dashboard
+loadCatalogo();
