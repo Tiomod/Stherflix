@@ -1,41 +1,69 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Painel Administrativo</title>
+    <title>Painel de Administração</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="admin-container">
-        <h2>Adicionar Filme/Série</h2>
-        <form id="addForm">
-            <label for="title">Título:</label>
-            <input type="text" id="title" required>
-
-            <label for="type">Tipo:</label>
-            <select id="type">
-                <option value="Filme">Filme</option>
-                <option value="Série">Série</option>
-            </select>
-
-            <label for="year">Ano:</label>
-            <input type="text" id="year" required>
-
-            <label for="rating">Avaliação:</label>
-            <input type="text" id="rating" required>
-
-            <label for="cover">URL da Capa:</label>
-            <input type="text" id="cover" required>
-
-            <label for="description">Descrição:</label>
-            <textarea id="description" required></textarea>
-
-            <button type="submit">Adicionar</button>
-        </form>
-        <p id="success-message"></p>
-    </div>
-
-    <script src="app.js"></script>
+    <header>
+        <h1>Painel de Administração</h1>
+        <nav>
+            <a href="index.html">Início</a>
+            <a href="admin.html">Admin</a>
+        </nav>
+    </header>
+    
+    <main>
+        <section id="login">
+            <h2>Login</h2>
+            <form id="login-form">
+                <label for="username">Usuário:</label>
+                <input type="text" id="username" required>
+                <label for="password">Senha:</label>
+                <input type="password" id="password" required>
+                <button type="submit">Entrar</button>
+            </form>
+        </section>
+        
+        <section id="admin-section" style="display: none;">
+            <h2>Gerenciar Filmes e Séries</h2>
+            
+            <!-- Formulário para adicionar filmes -->
+            <form id="add-movie-form">
+                <h3>Adicionar Filme</h3>
+                <label for="movie-title">Título:</label>
+                <input type="text" id="movie-title" required>
+                <label for="movie-genre">Gênero:</label>
+                <input type="text" id="movie-genre" required>
+                <label for="movie-description">Descrição:</label>
+                <textarea id="movie-description" required></textarea>
+                <button type="submit">Adicionar Filme</button>
+            </form>
+            
+            <!-- Formulário para adicionar séries -->
+            <form id="add-series-form">
+                <h3>Adicionar Série</h3>
+                <label for="series-title">Título:</label>
+                <input type="text" id="series-title" required>
+                <label for="series-genre">Gênero:</label>
+                <input type="text" id="series-genre" required>
+                <label for="series-description">Descrição:</label>
+                <textarea id="series-description" required></textarea>
+                <button type="submit">Adicionar Série</button>
+            </form>
+            
+            <!-- Listagem de filmes e séries -->
+            <div id="movie-list-admin"></div>
+            <div id="series-list-admin"></div>
+        </section>
+    </main>
+    
+    <footer>
+        <p>&copy; 2024 Site de Filmes</p>
+    </footer>
+    
+    <script src="script.js"></script>
 </body>
 </html>

@@ -1,84 +1,29 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: #f0f0f0;
-    margin: 0;
-    padding: 0;
 }
 
-.login-container, .admin-container, .movies-container {
-    width: 300px;
-    margin: 100px auto;
-    padding: 20px;
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+header {
+    background-color: #333;
+    color: #fff;
+    padding: 1rem;
 }
 
-h2 {
-    text-align: center;
+header nav a {
+    color: #fff;
+    margin: 0 1rem;
+    text-decoration: none;
+}
+
+main {
+    padding: 1rem;
 }
 
 form {
-    display: flex;
-    flex-direction: column;
+    margin-bottom: 1rem;
 }
 
-label {
-    margin-top: 10px;
-}
-
-input, select, textarea, button {
-    margin-top: 5px;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
-
-button {
-    background-color: #28a745;
-    color: white;
-    cursor: pointer;
-}
-
-button:hover {
-    background-color: #218838;
-}
-
-#error-message {
-    color: red;
-    text-align: center;
-    margin-top: 10px;
-}
-
-#success-message {
-    color: green;
-    text-align: center;
-    margin-top: 10px;
-}
-
-ul {
-    list-style-type: none;
-    padding: 0;
-}
-
-li {
-    margin: 10px 0;
-    background-color: #fff;
-    padding: 10px;
-    border-radius: 4px;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-}
-
-li img {
-    max-width: 100px;
-}
-
-li button {
-    background-color: #007bff;
-    color: white;
-    cursor: pointer;
-}
-
-li button:hover {
-    background-color: #0056b3;
+input, textarea {
+    display: block;
+    margin-bottom: 1rem;
+    width: 100%;
 }
