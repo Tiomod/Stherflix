@@ -1,1 +1,12 @@
-[]
+{
+    "filmes": {
+        "+ Velozes + Furiosos": {
+            "nome": "+ Velozes + Furiosos",
+            "ano": 2003,
+            "avaliação": "6.5",
+            "capa": "https://image.tmdb.org/t/p/w500/mx0CB8H78PQu0g9YUWG47hdi93S.jpg",
+            "sobre": "O ex-policial Brian comete uma grande traição, juntando-se a um amigo ex-presidiário no transporte de dinheiro sujo para uma importadora-exportadora muito suspeita.",
+            "url": "https://link_para_o_video.comhttps://firebasestorage.googleapis.com/v0/b/filmes3-812c3.appspot.com/o/Velozes.%26.Furiosos.2.2003.720p.MP4.DUB.BaixarSeriesMP4.xyz.mp4?alt=media&token=4191a0b5-5286-4262-b5a6-b9019f0f3131"
+        }
+    }
+}
