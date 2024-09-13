@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const title = document.getElementById('title');
             title.textContent = itemData.nome;
 
-                        let html = `
+            let html = `
                 <div class="details-container">
                     <img src="${itemData.capa}" alt="${itemData.nome}">
                     <h2>${itemData.nome}</h2>
