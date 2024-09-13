@@ -3,33 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Site de Filmes</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Home</title>
+    <style>
+        .movie-list {
+            list-style: none;
+            padding: 0;
+        }
+        .movie-list li {
+            margin-bottom: 10px;
+        }
+        .movie-list img {
+            width: 100px;
+            height: auto;
+        }
+    </style>
 </head>
 <body>
-    <header>
-        <h1>Bem-vindo ao Site de Filmes</h1>
-        <nav>
-            <a href="index.html">Início</a>
-            <a href="admin.html">Admin</a>
-        </nav>
-    </header>
-    
-    <main>
-        <section id="movies">
-            <h2>Filmes</h2>
-            <div id="movie-list"></div>
-        </section>
-        <section id="series">
-            <h2>Séries</h2>
-            <div id="series-list"></div>
-        </section>
-    </main>
-    
-    <footer>
-        <p>&copy; 2024 Site de Filmes</p>
-    </footer>
-    
-    <script src="script.js"></script>
+    <h1>Bem-vindo ao Portal de Filmes</h1>
+
+    <ul id="moviesList" class="movie-list"></ul>
+
+    <script src="index.js"></script>
 </body>
 </html>
