@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel Administrativo</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="admin-container">
+        <h2>Adicionar Filme/Série</h2>
+        <form id="addForm">
+            <label for="title">Título:</label>
+            <input type="text" id="title" required>
+
+            <label for="type">Tipo:</label>
+            <select id="type">
+                <option value="Filme">Filme</option>
+                <option value="Série">Série</option>
+            </select>
+
+            <label for="year">Ano:</label>
+            <input type="text" id="year" required>
+
+            <label for="rating">Avaliação:</label>
+            <input type="text" id="rating" required>
+
+            <label for="cover">URL da Capa:</label>
+            <input type="text" id="cover" required>
+
+            <label for="description">Descrição:</label>
+            <textarea id="description" required></textarea>
+
+            <button type="submit">Adicionar</button>
+        </form>
+        <p id="success-message"></p>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
