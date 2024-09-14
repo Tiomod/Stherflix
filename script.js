@@ -2,11 +2,12 @@ const apiKey = '6360eb433f3020d94a5de4f0fb52c720'; // Sua API key
 const apiUrlPopular = `https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&language=pt-BR`;
 const apiUrlTopRated = `https://api.themoviedb.org/3/movie/top_rated?api_key=${apiKey}&language=pt-BR`;
 const apiUrlUpcoming = `https://api.themoviedb.org/3/movie/upcoming?api_key=${apiKey}&language=pt-BR`;
+const searchUrl = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&language=pt-BR&query=`;
 
 const moviesPopular = document.getElementById('movies-popular');
 const moviesTopRated = document.getElementById('movies-top-rated');
 const moviesUpcoming = document.getElementById('movies-upcoming');
-
+const searchInput = document.getElementById('search');
 const modal = document.getElementById('modal');
 const trailerFrame = document.getElementById('trailer');
 const closeModal = document.querySelector('.close');
@@ -69,6 +70,18 @@ window.onclick = function(event) {
         trailerFrame.src = ''; // Parar o vídeo quando fechar o modal
     }
 }
+
+// Buscar filmes ao digitar
+searchInput.addEventListener('input', () => {
+    const searchTerm = searchInput.value.trim();
+    if (searchTerm) {
+        fetchMovies(searchUrl + searchTerm, document.querySelector('#movies-popular')); // Mostrar resultados da pesquisa
+    } else {
+        fetchMovies(apiUrlPopular, moviesPopular);
+        fetchMovies(apiUrlTopRated, moviesTopRated);
+        fetchMovies(apiUrlUpcoming, moviesUpcoming); // Recarregar filmes populares, mais bem avaliados e lançamentos
+    }
+});
 
 // Carregar os filmes de cada categoria ao iniciar
 fetchMovies(apiUrlPopular, moviesPopular);

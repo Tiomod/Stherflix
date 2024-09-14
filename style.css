@@ -7,26 +7,52 @@ body {
 }
 
 header {
-    background-color: #e50914;
-    padding: 20px;
-    text-align: center;
-    font-size: 24px;
-    color: white;
+    background-color: #141414;
+    padding: 10px 20px;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.5);
+    z-index: 1000;
 }
 
-h2 {
-    margin-left: 20px;
+.nav-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.nav-bar h1 {
+    color: #e50914;
+    margin: 0;
+    font-size: 24px;
+}
+
+#search {
+    width: 300px;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #333;
     color: #fff;
+    font-size: 16px;
 }
 
 section {
-    margin: 20px 0;
+    margin: 80px 20px 20px; /* Ajustado para não sobrepor o header fixo */
+}
+
+h2 {
+    margin-left: 0;
+    color: #fff;
+    font-size: 20px;
+    margin-bottom: 10px;
 }
 
 .movie-row {
     display: flex;
     overflow-x: auto;
-    padding: 20px;
+    padding: 10px 0;
     gap: 10px; /* Espaçamento entre os filmes */
 }
 
@@ -41,7 +67,7 @@ section {
 
 .movie img {
     width: 100%;
-    border-radius: 10px;
+    border-radius: 5px;
     cursor: pointer;
     transition: transform 0.3s, box-shadow 0.3s;
 }
@@ -55,7 +81,7 @@ section {
 .modal {
     display: none;
     position: fixed;
-    z-index: 1;
+    z-index: 1000;
     left: 0;
     top: 0;
     width: 100%;
@@ -64,11 +90,12 @@ section {
 }
 
 .modal-content {
-    margin: 15% auto;
+    margin: 10% auto;
     padding: 20px;
     width: 80%;
     background-color: #000;
     border-radius: 10px;
+    position: relative;
 }
 
 .close {
@@ -76,6 +103,7 @@ section {
     float: right;
     font-size: 28px;
     font-weight: bold;
+    cursor: pointer;
 }
 
 .close:hover,
