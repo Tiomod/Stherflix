@@ -1,4 +1,6 @@
 const apiKey = '6360eb433f3020d94a5de4f0fb52c720'; // Sua API key
+
+// URLs das APIs
 const apiUrlPopularMovies = `https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&language=pt-BR`;
 const apiUrlTopRatedMovies = `https://api.themoviedb.org/3/movie/top_rated?api_key=${apiKey}&language=pt-BR`;
 const apiUrlUpcomingMovies = `https://api.themoviedb.org/3/movie/upcoming?api_key=${apiKey}&language=pt-BR`;
@@ -52,13 +54,11 @@ async function openModal(id, mediaType, posterPath, title, overview) {
     modalTitle.textContent = title;
     modalOverview.textContent = overview;
 
-    // Buscar trailer
     let trailerUrl = `https://api.themoviedb.org/3/${mediaType}/${id}/videos?api_key=${apiKey}&language=pt-BR`;
     let response = await fetch(trailerUrl);
     let data = await response.json();
     let trailer = data.results.find(video => video.type === 'Trailer');
 
-    // Se não encontrar trailer em português, busca trailer sem restrição de idioma
     if (!trailer) {
         trailerUrl = `https://api.themoviedb.org/3/${mediaType}/${id}/videos?api_key=${apiKey}`;
         response = await fetch(trailerUrl);
@@ -66,7 +66,6 @@ async function openModal(id, mediaType, posterPath, title, overview) {
         trailer = data.results.find(video => video.type === 'Trailer');
     }
 
-    // Se encontrar um trailer, exibe-o no modal
     if (trailer) {
         trailerFrame.src = `https://www.youtube.com/embed/${trailer.key}`;
     } else {
