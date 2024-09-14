@@ -62,10 +62,10 @@ async function openModal(id, mediaType, posterPath, title, overview) {
     const trailerUrl = await getTrailerUrl(id, mediaType);
 
     if (trailerUrl) {
-        trailerFrame.src = trailerUrl;
+        trailerFrame.src = trailerUrl.replace('https://www.youtube.com/watch?v=', 'https://www.youtube.com/embed/');
         trailerFrame.style.display = 'block';
-        watchTrailerBtn.style.display = 'inline-block';
         watchTrailerBtn.href = trailerUrl.replace('https://www.youtube.com/watch?v=', 'https://www.youtube.com/embed/');
+        watchTrailerBtn.style.display = 'inline-block';
     } else {
         trailerFrame.style.display = 'none';
         watchTrailerBtn.style.display = 'none';
@@ -79,7 +79,7 @@ async function getTrailerUrl(id, mediaType) {
     try {
         const response = await fetch(`https://api.themoviedb.org/3/${mediaType}/${id}/videos?api_key=${apiKey}&language=pt-BR`);
         const data = await response.json();
-        const trailer = data.results.find(video => video.type === 'Trailer' && video.language === 'pt-BR');
+        const trailer = data.results.find(video => video.type === 'Trailer');
         return trailer ? `https://www.youtube.com/watch?v=${trailer.key}` : null;
     } catch (error) {
         console.error('Erro ao buscar trailer:', error);
