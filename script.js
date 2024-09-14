@@ -59,6 +59,7 @@ async function openModal(id, mediaType, posterPath, title, overview) {
     let data = await response.json();
     let trailer = data.results.find(video => video.type === 'Trailer');
 
+    // Se não encontrar trailer em português, busca trailer sem restrição de idioma
     if (!trailer) {
         trailerUrl = `https://api.themoviedb.org/3/${mediaType}/${id}/videos?api_key=${apiKey}`;
         response = await fetch(trailerUrl);
@@ -66,6 +67,7 @@ async function openModal(id, mediaType, posterPath, title, overview) {
         trailer = data.results.find(video => video.type === 'Trailer');
     }
 
+    // Se encontrar um trailer, exibe-o no modal
     if (trailer) {
         trailerFrame.src = `https://www.youtube.com/embed/${trailer.key}`;
     } else {
@@ -97,12 +99,13 @@ searchInput.addEventListener('input', async () => {
         const data = await response.json();
         displayContent(data.results, moviesPopular); // Mostrar resultados da pesquisa
     } else {
+        // Recarregar os filmes e séries se a pesquisa estiver vazia
         fetchContent(apiUrlPopularMovies, moviesPopular);
         fetchContent(apiUrlTopRatedMovies, moviesTopRated);
         fetchContent(apiUrlUpcomingMovies, moviesUpcoming);
         fetchContent(apiUrlPopularSeries, seriesPopular);
         fetchContent(apiUrlTopRatedSeries, seriesTopRated);
-        fetchContent(apiUrlUpcomingSeries, seriesUpcoming); // Recarregar filmes e séries
+        fetchContent(apiUrlUpcomingSeries, seriesUpcoming);
     }
 });
 
