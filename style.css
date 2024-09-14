@@ -25,8 +25,9 @@ section {
 
 .movie-row {
     display: flex;
-    overflow-x: scroll;
+    overflow-x: auto;
     padding: 20px;
+    gap: 10px; /* Espaçamento entre os filmes */
 }
 
 .movie-row::-webkit-scrollbar {
@@ -34,7 +35,7 @@ section {
 }
 
 .movie {
-    margin-right: 10px;
+    flex: 0 0 auto;
     width: 200px;
 }
 
@@ -42,11 +43,12 @@ section {
     width: 100%;
     border-radius: 10px;
     cursor: pointer;
-    transition: transform 0.3s;
+    transition: transform 0.3s, box-shadow 0.3s;
 }
 
 .movie img:hover {
     transform: scale(1.1);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.5);
 }
 
 /* Estilo do modal */
