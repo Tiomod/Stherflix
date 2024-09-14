@@ -21,6 +21,9 @@ const searchInput = document.getElementById('search');
 const modal = document.getElementById('modal');
 const trailerFrame = document.getElementById('trailer');
 const closeModal = document.querySelector('.close');
+const modalImage = document.getElementById('modal-image');
+const modalTitle = document.getElementById('modal-title');
+const modalOverview = document.getElementById('modal-overview');
 
 // Função para buscar filmes ou séries em cada categoria
 async function fetchContent(url, container) {
@@ -38,13 +41,18 @@ function displayContent(items, container) {
         itemElement.innerHTML = `
             <img src="https://image.tmdb.org/t/p/w500${item.poster_path}" alt="${item.title || item.name}">
         `;
-        itemElement.addEventListener('click', () => fetchTrailer(item.id, item.media_type));
+        itemElement.addEventListener('click', () => openModal(item.id, item.media_type, item.poster_path, item.title || item.name, item.overview));
         container.appendChild(itemElement);
     });
 }
 
-// Função para buscar o trailer de um filme ou série
-async function fetchTrailer(id, mediaType) {
+// Função para abrir o modal com detalhes e trailer
+async function openModal(id, mediaType, posterPath, title, overview) {
+    modalImage.src = `https://image.tmdb.org/t/p/w500${posterPath}`;
+    modalTitle.textContent = title;
+    modalOverview.textContent = overview;
+
+    // Buscar trailer
     let trailerUrl = `https://api.themoviedb.org/3/${mediaType}/${id}/videos?api_key=${apiKey}&language=pt-BR`;
     let response = await fetch(trailerUrl);
     let data = await response.json();
@@ -58,13 +66,14 @@ async function fetchTrailer(id, mediaType) {
         trailer = data.results.find(video => video.type === 'Trailer');
     }
 
-    // Se encontrar algum trailer, exibe-o no modal
+    // Se encontrar um trailer, exibe-o no modal
     if (trailer) {
         trailerFrame.src = `https://www.youtube.com/embed/${trailer.key}`;
-        modal.style.display = 'block';
     } else {
-        alert('Trailer não disponível.');
+        trailerFrame.src = ''; // Não há trailer disponível
     }
+
+    modal.style.display = 'block';
 }
 
 // Fechar o modal
