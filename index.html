@@ -3,39 +3,56 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Filmes - Streaming</title>
+    <title>Filmes e Séries - Streaming</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <header>
         <div class="nav-bar">
-            <h1>Streaming de Filmes</h1>
-            <input type="text" id="search" placeholder="Buscar filmes...">
+            <h1>Streaming</h1>
+            <input type="text" id="search" placeholder="Buscar filmes e séries...">
         </div>
     </header>
 
-    <section id="popular-movies">
-        <h2>Populares</h2>
-        <div class="movie-row" id="movies-popular"></div>
-    </section>
+    <main>
+        <section id="popular-movies">
+            <h2>Populares - Filmes</h2>
+            <div class="movie-row" id="movies-popular"></div>
+        </section>
 
-    <section id="top-rated-movies">
-        <h2>Mais bem avaliados</h2>
-        <div class="movie-row" id="movies-top-rated"></div>
-    </section>
+        <section id="top-rated-movies">
+            <h2>Mais Bem Avaliados - Filmes</h2>
+            <div class="movie-row" id="movies-top-rated"></div>
+        </section>
 
-    <section id="upcoming-movies">
-        <h2>Próximos Lançamentos</h2>
-        <div class="movie-row" id="movies-upcoming"></div>
-    </section>
+        <section id="upcoming-movies">
+            <h2>Próximos Lançamentos - Filmes</h2>
+            <div class="movie-row" id="movies-upcoming"></div>
+        </section>
 
-    <!-- Modal para exibir o trailer -->
-    <div id="modal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <iframe id="trailer" width="100%" height="400px" frameborder="0" allowfullscreen></iframe>
+        <section id="popular-series">
+            <h2>Populares - Séries</h2>
+            <div class="movie-row" id="series-popular"></div>
+        </section>
+
+        <section id="top-rated-series">
+            <h2>Mais Bem Avaliadas - Séries</h2>
+            <div class="movie-row" id="series-top-rated"></div>
+        </section>
+
+        <section id="upcoming-series">
+            <h2>Próximos Lançamentos - Séries</h2>
+            <div class="movie-row" id="series-upcoming"></div>
+        </section>
+
+        <!-- Modal para exibir o trailer -->
+        <div id="modal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <iframe id="trailer" width="100%" height="400px" frameborder="0" allowfullscreen></iframe>
+            </div>
         </div>
-    </div>
+    </main>
 
     <script src="script.js"></script>
 </body>
