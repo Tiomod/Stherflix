@@ -1,63 +1,53 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Filmes e Séries - Streaming</title>
+    <title>Minha Plataforma de Filmes e Séries</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <header>
-        <div class="nav-bar">
-            <h1>Streaming</h1>
-            <input type="text" id="search" placeholder="Buscar filmes e séries...">
-        </div>
+        <h1>Minha Plataforma de Filmes e Séries</h1>
+        <input type="text" id="search" placeholder="Pesquisar filmes e séries...">
     </header>
+    
+    <section id="movies">
+        <h2>Filmes Populares</h2>
+        <div id="movies-popular" class="content-container"></div>
 
-    <main>
-        <section id="popular-movies">
-            <h2>Populares - Filmes</h2>
-            <div class="movie-row" id="movies-popular"></div>
-        </section>
+        <h2>Filmes Mais Bem Avaliados</h2>
+        <div id="movies-top-rated" class="content-container"></div>
 
-        <section id="top-rated-movies">
-            <h2>Mais Bem Avaliados - Filmes</h2>
-            <div class="movie-row" id="movies-top-rated"></div>
-        </section>
+        <h2>Filmes em Lançamento</h2>
+        <div id="movies-upcoming" class="content-container"></div>
+    </section>
+    
+    <section id="series">
+        <h2>Séries Populares</h2>
+        <div id="series-popular" class="content-container"></div>
 
-        <section id="upcoming-movies">
-            <h2>Próximos Lançamentos - Filmes</h2>
-            <div class="movie-row" id="movies-upcoming"></div>
-        </section>
+        <h2>Séries Mais Bem Avaliadas</h2>
+        <div id="series-top-rated" class="content-container"></div>
 
-        <section id="popular-series">
-            <h2>Populares - Séries</h2>
-            <div class="movie-row" id="series-popular"></div>
-        </section>
+        <h2>Séries em Exibição Hoje</h2>
+        <div id="series-upcoming" class="content-container"></div>
+    </section>
 
-        <section id="top-rated-series">
-            <h2>Mais Bem Avaliadas - Séries</h2>
-            <div class="movie-row" id="series-top-rated"></div>
-        </section>
-
-        <section id="upcoming-series">
-            <h2>Próximos Lançamentos - Séries</h2>
-            <div class="movie-row" id="series-upcoming"></div>
-        </section>
-
-        <!-- Modal para exibir detalhes e trailer -->
-        <div id="modal" class="modal">
-            <div class="modal-content">
-                <span class="close">&times;</span>
-                <div id="modal-body">
-                    <img id="modal-image" src="" alt="">
-                    <h3 id="modal-title"></h3>
-                    <p id="modal-overview"></p>
-                    <iframe id="trailer" width="100%" height="400px" frameborder="0" allowfullscreen></iframe>
-                </div>
+    <!-- Modal para exibir detalhes e trailer -->
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div id="modal-body">
+                <img id="modal-image" src="" alt="">
+                <h3 id="modal-title"></h3>
+                <p id="modal-overview"></p>
+                <iframe id="trailer" width="100%" height="400px" frameborder="0" allowfullscreen></iframe>
+                <!-- Campo para exibir o vídeo embutido -->
+                <iframe id="embed-video" width="100%" height="400px" frameborder="0" allowfullscreen></iframe>
             </div>
         </div>
-    </main>
+    </div>
 
     <script src="script.js"></script>
 </body>

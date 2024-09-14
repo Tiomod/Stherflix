@@ -22,6 +22,7 @@ const seriesUpcoming = document.getElementById('series-upcoming');
 const searchInput = document.getElementById('search');
 const modal = document.getElementById('modal');
 const trailerFrame = document.getElementById('trailer');
+const embedVideoFrame = document.getElementById('embed-video');
 const closeModal = document.querySelector('.close');
 const modalImage = document.getElementById('modal-image');
 const modalTitle = document.getElementById('modal-title');
@@ -59,7 +60,6 @@ async function openModal(id, mediaType, posterPath, title, overview) {
     let data = await response.json();
     let trailer = data.results.find(video => video.type === 'Trailer');
 
-    // Se não encontrar trailer em português, busca trailer sem restrição de idioma
     if (!trailer) {
         trailerUrl = `https://api.themoviedb.org/3/${mediaType}/${id}/videos?api_key=${apiKey}`;
         response = await fetch(trailerUrl);
@@ -67,20 +67,41 @@ async function openModal(id, mediaType, posterPath, title, overview) {
         trailer = data.results.find(video => video.type === 'Trailer');
     }
 
-    // Se encontrar um trailer, exibe-o no modal
     if (trailer) {
         trailerFrame.src = `https://www.youtube.com/embed/${trailer.key}`;
     } else {
         trailerFrame.src = ''; // Não há trailer disponível
     }
 
+    // Buscar o link embutido usando a API superflix
+    const embedUrl = await getEmbedUrl(id);
+
+    if (embedUrl) {
+        embedVideoFrame.src = embedUrl;
+    } else {
+        embedVideoFrame.src = ''; // Não há link de streaming disponível
+    }
+
     modal.style.display = 'block';
+}
+
+// Função para buscar o link embutido usando a API superflix
+async function getEmbedUrl(id) {
+    try {
+        const response = await fetch(`https://superflixapi.dev/filme/tt${id}`);
+        const data = await response.json();
+        return data.url; // Supondo que a resposta tem um campo `url` com o link do streaming
+    } catch (error) {
+        console.error('Erro ao buscar URL embutido:', error);
+        return null;
+    }
 }
 
 // Fechar o modal
 closeModal.onclick = function() {
     modal.style.display = 'none';
     trailerFrame.src = ''; // Parar o vídeo quando fechar o modal
+    embedVideoFrame.src = ''; // Parar o vídeo quando fechar o modal
 }
 
 // Fechar o modal clicando fora
@@ -88,6 +109,7 @@ window.onclick = function(event) {
     if (event.target == modal) {
         modal.style.display = 'none';
         trailerFrame.src = ''; // Parar o vídeo quando fechar o modal
+        embedVideoFrame.src = ''; // Parar o vídeo quando fechar o modal
     }
 }
 
