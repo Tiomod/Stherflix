@@ -25,7 +25,9 @@ const closeModal = document.querySelector('.close');
 const modalImage = document.getElementById('modal-image');
 const modalTitle = document.getElementById('modal-title');
 const modalOverview = document.getElementById('modal-overview');
+const modalId = document.getElementById('modal-id');
 const watchTrailerBtn = document.getElementById('watch-trailer-btn');
+const copyIdBtn = document.getElementById('copy-id-btn');
 
 // Função para buscar filmes ou séries em cada categoria
 async function fetchContent(url, container) {
@@ -57,6 +59,7 @@ async function openModal(id, mediaType, posterPath, title, overview) {
     modalImage.src = `https://image.tmdb.org/t/p/w500${posterPath}`;
     modalTitle.textContent = title;
     modalOverview.textContent = overview;
+    modalId.textContent = id;
 
     // Buscar o trailer usando a API TMDB
     const trailerUrl = await getTrailerUrl(id, mediaType);
@@ -85,6 +88,16 @@ async function getTrailerUrl(id, mediaType) {
         console.error('Erro ao buscar trailer:', error);
         return null;
     }
+}
+
+// Função para copiar o ID para a área de transferência
+function copyIdToClipboard() {
+    const idText = modalId.textContent;
+    navigator.clipboard.writeText(idText).then(() => {
+        alert('ID copiado para a área de transferência!');
+    }, (err) => {
+        console.error('Erro ao copiar o ID: ', err);
+    });
 }
 
 // Fechar o modal
@@ -129,6 +142,11 @@ searchInput.addEventListener('input', function() {
         searchContent(query);
     } else {
         // Recarregar o conteúdo padrão se a consulta for muito curta
+                // Recarregar o conteúdo padrão se a consulta for muito curta
         fetchContent(apiUrlPopularMovies, moviesPopular);
     }
 });
+
+// Adicionar evento ao botão de copiar ID
+copyIdBtn.addEventListener('click', copyIdToClipboard);
+
