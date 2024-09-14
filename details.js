@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <p><strong>Categorias:</strong> ${categories.map(cat => cat.name).join(', ')}</p>
             `;
 
-            if (type === 'series') {
+            if (type === 'séries') {
                 html += `
                     <div class="episode-list">
                         <strong>Episódios:</strong>
