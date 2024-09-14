@@ -1,6 +1,6 @@
-const apiKey = '6360eb433f3020d94a5de4f0fb52c720'; // Sua API key
+const apiKey = '6360eb433f3020d94a5de4f0fb52c720'; // Sua API key do TMDB
+const superflixApiBaseUrl = 'https://superflixapi.dev/filme/'; // URL base da API Superflix
 
-// URLs das APIs
 const apiUrlPopularMovies = `https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&language=pt-BR`;
 const apiUrlTopRatedMovies = `https://api.themoviedb.org/3/movie/top_rated?api_key=${apiKey}&language=pt-BR`;
 const apiUrlUpcomingMovies = `https://api.themoviedb.org/3/movie/upcoming?api_key=${apiKey}&language=pt-BR`;
@@ -21,7 +21,6 @@ const seriesUpcoming = document.getElementById('series-upcoming');
 
 const searchInput = document.getElementById('search');
 const modal = document.getElementById('modal');
-const trailerFrame = document.getElementById('trailer');
 const embedVideoFrame = document.getElementById('embed-video');
 const closeModal = document.querySelector('.close');
 const modalImage = document.getElementById('modal-image');
@@ -40,7 +39,7 @@ function displayContent(items, container) {
     container.innerHTML = '';
     items.forEach(item => {
         const itemElement = document.createElement('div');
-        itemElement.classList.add('movie');
+        itemElement.classList.add(item.media_type === 'movie' ? 'movie' : 'series');
         itemElement.innerHTML = `
             <img src="https://image.tmdb.org/t/p/w500${item.poster_path}" alt="${item.title || item.name}">
         `;
@@ -49,29 +48,11 @@ function displayContent(items, container) {
     });
 }
 
-// Função para abrir o modal com detalhes e trailer
+// Função para abrir o modal com detalhes e link de streaming
 async function openModal(id, mediaType, posterPath, title, overview) {
     modalImage.src = `https://image.tmdb.org/t/p/w500${posterPath}`;
     modalTitle.textContent = title;
     modalOverview.textContent = overview;
-
-    let trailerUrl = `https://api.themoviedb.org/3/${mediaType}/${id}/videos?api_key=${apiKey}&language=pt-BR`;
-    let response = await fetch(trailerUrl);
-    let data = await response.json();
-    let trailer = data.results.find(video => video.type === 'Trailer');
-
-    if (!trailer) {
-        trailerUrl = `https://api.themoviedb.org/3/${mediaType}/${id}/videos?api_key=${apiKey}`;
-        response = await fetch(trailerUrl);
-        data = await response.json();
-        trailer = data.results.find(video => video.type === 'Trailer');
-    }
-
-    if (trailer) {
-        trailerFrame.src = `https://www.youtube.com/embed/${trailer.key}`;
-    } else {
-        trailerFrame.src = ''; // Não há trailer disponível
-    }
 
     // Buscar o link embutido usando a API superflix
     const embedUrl = await getEmbedUrl(id);
@@ -88,7 +69,7 @@ async function openModal(id, mediaType, posterPath, title, overview) {
 // Função para buscar o link embutido usando a API superflix
 async function getEmbedUrl(id) {
     try {
-        const response = await fetch(`https://superflixapi.dev/filme/tt${id}`);
+        const response = await fetch(`${superflixApiBaseUrl}tt${id}`);
         const data = await response.json();
         return data.url; // Supondo que a resposta tem um campo `url` com o link do streaming
     } catch (error) {
@@ -100,7 +81,6 @@ async function getEmbedUrl(id) {
 // Fechar o modal
 closeModal.onclick = function() {
     modal.style.display = 'none';
-    trailerFrame.src = ''; // Parar o vídeo quando fechar o modal
     embedVideoFrame.src = ''; // Parar o vídeo quando fechar o modal
 }
 
@@ -108,7 +88,6 @@ closeModal.onclick = function() {
 window.onclick = function(event) {
     if (event.target == modal) {
         modal.style.display = 'none';
-        trailerFrame.src = ''; // Parar o vídeo quando fechar o modal
         embedVideoFrame.src = ''; // Parar o vídeo quando fechar o modal
     }
 }
