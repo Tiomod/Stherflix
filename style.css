@@ -68,11 +68,13 @@ h2 {
 .modal-content {
     background: #000;
     padding: 2rem;
-    max-width: 80%;
+    max-width: 90%;
+    max-height: 90%;
     margin: auto;
     position: relative;
     border: 2px solid #00ff00;
     border-radius: 10px;
+    overflow: auto;
 }
 
 .close {
@@ -92,7 +94,7 @@ h2 {
 
 #modal-image {
     width: 300px; /* Ajustar tamanho da imagem no modal */
-    height: 450px; /* Ajustar altura conforme necessário */
+    height: auto; /* Ajustar altura para manter a proporção */
     object-fit: cover;
     margin-bottom: 1rem;
 }
@@ -122,4 +124,8 @@ h2 {
 
 #watch-trailer-btn:hover {
     background-color: #00cc00;
+}
+
+iframe {
+    margin-top: 1rem;
 }

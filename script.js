@@ -29,9 +29,13 @@ const watchTrailerBtn = document.getElementById('watch-trailer-btn');
 
 // Função para buscar filmes ou séries em cada categoria
 async function fetchContent(url, container) {
-    const response = await fetch(url);
-    const data = await response.json();
-    displayContent(data.results, container);
+    try {
+        const response = await fetch(url);
+        const data = await response.json();
+        displayContent(data.results, container);
+    } catch (error) {
+        console.error('Erro ao buscar conteúdo:', error);
+    }
 }
 
 // Função para exibir filmes e séries em formato de carrossel
@@ -52,7 +56,7 @@ function displayContent(items, container) {
 async function openModal(id, mediaType, posterPath, title, overview) {
     modalImage.src = `https://image.tmdb.org/t/p/w500${posterPath}`;
     modalTitle.textContent = title;
-        modalOverview.textContent = overview;
+    modalOverview.textContent = overview;
 
     // Buscar o trailer usando a API TMDB
     const trailerUrl = await getTrailerUrl(id, mediaType);
@@ -60,16 +64,12 @@ async function openModal(id, mediaType, posterPath, title, overview) {
     if (trailerUrl) {
         trailerFrame.src = trailerUrl;
         trailerFrame.style.display = 'block';
-        watchTrailerBtn.style.display = 'none';
+        watchTrailerBtn.style.display = 'inline-block';
+        watchTrailerBtn.href = trailerUrl.replace('https://www.youtube.com/watch?v=', 'https://www.youtube.com/embed/');
     } else {
         trailerFrame.style.display = 'none';
-        watchTrailerBtn.href = ''; // Desabilitar o botão se não houver trailer
         watchTrailerBtn.style.display = 'none';
     }
-
-    // Atualiza o link do botão de assistir ao trailer
-    watchTrailerBtn.href = trailerUrl ? trailerUrl.replace('https://www.youtube.com/watch?v=', 'https://www.youtube.com/embed/') : '';
-    watchTrailerBtn.style.display = trailerUrl ? 'inline-block' : 'none';
 
     modal.style.display = 'block';
 }
@@ -103,9 +103,13 @@ window.onclick = function(event) {
 
 // Função para buscar conteúdo ao digitar no campo de pesquisa
 async function searchContent(query) {
-    const response = await fetch(`${searchUrl}${encodeURIComponent(query)}`);
-    const data = await response.json();
-    displayContent(data.results, moviesPopular); // Exibe os resultados no container de filmes populares
+    try {
+        const response = await fetch(`${searchUrl}${encodeURIComponent(query)}`);
+        const data = await response.json();
+        displayContent(data.results, moviesPopular); // Exibe os resultados no container de filmes populares
+    } catch (error) {
+        console.error('Erro ao buscar pesquisa:', error);
+    }
 }
 
 // Adicionar eventos de carregamento e pesquisa
@@ -128,4 +132,3 @@ searchInput.addEventListener('input', function() {
         fetchContent(apiUrlPopularMovies, moviesPopular);
     }
 });
-
