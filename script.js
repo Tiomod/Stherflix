@@ -1,5 +1,4 @@
 const apiKey = '6360eb433f3020d94a5de4f0fb52c720'; // Sua API key do TMDB
-const superflixApiBaseUrl = 'https://superflixapi.dev/filme/'; // URL base da API Superflix
 
 const apiUrlPopularMovies = `https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&language=pt-BR`;
 const apiUrlTopRatedMovies = `https://api.themoviedb.org/3/movie/top_rated?api_key=${apiKey}&language=pt-BR`;
@@ -21,7 +20,7 @@ const seriesUpcoming = document.getElementById('series-upcoming');
 
 const searchInput = document.getElementById('search');
 const modal = document.getElementById('modal');
-const embedVideoFrame = document.getElementById('embed-video');
+const trailerFrame = document.getElementById('trailer');
 const closeModal = document.querySelector('.close');
 const modalImage = document.getElementById('modal-image');
 const modalTitle = document.getElementById('modal-title');
@@ -48,32 +47,33 @@ function displayContent(items, container) {
     });
 }
 
-// Função para abrir o modal com detalhes e link de streaming
+// Função para abrir o modal com detalhes e trailer
 async function openModal(id, mediaType, posterPath, title, overview) {
     modalImage.src = `https://image.tmdb.org/t/p/w500${posterPath}`;
     modalTitle.textContent = title;
     modalOverview.textContent = overview;
 
-    // Buscar o link embutido usando a API superflix
-    const embedUrl = await getEmbedUrl(id);
+    // Buscar o trailer usando a API TMDB
+    const trailerUrl = await getTrailerUrl(id, mediaType);
 
-    if (embedUrl) {
-        embedVideoFrame.src = embedUrl;
+    if (trailerUrl) {
+        trailerFrame.src = trailerUrl;
     } else {
-        embedVideoFrame.src = ''; // Não há link de streaming disponível
+        trailerFrame.src = ''; // Não há trailer disponível
     }
 
     modal.style.display = 'block';
 }
 
-// Função para buscar o link embutido usando a API superflix
-async function getEmbedUrl(id) {
+// Função para buscar o trailer usando a API TMDB
+async function getTrailerUrl(id, mediaType) {
     try {
-        const response = await fetch(`${superflixApiBaseUrl}tt${id}`);
+        const response = await fetch(`https://api.themoviedb.org/3/${mediaType}/${id}/videos?api_key=${apiKey}&language=pt-BR`);
         const data = await response.json();
-        return data.url; // Supondo que a resposta tem um campo `url` com o link do streaming
+        const trailer = data.results.find(video => video.type === 'Trailer' && video.language === 'pt-BR');
+        return trailer ? `https://www.youtube.com/embed/${trailer.key}` : null;
     } catch (error) {
-        console.error('Erro ao buscar URL embutido:', error);
+        console.error('Erro ao buscar trailer:', error);
         return null;
     }
 }
@@ -81,39 +81,43 @@ async function getEmbedUrl(id) {
 // Fechar o modal
 closeModal.onclick = function() {
     modal.style.display = 'none';
-    embedVideoFrame.src = ''; // Parar o vídeo quando fechar o modal
+    trailerFrame.src = ''; // Parar o vídeo quando fechar o modal
 }
 
 // Fechar o modal clicando fora
-window.onclick = function(event) {
-    if (event.target == modal) {
-        modal.style.display = 'none';
-        embedVideoFrame.src = ''; // Parar o vídeo quando fechar o modal
-    }
-}
+   // Fechar o modal clicando fora
+   window.onclick = function(event) {
+       if (event.target === modal) {
+           modal.style.display = 'none';
+           trailerFrame.src = ''; // Parar o vídeo quando fechar o modal
+       }
+   }
 
-// Buscar conteúdo ao digitar no campo de pesquisa
-searchInput.addEventListener('input', async () => {
-    const searchTerm = searchInput.value.trim();
-    if (searchTerm) {
-        const response = await fetch(searchUrl + searchTerm);
-        const data = await response.json();
-        displayContent(data.results, moviesPopular); // Mostrar resultados da pesquisa
-    } else {
-        // Recarregar os filmes e séries se a pesquisa estiver vazia
-        fetchContent(apiUrlPopularMovies, moviesPopular);
-        fetchContent(apiUrlTopRatedMovies, moviesTopRated);
-        fetchContent(apiUrlUpcomingMovies, moviesUpcoming);
-        fetchContent(apiUrlPopularSeries, seriesPopular);
-        fetchContent(apiUrlTopRatedSeries, seriesTopRated);
-        fetchContent(apiUrlUpcomingSeries, seriesUpcoming);
-    }
-});
+   // Função para buscar conteúdo ao digitar no campo de pesquisa
+   async function searchContent(query) {
+       const response = await fetch(`${searchUrl}${encodeURIComponent(query)}`);
+       const data = await response.json();
+       displayContent(data.results, moviesPopular); // Exibe os resultados no container de filmes populares
+   }
 
-// Carregar os filmes e séries de cada categoria ao iniciar
-fetchContent(apiUrlPopularMovies, moviesPopular);
-fetchContent(apiUrlTopRatedMovies, moviesTopRated);
-fetchContent(apiUrlUpcomingMovies, moviesUpcoming);
-fetchContent(apiUrlPopularSeries, seriesPopular);
-fetchContent(apiUrlTopRatedSeries, seriesTopRated);
-fetchContent(apiUrlUpcomingSeries, seriesUpcoming);
+   // Adicionar eventos de carregamento e pesquisa
+   window.onload = function() {
+       fetchContent(apiUrlPopularMovies, moviesPopular);
+       fetchContent(apiUrlTopRatedMovies, moviesTopRated);
+       fetchContent(apiUrlUpcomingMovies, moviesUpcoming);
+
+       fetchContent(apiUrlPopularSeries, seriesPopular);
+       fetchContent(apiUrlTopRatedSeries, seriesTopRated);
+       fetchContent(apiUrlUpcomingSeries, seriesUpcoming);
+   };
+
+   searchInput.addEventListener('input', function() {
+       const query = searchInput.value;
+       if (query.length > 2) {
+           searchContent(query);
+       } else {
+           // Recarregar o conteúdo padrão se a consulta for muito curta
+           fetchContent(apiUrlPopularMovies, moviesPopular);
+       }
+   });
+
