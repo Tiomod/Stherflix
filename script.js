@@ -25,6 +25,7 @@ const closeModal = document.querySelector('.close');
 const modalImage = document.getElementById('modal-image');
 const modalTitle = document.getElementById('modal-title');
 const modalOverview = document.getElementById('modal-overview');
+const watchTrailerBtn = document.getElementById('watch-trailer-btn');
 
 // Função para buscar filmes ou séries em cada categoria
 async function fetchContent(url, container) {
@@ -51,16 +52,24 @@ function displayContent(items, container) {
 async function openModal(id, mediaType, posterPath, title, overview) {
     modalImage.src = `https://image.tmdb.org/t/p/w500${posterPath}`;
     modalTitle.textContent = title;
-    modalOverview.textContent = overview;
+        modalOverview.textContent = overview;
 
     // Buscar o trailer usando a API TMDB
     const trailerUrl = await getTrailerUrl(id, mediaType);
 
     if (trailerUrl) {
         trailerFrame.src = trailerUrl;
+        trailerFrame.style.display = 'block';
+        watchTrailerBtn.style.display = 'none';
     } else {
-        trailerFrame.src = ''; // Não há trailer disponível
+        trailerFrame.style.display = 'none';
+        watchTrailerBtn.href = ''; // Desabilitar o botão se não houver trailer
+        watchTrailerBtn.style.display = 'none';
     }
+
+    // Atualiza o link do botão de assistir ao trailer
+    watchTrailerBtn.href = trailerUrl ? trailerUrl.replace('https://www.youtube.com/watch?v=', 'https://www.youtube.com/embed/') : '';
+    watchTrailerBtn.style.display = trailerUrl ? 'inline-block' : 'none';
 
     modal.style.display = 'block';
 }
@@ -71,7 +80,7 @@ async function getTrailerUrl(id, mediaType) {
         const response = await fetch(`https://api.themoviedb.org/3/${mediaType}/${id}/videos?api_key=${apiKey}&language=pt-BR`);
         const data = await response.json();
         const trailer = data.results.find(video => video.type === 'Trailer' && video.language === 'pt-BR');
-        return trailer ? `https://www.youtube.com/embed/${trailer.key}` : null;
+        return trailer ? `https://www.youtube.com/watch?v=${trailer.key}` : null;
     } catch (error) {
         console.error('Erro ao buscar trailer:', error);
         return null;
@@ -85,39 +94,38 @@ closeModal.onclick = function() {
 }
 
 // Fechar o modal clicando fora
-   // Fechar o modal clicando fora
-   window.onclick = function(event) {
-       if (event.target === modal) {
-           modal.style.display = 'none';
-           trailerFrame.src = ''; // Parar o vídeo quando fechar o modal
-       }
-   }
+window.onclick = function(event) {
+    if (event.target === modal) {
+        modal.style.display = 'none';
+        trailerFrame.src = ''; // Parar o vídeo quando fechar o modal
+    }
+}
 
-   // Função para buscar conteúdo ao digitar no campo de pesquisa
-   async function searchContent(query) {
-       const response = await fetch(`${searchUrl}${encodeURIComponent(query)}`);
-       const data = await response.json();
-       displayContent(data.results, moviesPopular); // Exibe os resultados no container de filmes populares
-   }
+// Função para buscar conteúdo ao digitar no campo de pesquisa
+async function searchContent(query) {
+    const response = await fetch(`${searchUrl}${encodeURIComponent(query)}`);
+    const data = await response.json();
+    displayContent(data.results, moviesPopular); // Exibe os resultados no container de filmes populares
+}
 
-   // Adicionar eventos de carregamento e pesquisa
-   window.onload = function() {
-       fetchContent(apiUrlPopularMovies, moviesPopular);
-       fetchContent(apiUrlTopRatedMovies, moviesTopRated);
-       fetchContent(apiUrlUpcomingMovies, moviesUpcoming);
+// Adicionar eventos de carregamento e pesquisa
+window.onload = function() {
+    fetchContent(apiUrlPopularMovies, moviesPopular);
+    fetchContent(apiUrlTopRatedMovies, moviesTopRated);
+    fetchContent(apiUrlUpcomingMovies, moviesUpcoming);
 
-       fetchContent(apiUrlPopularSeries, seriesPopular);
-       fetchContent(apiUrlTopRatedSeries, seriesTopRated);
-       fetchContent(apiUrlUpcomingSeries, seriesUpcoming);
-   };
+    fetchContent(apiUrlPopularSeries, seriesPopular);
+    fetchContent(apiUrlTopRatedSeries, seriesTopRated);
+    fetchContent(apiUrlUpcomingSeries, seriesUpcoming);
+};
 
-   searchInput.addEventListener('input', function() {
-       const query = searchInput.value;
-       if (query.length > 2) {
-           searchContent(query);
-       } else {
-           // Recarregar o conteúdo padrão se a consulta for muito curta
-           fetchContent(apiUrlPopularMovies, moviesPopular);
-       }
-   });
+searchInput.addEventListener('input', function() {
+    const query = searchInput.value;
+    if (query.length > 2) {
+        searchContent(query);
+    } else {
+        // Recarregar o conteúdo padrão se a consulta for muito curta
+        fetchContent(apiUrlPopularMovies, moviesPopular);
+    }
+});
 
