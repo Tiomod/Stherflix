@@ -1,6 +1,6 @@
 <?php
 // Defina o IP permitido
-$allowed_ip = 'SEU.IP.AQUI'; // Substitua pelo seu IP
+$allowed_ip = '193.186.4.111'; // Substitua pelo seu IP
 
 // Verifique o IP do visitante
 if ($_SERVER['REMOTE_ADDR'] !== $allowed_ip) {
