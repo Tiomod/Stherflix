@@ -1,1 +1,121 @@
-const _0x105bdd=_0x208f;(function(_0xc7cfe9,_0x3d86f6){const _0x20e063=_0x208f,_0x4653d2=_0xc7cfe9();while(!![]){try{const _0x242b9f=-parseInt(_0x20e063(0x18e))/0x1*(-parseInt(_0x20e063(0x177))/0x2)+-parseInt(_0x20e063(0x18b))/0x3+parseInt(_0x20e063(0x162))/0x4*(-parseInt(_0x20e063(0x151))/0x5)+-parseInt(_0x20e063(0x17a))/0x6+-parseInt(_0x20e063(0x17f))/0x7*(-parseInt(_0x20e063(0x142))/0x8)+-parseInt(_0x20e063(0x14c))/0x9+parseInt(_0x20e063(0x181))/0xa;if(_0x242b9f===_0x3d86f6)break;else _0x4653d2['push'](_0x4653d2['shift']());}catch(_0xd67ad7){_0x4653d2['push'](_0x4653d2['shift']());}}}(_0x1ffd,0x847f9));const _0x2a20e4=(function(){let _0x5b4af8=!![];return function(_0x9f2694,_0x48ce23){const _0x3c7de3=_0x5b4af8?function(){const _0x50793e=_0x208f;if(_0x48ce23){const _0x535343=_0x48ce23[_0x50793e(0x192)](_0x9f2694,arguments);return _0x48ce23=null,_0x535343;}}:function(){};return _0x5b4af8=![],_0x3c7de3;};}()),_0x225b84=_0x2a20e4(this,function(){const _0x32f20f=_0x208f;return _0x225b84[_0x32f20f(0x180)]()[_0x32f20f(0x184)](_0x32f20f(0x16c))[_0x32f20f(0x180)]()[_0x32f20f(0x157)](_0x225b84)[_0x32f20f(0x184)]('(((.+)+)+)+$');});_0x225b84();const _0x14e365=(function(){let _0x386785=!![];return function(_0x482c93,_0x218003){const _0x15b08b=_0x386785?function(){const _0x4fb2ca=_0x208f;if(_0x218003){const _0x12cad3=_0x218003[_0x4fb2ca(0x192)](_0x482c93,arguments);return _0x218003=null,_0x12cad3;}}:function(){};return _0x386785=![],_0x15b08b;};}()),_0x204a46=_0x14e365(this,function(){const _0x4ff3ea=_0x208f,_0x2a5483=function(){const _0x28c9ad=_0x208f;let _0x10a57b;try{_0x10a57b=Function(_0x28c9ad(0x13f)+_0x28c9ad(0x154)+');')();}catch(_0x2076f6){_0x10a57b=window;}return _0x10a57b;},_0x405874=_0x2a5483(),_0x1d4cc8=_0x405874['console']=_0x405874[_0x4ff3ea(0x143)]||{},_0x23c4f3=[_0x4ff3ea(0x14e),_0x4ff3ea(0x168),'info','error',_0x4ff3ea(0x15a),_0x4ff3ea(0x194),_0x4ff3ea(0x164)];for(let _0x13bbac=0x0;_0x13bbac<_0x23c4f3['length'];_0x13bbac++){const _0x5725b8=_0x14e365['constructor'][_0x4ff3ea(0x190)][_0x4ff3ea(0x16a)](_0x14e365),_0x5918ce=_0x23c4f3[_0x13bbac],_0x1dcedb=_0x1d4cc8[_0x5918ce]||_0x5725b8;_0x5725b8['__proto__']=_0x14e365[_0x4ff3ea(0x16a)](_0x14e365),_0x5725b8[_0x4ff3ea(0x180)]=_0x1dcedb[_0x4ff3ea(0x180)][_0x4ff3ea(0x16a)](_0x1dcedb),_0x1d4cc8[_0x5918ce]=_0x5725b8;}});function _0x208f(_0x5617bc,_0x1cbc85){const _0x4a6169=_0x1ffd();return _0x208f=function(_0x204a46,_0x14e365){_0x204a46=_0x204a46-0x13b;let _0x31a65b=_0x4a6169[_0x204a46];return _0x31a65b;},_0x208f(_0x5617bc,_0x1cbc85);}_0x204a46();const apiKey=_0x105bdd(0x147),apiUrlPopularMovies=_0x105bdd(0x152)+apiKey+'&language=pt-BR',apiUrlTopRatedMovies=_0x105bdd(0x18d)+apiKey+_0x105bdd(0x163),apiUrlUpcomingMovies=_0x105bdd(0x13e)+apiKey+_0x105bdd(0x163),apiUrlPopularSeries=_0x105bdd(0x182)+apiKey+'&language=pt-BR',apiUrlTopRatedSeries=_0x105bdd(0x170)+apiKey+_0x105bdd(0x163),apiUrlUpcomingSeries='https://api.themoviedb.org/3/tv/airing_today?api_key='+apiKey+_0x105bdd(0x163),searchUrl=_0x105bdd(0x15d)+apiKey+'&language=pt-BR&query=',moviesPopular=document[_0x105bdd(0x13b)](_0x105bdd(0x158)),moviesTopRated=document['getElementById']('movies-top-rated'),moviesUpcoming=document[_0x105bdd(0x13b)](_0x105bdd(0x153)),seriesPopular=document[_0x105bdd(0x13b)]('series-popular'),seriesTopRated=document['getElementById'](_0x105bdd(0x165)),seriesUpcoming=document[_0x105bdd(0x13b)](_0x105bdd(0x16f)),searchInput=document[_0x105bdd(0x13b)]('search'),modal=document[_0x105bdd(0x13b)]('modal'),trailerFrame=document[_0x105bdd(0x13b)](_0x105bdd(0x13c)),closeModal=document['querySelector']('.close'),modalImage=document['getElementById'](_0x105bdd(0x14f)),modalTitle=document['getElementById'](_0x105bdd(0x176)),modalOverview=document[_0x105bdd(0x13b)]('modal-overview'),modalId=document[_0x105bdd(0x13b)]('modal-id'),watchTrailerBtn=document[_0x105bdd(0x13b)](_0x105bdd(0x183)),copyIdBtn=document[_0x105bdd(0x13b)](_0x105bdd(0x166));async function fetchContent(_0x5c40c3,_0x3b6fdc){const _0x232672=_0x105bdd;try{const _0x39da6e=await fetch(_0x5c40c3),_0x5212d8=await _0x39da6e['json']();displayContent(_0x5212d8[_0x232672(0x15c)],_0x3b6fdc);}catch(_0x56a7aa){console['error'](_0x232672(0x193),_0x56a7aa);}}function displayContent(_0x556934,_0x22ea3b){const _0x419cd7=_0x105bdd;_0x22ea3b[_0x419cd7(0x14a)]='',_0x556934[_0x419cd7(0x169)](_0x4580d9=>{const _0x572b45=_0x419cd7,_0x2b1b2d=document[_0x572b45(0x18f)]('div');_0x2b1b2d[_0x572b45(0x146)][_0x572b45(0x155)](_0x4580d9[_0x572b45(0x160)]==='movie'?_0x572b45(0x17d):_0x572b45(0x17c)),_0x2b1b2d[_0x572b45(0x14a)]=_0x572b45(0x171)+_0x4580d9[_0x572b45(0x174)]+_0x572b45(0x18a)+(_0x4580d9[_0x572b45(0x141)]||_0x4580d9[_0x572b45(0x167)])+'\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20',_0x2b1b2d['addEventListener'](_0x572b45(0x14d),()=>openModal(_0x4580d9['id'],_0x4580d9[_0x572b45(0x160)],_0x4580d9['poster_path'],_0x4580d9[_0x572b45(0x141)]||_0x4580d9[_0x572b45(0x167)],_0x4580d9[_0x572b45(0x161)])),_0x22ea3b[_0x572b45(0x191)](_0x2b1b2d);});}function _0x1ffd(){const _0x45b05b=['204AbxCMD','&language=pt-BR','trace','series-top-rated','copy-id-btn','name','warn','forEach','bind','https://api.themoviedb.org/3/','(((.+)+)+)+$','inline-block','onload','series-upcoming','https://api.themoviedb.org/3/tv/top_rated?api_key=','\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<img\x20src=\x22https://image.tmdb.org/t/p/w500','error','onclick','poster_path','style','modal-title','13274xkKlip','target','src','199890huUkKs','key','series','movie','https://www.youtube.com/embed/','288890SoIPjF','toString','2661500myboqe','https://api.themoviedb.org/3/tv/popular?api_key=','watch-trailer-btn','search','then','addEventListener','type','/videos?api_key=','find','\x22\x20alt=\x22','1488534NuFBde','replace','https://api.themoviedb.org/3/movie/top_rated?api_key=','60iFAlGe','createElement','prototype','appendChild','apply','Erro\x20ao\x20buscar\x20conteúdo:','table','getElementById','trailer','display','https://api.themoviedb.org/3/movie/upcoming?api_key=','return\x20(function()\x20','Erro\x20ao\x20buscar\x20trailer:','title','208vIRghZ','console','writeText','block','classList','6360eb433f3020d94a5de4f0fb52c720','json','https://image.tmdb.org/t/p/w500','innerHTML','ID\x20copiado\x20para\x20a\x20área\x20de\x20transferência!','5717682FBjvge','click','log','modal-image','Erro\x20ao\x20copiar\x20o\x20ID:\x20','2930neXemb','https://api.themoviedb.org/3/movie/popular?api_key=','movies-upcoming','{}.constructor(\x22return\x20this\x22)(\x20)','add','Trailer','constructor','movies-popular','textContent','exception','clipboard','results','https://api.themoviedb.org/3/search/multi?api_key=','https://www.youtube.com/watch?v=','none','media_type','overview'];_0x1ffd=function(){return _0x45b05b;};return _0x1ffd();}async function openModal(_0x192eb9,_0x16b732,_0x376343,_0x3aa3df,_0x13f028){const _0x36f1d1=_0x105bdd;modalImage[_0x36f1d1(0x179)]=_0x36f1d1(0x149)+_0x376343,modalTitle['textContent']=_0x3aa3df,modalOverview['textContent']=_0x13f028,modalId['textContent']=_0x192eb9;const _0x37c82d=await getTrailerUrl(_0x192eb9,_0x16b732);_0x37c82d?(trailerFrame[_0x36f1d1(0x179)]=_0x37c82d[_0x36f1d1(0x18c)](_0x36f1d1(0x15e),_0x36f1d1(0x17e)),trailerFrame[_0x36f1d1(0x175)][_0x36f1d1(0x13d)]=_0x36f1d1(0x145),watchTrailerBtn['href']=_0x37c82d[_0x36f1d1(0x18c)](_0x36f1d1(0x15e),_0x36f1d1(0x17e)),watchTrailerBtn['style']['display']=_0x36f1d1(0x16d)):(trailerFrame[_0x36f1d1(0x175)][_0x36f1d1(0x13d)]=_0x36f1d1(0x15f),watchTrailerBtn[_0x36f1d1(0x175)][_0x36f1d1(0x13d)]=_0x36f1d1(0x15f)),modal[_0x36f1d1(0x175)][_0x36f1d1(0x13d)]=_0x36f1d1(0x145);}async function getTrailerUrl(_0x5c1cb4,_0x3257c6){const _0x47dc42=_0x105bdd;try{const _0x5b011d=await fetch(_0x47dc42(0x16b)+_0x3257c6+'/'+_0x5c1cb4+_0x47dc42(0x188)+apiKey+_0x47dc42(0x163)),_0x311472=await _0x5b011d[_0x47dc42(0x148)](),_0x26bedd=_0x311472['results'][_0x47dc42(0x189)](_0x579f83=>_0x579f83[_0x47dc42(0x187)]===_0x47dc42(0x156));return _0x26bedd?_0x47dc42(0x15e)+_0x26bedd[_0x47dc42(0x17b)]:null;}catch(_0x3f6af5){return console[_0x47dc42(0x172)](_0x47dc42(0x140),_0x3f6af5),null;}}function copyIdToClipboard(){const _0x5f593a=_0x105bdd,_0x5b3485=modalId[_0x5f593a(0x159)];navigator[_0x5f593a(0x15b)][_0x5f593a(0x144)](_0x5b3485)[_0x5f593a(0x185)](()=>{const _0x31caf4=_0x5f593a;alert(_0x31caf4(0x14b));},_0x1e8196=>{const _0x35c0e8=_0x5f593a;console['error'](_0x35c0e8(0x150),_0x1e8196);});}closeModal['onclick']=function(){const _0x221dfb=_0x105bdd;modal[_0x221dfb(0x175)]['display']=_0x221dfb(0x15f),trailerFrame['src']='';},window[_0x105bdd(0x173)]=function(_0x4be9ce){const _0x4cab85=_0x105bdd;_0x4be9ce[_0x4cab85(0x178)]===modal&&(modal['style'][_0x4cab85(0x13d)]=_0x4cab85(0x15f),trailerFrame[_0x4cab85(0x179)]='');};async function searchContent(_0x519f99){const _0x1f4143=_0x105bdd;try{const _0x37da91=await fetch(''+searchUrl+encodeURIComponent(_0x519f99)),_0x411a87=await _0x37da91[_0x1f4143(0x148)]();displayContent(_0x411a87[_0x1f4143(0x15c)],moviesPopular);}catch(_0x1717cd){console[_0x1f4143(0x172)]('Erro\x20ao\x20buscar\x20pesquisa:',_0x1717cd);}}window[_0x105bdd(0x16e)]=function(){fetchContent(apiUrlPopularMovies,moviesPopular),fetchContent(apiUrlTopRatedMovies,moviesTopRated),fetchContent(apiUrlUpcomingMovies,moviesUpcoming),fetchContent(apiUrlPopularSeries,seriesPopular),fetchContent(apiUrlTopRatedSeries,seriesTopRated),fetchContent(apiUrlUpcomingSeries,seriesUpcoming);},searchInput[_0x105bdd(0x186)]('input',function(){const _0x1dcb2f=searchInput['value'];_0x1dcb2f['length']>0x2?searchContent(_0x1dcb2f):fetchContent(apiUrlPopularMovies,moviesPopular);}),copyIdBtn['addEventListener'](_0x105bdd(0x14d),copyIdToClipboard);
+// Simulação de banco de dados de usuários (JSON)
+const usuarios = JSON.parse(localStorage.getItem('usuarios')) || [
+    { usuario: "admin", senha: "12345", validade: null }
+];
+
+// Login via JSON
+document.getElementById("loginForm")?.addEventListener("submit", function(event) {
+    event.preventDefault();
+    
+    const usuarioInput = document.getElementById("usuario").value;
+    const senhaInput = document.getElementById("senha").value;
+    
+    const usuarioValido = usuarios.find(u => u.usuario === usuarioInput && u.senha === senhaInput);
+    
+    if (usuarioValido) {
+        // Checar validade (se o usuário não for admin)
+        if (usuarioValido.usuario !== "admin") {
+            const dataExpiracao = new Date(usuarioValido.validade);
+            const dataAtual = new Date();
+            
+            if (dataAtual > dataExpiracao) {
+                alert("Sua conta expirou.");
+                return;
+            }
+        }
+
+        // Salvar status de login no localStorage
+        localStorage.setItem("usuarioLogado", usuarioValido.usuario);
+        window.location.href = "index.html";  // Redirecionar para o painel
+    } else {
+        document.getElementById("mensagemErro").textContent = "Usuário ou senha incorretos.";
+    }
+});
+
+// Verificar se o usuário está logado
+if (window.location.pathname.includes("index.html")) {
+    const usuarioLogado = localStorage.getItem("usuarioLogado");
+    
+    if (!usuarioLogado) {
+        window.location.href = "login.html";  // Redirecionar para o login se não estiver logado
+    } else {
+        // Mostrar o painel de administração se o usuário for admin
+        if (usuarioLogado === "admin") {
+            document.getElementById("adminPanel").style.display = "block";
+            document.getElementById("userPanel").style.display = "block";
+        }
+
+        // Carregar vídeos do localStorage
+        carregarVideos();
+    }
+}
+
+// Função para adicionar um vídeo (com embed)
+document.getElementById("videoForm")?.addEventListener("submit", function(event) {
+    event.preventDefault();
+
+    const embedCode = document.getElementById("embedCode").value;
+
+    const videos = JSON.parse(localStorage.getItem("videos")) || [];
+
+    const novoVideo = {
+        embedCode: embedCode
+    };
+
+    videos.push(novoVideo);
+    localStorage.setItem("videos", JSON.stringify(videos));
+    
+    carregarVideos();
+    
+    // Limpar os campos do formulário
+    document.getElementById("embedCode").value = "";
+});
+
+// Função para carregar vídeos
+function carregarVideos() {
+    const videoContainer = document.getElementById("videoContainer");
+    videoContainer.innerHTML = "";  // Limpar antes de adicionar os vídeos
+
+    const videos = JSON.parse(localStorage.getItem("videos")) || [];
+
+    videos.forEach((video, index) => {
+        const videoDiv = document.createElement("div");
+        videoDiv.classList.add("video-embed");
+
+        videoDiv.innerHTML = video.embedCode;
+
+        videoContainer.appendChild(videoDiv);
+    });
+}
+
+// Função para criar novos usuários
+document.getElementById("userForm")?.addEventListener("submit", function(event) {
+    event.preventDefault();
+
+    const novoUsuario = document.getElementById("novoUsuario").value;
+    const novaSenha = document.getElementById("novaSenha").value;
+    const validadeMeses = parseInt(document.getElementById("validade").value);
+
+    const usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
+
+    // Definir a data de expiração com base nos meses
+    const dataExpiracao = new Date();
+    dataExpiracao.setMonth(dataExpiracao.getMonth() + validadeMeses);
+
+    const novoUsuarioObj = {
+        usuario: novoUsuario,
+        senha: novaSenha,
+        validade: dataExpiracao.toISOString()  // Armazenar a data de expiração no formato ISO
+    };
+
+    usuarios.push(novoUsuarioObj);
+    localStorage.setItem("usuarios", JSON.stringify(usuarios));
+
+    // Mostrar mensagem de sucesso
+    document.getElementById("mensagemSucesso").textContent = "Usuário criado com sucesso!";
+    
+    // Limpar os campos do formulário
+    document.getElementById("novoUsuario").value = "";
+    document.getElementById("novaSenha").value = "";
+    document.getElementById("validade").value = "";
+});
