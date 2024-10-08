@@ -3,63 +3,84 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Painel de Vídeos e Gerenciamento de Usuários</title>
+    <title>Localização Exata</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
-            padding: 20px;
+            text-align: center;
+            margin: 50px;
         }
-        .video-embed {
-            margin: 10px;
-            border-radius: 10px;
-        }
-        #adminPanel {
-            display: none;
+        #map {
+            height: 400px;
+            width: 100%;
             margin-top: 20px;
-        }
-        input[type="text"], input[type="password"], input[type="number"] {
-            padding: 10px;
-            margin: 5px;
-            width: 80%;
-        }
-        input[type="submit"] {
-            padding: 10px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            cursor: pointer;
         }
     </style>
 </head>
 <body>
 
-<h1>Painel de Vídeos</h1>
-<div id="videoContainer">
-    <!-- Vídeos serão exibidos aqui -->
-</div>
+    <h1>Obter Localização Exata</h1>
+    <button onclick="getLocation()">Obter Minha Localização</button>
+    <p id="status">Clique no botão acima para acessar sua localização.</p>
+    
+    <div id="map"></div>
 
-<!-- Painel de Adicionar Vídeos -->
-<div id="adminPanel">
-    <h2>Adicionar Novo Vídeo</h2>
-    <form id="videoForm">
-        <textarea id="embedCode" placeholder="Cole o código embed do vídeo" required style="width: 80%; height: 100px;"></textarea>
-        <input type="submit" value="Adicionar Vídeo">
-    </form>
-</div>
+    <script>
+        let map, marker;
 
-<!-- Gerenciamento de Usuários -->
-<div id="userPanel">
-    <h2>Criar Novo Usuário</h2>
-    <form id="userForm">
-        <input type="text" id="novoUsuario" placeholder="Nome do Usuário" required>
-        <input type="password" id="novaSenha" placeholder="Senha" required>
-        <input type="number" id="validade" placeholder="Validade (meses)" min="1" max="10" required>
-        <input type="submit" value="Criar Usuário">
-    </form>
-    <p id="mensagemSucesso" style="color: green;"></p>
-</div>
+        function getLocation() {
+            if (navigator.geolocation) {
+                document.getElementById('status').innerHTML = "Obtendo localização...";
+                navigator.geolocation.getCurrentPosition(showPosition, showError);
+            } else {
+                document.getElementById('status').innerHTML = "Geolocalização não é suportada por este navegador.";
+            }
+        }
 
-<script src="js/scripts.js"></script>
+        function showPosition(position) {
+            let lat = position.coords.latitude;
+            let long = position.coords.longitude;
+
+            document.getElementById('status').innerHTML = "Latitude: " + lat + "<br>Longitude: " + long;
+
+            // Integrar Google Maps
+            let latLng = { lat: lat, lng: long };
+            if (!map) {
+                map = new google.maps.Map(document.getElementById("map"), {
+                    center: latLng,
+                    zoom: 15,
+                });
+            }
+            if (marker) {
+                marker.setPosition(latLng);
+            } else {
+                marker = new google.maps.Marker({
+                    position: latLng,
+                    map: map,
+                });
+            }
+        }
+
+        function showError(error) {
+            switch(error.code) {
+                case error.PERMISSION_DENIED:
+                    document.getElementById('status').innerHTML = "Usuário negou a solicitação de Geolocalização.";
+                    break;
+                case error.POSITION_UNAVAILABLE:
+                    document.getElementById('status').innerHTML = "Informações de localização indisponíveis.";
+                    break;
+                case error.TIMEOUT:
+                    document.getElementById('status').innerHTML = "A solicitação para obter a localização expirou.";
+                    break;
+                case error.UNKNOWN_ERROR:
+                    document.getElementById('status').innerHTML = "Ocorreu um erro desconhecido.";
+                    break;
+            }
+        }
+    </script>
+
+    <!-- API do Google Maps -->
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY"></script>
+
 </body>
 </html>
